@@ -65,6 +65,47 @@ const closeModal = document.querySelector('.close');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
+// Tab functionality for artist info section
+function showTab(tabId) {
+    // Hide all tab panes
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(pane => {
+        pane.classList.remove('active');
+    });
+    
+    // Remove active class from all tab buttons
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab pane
+    const selectedPane = document.getElementById(tabId);
+    if (selectedPane) {
+        selectedPane.classList.add('active');
+    }
+    
+    // Add active class to clicked button
+    const clickedBtn = event.target;
+    clickedBtn.classList.add('active');
+}
+
+// Read more functionality
+function toggleReadMore() {
+    const bioText = document.querySelector('.artist-bio p');
+    const readMoreBtn = document.querySelector('.read-more-btn');
+    
+    if (bioText && readMoreBtn) {
+        if (readMoreBtn.textContent === 'READ MORE') {
+            bioText.style.maxHeight = 'none';
+            readMoreBtn.textContent = 'READ LESS';
+        } else {
+            bioText.style.maxHeight = '4.5em';
+            readMoreBtn.textContent = 'READ MORE';
+        }
+    }
+}
+
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the homepage or products page
@@ -77,6 +118,20 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (productsGrid) {
         // Products page - display all products
         displayProducts(products);
+    }
+    
+    // Check if we're on product detail page
+    const productDetailContainer = document.querySelector('.product-detail-container');
+    if (productDetailContainer) {
+        loadProductDetail();
+        loadRelatedProducts();
+        
+        // Initialize read more functionality
+        const bioText = document.querySelector('.artist-bio p');
+        if (bioText) {
+            bioText.style.maxHeight = '4.5em';
+            bioText.style.overflow = 'hidden';
+        }
     }
     
     updateCartUI();
@@ -192,16 +247,18 @@ function createProductCard(product) {
     card.setAttribute('data-category', product.category);
     
     card.innerHTML = `
-        <div class="product-image" onclick="goToProductDetail(${product.id})">
-            <img src="${product.image}" alt="${product.name}" onerror="this.src='images/placeholder.jpg'">
-        </div>
+        <img class="product-image" src="${product.image}" alt="${product.name}" onclick="goToProductDetail(${product.id})" onerror="this.src='images/placeholder.jpg'">
         <div class="product-info">
-            <div class="product-category">${getCategoryName(product.category)}</div>
-            <h3 class="product-title" onclick="goToProductDetail(${product.id})" style="cursor: pointer;">${product.name}</h3>
-            <div class="product-price">$${product.price}</div>
-            <p class="product-description">${product.description}</p>
-            <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
-            <button class="view-details-btn" onclick="goToProductDetail(${product.id})">View Details</button>
+            <div class="product-content">
+                <div class="product-category">${getCategoryName(product.category)}</div>
+                <h3 class="product-title" onclick="goToProductDetail(${product.id})">${product.name}</h3>
+                <div class="product-price">$${product.price}</div>
+                <p class="product-description">${product.description}</p>
+            </div>
+            <div class="product-buttons">
+                <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                <button class="view-details-btn" onclick="goToProductDetail(${product.id})">View Details</button>
+            </div>
         </div>
     `;
     
@@ -359,9 +416,18 @@ function displayRelatedProducts() {
     
     grid.innerHTML = '';
     
-    productsToShow.forEach(product => {
+    // Add products with staggered animation
+    productsToShow.forEach((product, index) => {
         const productCard = createProductCard(product);
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'translateY(30px)';
         grid.appendChild(productCard);
+        
+        // Trigger animation with delay
+        setTimeout(() => {
+            productCard.style.opacity = '1';
+            productCard.style.transform = 'translateY(0)';
+        }, index * 100 + 50);
     });
     
     // Update pagination info
@@ -385,16 +451,30 @@ function displayRelatedProducts() {
 // Navigate related products
 function navigateRelatedProducts(direction) {
     const totalPages = Math.ceil(window.allRelatedProducts.length / relatedProductsPerPage);
+    const grid = document.getElementById('related-products-grid');
     
-    currentRelatedPage += direction;
+    if (!grid) return;
     
-    if (currentRelatedPage < 0) {
-        currentRelatedPage = 0;
-    } else if (currentRelatedPage >= totalPages) {
-        currentRelatedPage = totalPages - 1;
-    }
+    // Add transitioning class for fade out effect
+    grid.classList.add('transitioning');
     
-    displayRelatedProducts();
+    // Wait for fade out, then update content
+    setTimeout(() => {
+        currentRelatedPage += direction;
+        
+        if (currentRelatedPage < 0) {
+            currentRelatedPage = 0;
+        } else if (currentRelatedPage >= totalPages) {
+            currentRelatedPage = totalPages - 1;
+        }
+        
+        displayRelatedProducts();
+        
+        // Remove transitioning class and trigger fade in
+        setTimeout(() => {
+            grid.classList.remove('transitioning');
+        }, 50);
+    }, 250);
 }
 
 // Get category display name

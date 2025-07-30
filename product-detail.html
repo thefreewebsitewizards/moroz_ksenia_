@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - Ksenia Moroz Watercolor Art</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -20,7 +21,7 @@
                     <li><a href="products.html">Products</a></li>
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
-                    <li><button class="cart-btn" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button></li>
+                    <li><div class="cart-icon" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cart-count">0</span></div></li>
                 </ul>
                 <div class="hamburger">
                     <span></span>
@@ -116,6 +117,112 @@
             <div class="pagination-info">
                 <span id="pagination-text">Showing 1-4 of 37 products</span>
             </div>
+        </div>
+    </section>
+
+    <!-- Artist Information Section -->
+    <section class="artist-info-section">
+        <div class="container">
+            <div class="artist-tabs">
+                <button class="tab-btn active" onclick="showTab('about-artwork')">ABOUT THE ARTWORK</button>
+                <button class="tab-btn" onclick="showTab('details-dimensions')">DETAILS AND DIMENSIONS</button>
+                <button class="tab-btn" onclick="showTab('shipping-returns')">SHIPPING AND RETURNS</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="about-artwork" class="tab-pane active">
+                    <p class="artwork-description">
+                        Paint the atmosphere of the city. Paint reality, nearby things. The environment, everyday life.
+                    </p>
+                    
+                    <div class="artwork-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Year Created:</span>
+                            <span class="detail-value">2024</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Subject:</span>
+                            <span class="detail-value"><a href="#">Landscapes</a></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Styles:</span>
+                            <span class="detail-value"><a href="#">Fine Art</a>, <a href="#">Watercolor</a></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Mediums:</span>
+                            <span class="detail-value"><a href="#">Watercolor</a>, <a href="#">Paper</a></span>
+                        </div>
+                    </div>
+                    
+                    <p class="contact-info">
+                        Need more information? <a href="#contact">Contact us.</a>
+                    </p>
+                </div>
+                
+                <div id="details-dimensions" class="tab-pane">
+                    <div class="artwork-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Size:</span>
+                            <span class="detail-value">Various sizes available</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Paper:</span>
+                            <span class="detail-value">High-quality watercolor paper</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Frame:</span>
+                            <span class="detail-value">Optional framing available</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Signature:</span>
+                            <span class="detail-value">Hand-signed by artist</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="shipping-returns" class="tab-pane">
+                    <div class="artwork-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Shipping:</span>
+                            <span class="detail-value">Free shipping on orders over $50</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Delivery Time:</span>
+                            <span class="detail-value">5-7 business days</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Returns:</span>
+                            <span class="detail-value">30-day return policy</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">International:</span>
+                            <span class="detail-value">Worldwide shipping available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="artist-profile">
+                <div class="artist-avatar">
+                    <img src="images/kz.jpg" alt="Ksenia Moroz" class="artist-photo">
+                </div>
+                <div class="artist-info">
+                    <h3 class="artist-name">Ksenia Moroz</h3>
+                    <p class="artist-location">United States</p>
+                    <button class="view-profile-btn">View Profile</button>
+                </div>
+            </div>
+            
+            <div class="artist-bio">
+                <p>
+                    UGC creator. Artist.<br>
+                    art | creativity | active lifestyle<br>
+                    founder of @moroz_customart<br>
+                    <a href="https://www.youtube.com/@moroz_customart" target="_blank">www.youtube.com/@moroz_customart</a>
+                </p>
+            </div>
+            
+           
         </div>
     </section>
 

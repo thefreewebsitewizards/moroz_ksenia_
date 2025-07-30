@@ -448,6 +448,292 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     flex: 1;
+    transition: all 0.5s ease;
+    opacity: 1;
+}
+
+.related-products-grid.transitioning {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.related-products-grid .product-card {
+    transition: all 0.3s ease;
+    animation: slideInUp 0.6s ease forwards;
+}
+
+.related-products-grid .product-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.related-products-grid .product-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.related-products-grid .product-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.related-products-grid .product-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Artist Information Section */
+.artist-info-section {
+    padding: 60px 0;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.artist-tabs {
+    display: flex;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 40px;
+    gap: 0;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab-btn.active {
+    color: #333;
+    border-bottom-color: #667eea;
+}
+
+.tab-btn:hover {
+    color: #333;
+}
+
+.tab-content {
+    margin-bottom: 50px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.artwork-description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.artwork-details {
+    margin-bottom: 30px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #333;
+    min-width: 140px;
+    margin-right: 20px;
+}
+
+.detail-value {
+    color: #666;
+    flex: 1;
+}
+
+.detail-value a {
+    color: #667eea;
+    text-decoration: underline;
+}
+
+.detail-value a:hover {
+    color: #5a67d8;
+}
+
+.contact-info {
+    font-size: 16px;
+    color: #666;
+}
+
+.contact-info a {
+    color: #667eea;
+    text-decoration: underline;
+}
+
+.artist-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.artist-avatar {
+    flex-shrink: 0;
+}
+
+.artist-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #667eea;
+}
+
+.artist-info {
+    flex: 1;
+}
+
+.artist-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.artist-location {
+    color: #666;
+    margin: 0 0 15px 0;
+    font-size: 16px;
+}
+
+.view-profile-btn {
+    background: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: auto;
+}
+
+.view-profile-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.artist-bio {
+    margin-bottom: 40px;
+}
+
+.artist-bio p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.read-more-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    padding: 0;
+}
+
+.read-more-btn:hover {
+    color: #5a67d8;
+}
+
+.artist-recognition {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.artist-recognition h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.recognition-items {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.recognition-item {
+    flex: 1;
+    min-width: 250px;
+}
+
+.recognition-item p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .artist-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+        border-right: none;
+    }
+    
+    .tab-btn.active {
+        border-bottom-color: #e9ecef;
+        border-left: 3px solid #667eea;
+        background: #f8f9fa;
+    }
+    
+    .artist-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .view-profile-btn {
+        margin: 0;
+    }
+    
+    .recognition-items {
+        flex-direction: column;
+    }
+    
+    .recognition-item {
+        min-width: auto;
+    }
 }
 
 .nav-btn {
@@ -456,7 +742,7 @@ body {
     border: none;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 8px;
     font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -559,6 +845,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    align-items: stretch;
 }
 
 .product-card {
@@ -567,54 +854,84 @@ body {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    height: 100%;
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .product-image {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    cursor: pointer;
+    transition: none;
+    flex-shrink: 0;
 }
 
 .product-info {
     padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
 }
 
 .product-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
     color: #2c3e50;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.product-title:hover {
+    color: #667eea;
 }
 
 .product-category {
     color: #e74c3c;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
+    text-transform: uppercase;
 }
 
 .product-price {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #27ae60;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .product-description {
     color: #7f8c8d;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.product-content {
+    flex: 1;
+}
+
+.product-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 .add-to-cart {
@@ -622,17 +939,39 @@ body {
     background: #e74c3c;
     color: white;
     border: none;
-    padding: 0.8rem;
+    padding: 0.7rem;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 0.9rem;
 }
 
 .add-to-cart:hover {
     background: #c0392b;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
+
+.view-details-btn {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.view-details-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-1px);
+}
+
+
 
 /* About Section */
 .about-section {
