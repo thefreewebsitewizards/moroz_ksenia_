@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Ksenia Moroz Watercolor Art</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>Ksenia Moroz</h1>
+                    <span>Watercolor Art</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><button class="cart-btn" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-page">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="products.html">Products</a>
+                <span>/</span>
+                <span id="breadcrumb-product">Product Details</span>
+            </nav>
+
+            <div class="product-detail-container">
+                <!-- Product Image -->
+                <div class="product-image-section">
+                    <div class="main-image">
+                        <img id="detail-image" src="" alt="" class="product-main-image">
+                    </div>
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-info-section">
+                    <h1 id="detail-title" class="product-title"></h1>
+                    <p id="detail-category" class="product-category"></p>
+                    
+                    <div class="product-price">
+                        <span class="price">$<span id="detail-price"></span></span>
+                    </div>
+
+                    <div class="product-description">
+                        <h3>Description</h3>
+                        <p id="detail-description"></p>
+                    </div>
+
+                    <div class="product-details">
+                        <h3>Details</h3>
+                        <ul id="detail-specs">
+                            <!-- Product specifications will be loaded here -->
+                        </ul>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn-detail" id="add-to-cart-detail">
+                            Add to Cart
+                        </button>
+                        <button class="back-btn" onclick="history.back()">
+                            ← Back to Products
+                        </button>
+                    </div>
+
+                    <div class="shipping-info">
+                        <h4>Shipping Information</h4>
+                        <ul>
+                            <li>Free shipping on orders over $50</li>
+                            <li>Standard shipping: 5-7 business days</li>
+                            <li>Express shipping available</li>
+                            <li>International shipping available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="related-products-section">
+        <div class="container">
+            <h2>More Products</h2>
+            <div class="related-products-container">
+                <button class="nav-btn prev-btn" id="prev-btn" onclick="navigateRelatedProducts(-1)">
+                    ←
+                </button>
+                
+                <div class="related-products-grid" id="related-products-grid">
+                    <!-- Related products will be loaded here -->
+                </div>
+                
+                <button class="nav-btn next-btn" id="next-btn" onclick="navigateRelatedProducts(1)">
+                    →
+                </button>
+            </div>
+            
+            <div class="pagination-info">
+                <span id="pagination-text">Showing 1-4 of 37 products</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ksenia Moroz Watercolor Art</h3>
+                    <p>Creating beautiful watercolor artworks with passion and dedication.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: ksenia@watercolorart.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ksenia Moroz Watercolor Art. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize product detail page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProductDetail();
+            loadRelatedProducts();
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html>
