@@ -47,7 +47,7 @@ const products = [
 ];
 
 // Cart functionality
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentFilter = 'all';
 
 // DOM elements
@@ -515,23 +515,28 @@ function setActiveFilter(filter) {
 // Add to cart
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    if (product) {
-        const existingItem = cart.find(item => item.id === productId);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
-        
-        updateCartUI();
-        showNotification(`${product.name} added to cart!`);
+    if (!product) return;
+    
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
     }
+    
+    // Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    updateCartUI();
+    showNotification(`${product.name} added to cart!`);
 }
 
 // Remove from cart
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
+    // Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
 }
 
@@ -732,3 +737,140 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger initial animation check
     setTimeout(animateOnScroll, 100);
 });
+
+// Cart Page Functions
+function loadCartPage() {
+    const cartItemsList = document.getElementById('cart-items-list');
+    const emptyCart = document.getElementById('empty-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    if (cart.length === 0) {
+        cartItemsList.style.display = 'none';
+        emptyCart.style.display = 'block';
+        checkoutBtn.disabled = true;
+    } else {
+        cartItemsList.style.display = 'block';
+        emptyCart.style.display = 'none';
+        checkoutBtn.disabled = false;
+        
+        cartItemsList.innerHTML = '';
+        cart.forEach(item => {
+            const cartItemElement = createFullCartItem(item);
+            cartItemsList.appendChild(cartItemElement);
+        });
+    }
+    
+    updateCartTotals();
+}
+
+function createFullCartItem(item) {
+    const cartItem = document.createElement('div');
+    cartItem.className = 'cart-item-full';
+    cartItem.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='images/placeholder.jpg'">
+        <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>${getCategoryName(item.category)}</p>
+        </div>
+        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+        <div class="quantity-controls">
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+            <span class="quantity-display">${item.quantity}</span>
+            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+        </div>
+        <button class="remove-btn" onclick="removeFromCartPage(${item.id})">Remove</button>
+    `;
+    return cartItem;
+}
+
+function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCartPage(productId);
+        } else {
+            loadCartPage();
+            updateCartUI();
+        }
+    }
+}
+
+function removeFromCartPage(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    // Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCartPage();
+    updateCartUI();
+    showNotification('Item removed from cart');
+}
+
+function clearCart() {
+    if (cart.length === 0) return;
+    
+    if (confirm('Are you sure you want to clear your cart?')) {
+        cart = [];
+        // Save to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCartPage();
+        updateCartUI();
+        showNotification('Cart cleared');
+    }
+}
+
+function updateCartTotals() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = subtotal >= 50 ? 0 : 8;
+    const total = subtotal + shipping;
+    
+    const subtotalElement = document.getElementById('cart-subtotal');
+    const shippingElement = document.getElementById('cart-shipping');
+    const totalElement = document.getElementById('cart-total');
+    const navCartCount = document.getElementById('nav-cart-count');
+    
+    if (subtotalElement) subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    if (shippingElement) {
+        shippingElement.textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+        shippingElement.style.color = shipping === 0 ? '#27ae60' : '#2c3e50';
+    }
+    if (totalElement) totalElement.innerHTML = `<strong>$${total.toFixed(2)}</strong>`;
+    
+    // Update navigation cart count
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (navCartCount) {
+        navCartCount.textContent = totalItems;
+        navCartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+function proceedToCheckout() {
+    if (cart.length === 0) {
+        showNotification('Your cart is empty!');
+        return;
+    }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shippingCost = total >= 50 ? 0 : 8;
+    const finalTotal = total + shippingCost;
+    
+    const checkoutSummary = `
+Order Summary:
+${cart.map(item => `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+
+Subtotal: $${total.toFixed(2)}
+Shipping: ${shippingCost === 0 ? 'FREE' : '$' + shippingCost.toFixed(2)}
+Total: $${finalTotal.toFixed(2)}
+
+Payment Methods Available:
+• PayPal
+• Venmo  
+• Zelle
+
+Please contact us to complete your order!
+Email: ksenia@watercolorart.com
+Phone: (555) 123-4567`;
+    
+    alert(checkoutSummary);
+}
+
+// ... existing code ...

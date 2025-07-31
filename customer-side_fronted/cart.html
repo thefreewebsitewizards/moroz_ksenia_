@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Ksenia Moroz Watercolor Art</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Ksenia Moroz Art</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <div class="cart-icon" onclick="window.location.href='cart.html'">
+                        🛒
+                        <span class="cart-count" id="nav-cart-count">0</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Page Content -->
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-header-section">
+                <h1>Shopping Cart</h1>
+                <p class="cart-subtitle">Review your items before checkout</p>
+            </div>
+
+            <div class="cart-content">
+                <!-- Cart Items Section -->
+                <div class="cart-items-section">
+                    <div class="cart-items-header">
+                        <h2>Your Items</h2>
+                        <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+                    </div>
+                    
+                    <div class="cart-items-list" id="cart-items-list">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                    
+                    <div class="empty-cart" id="empty-cart" style="display: none;">
+                        <div class="empty-cart-content">
+                            <h3>Your cart is empty</h3>
+                            <p>Looks like you haven't added any items to your cart yet.</p>
+                            <a href="products.html" class="continue-shopping-btn">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary Section -->
+                <div class="order-summary-section">
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="cart-shipping">$8.00</span>
+                        </div>
+                        
+                        <div class="summary-row shipping-note">
+                            <small>Free shipping on orders over $50</small>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="summary-row total">
+                            <span><strong>Total:</strong></span>
+                            <span id="cart-total"><strong>$0.00</strong></span>
+                        </div>
+                        
+                        <div class="checkout-section">
+                            <button class="checkout-btn" onclick="proceedToCheckout()" id="checkout-btn" disabled>
+                                Proceed to Checkout
+                            </button>
+                            
+                            <div class="payment-methods">
+                                <p>We accept:</p>
+                                <div class="payment-icons">
+                                    <span>PayPal</span>
+                                    <span>Venmo</span>
+                                    <span>Zelle</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="continue-shopping">
+                        <a href="products.html" class="continue-shopping-link">← Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ksenia Moroz Watercolor Art</h3>
+                    <p>Creating beautiful watercolor artworks with passion and dedication.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: ksenia@watercolorart.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ksenia Moroz Watercolor Art. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize cart page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartPage();
+            updateCartUI();
+        });
+    </script>
+</body>
+</html>
