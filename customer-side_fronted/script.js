@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Setup event listeners
 function setupEventListeners() {
     // Cart toggle
-    cartIcon.addEventListener('click', toggleCart);
-    closeCartBtn.addEventListener('click', toggleCart);
+    if (cartIcon) cartIcon.addEventListener('click', toggleCart);
+    if (closeCartBtn) closeCartBtn.addEventListener('click', toggleCart);
     
     // Filter buttons
     filterButtons.forEach(btn => {
@@ -154,15 +154,17 @@ function setupEventListeners() {
     });
     
     // Modal close
-    closeModal.addEventListener('click', closeProductModal);
+    if (closeModal) closeModal.addEventListener('click', closeProductModal);
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeProductModal();
         }
     });
     
-    // Mobile menu toggle
-    hamburger.addEventListener('click', toggleMobileMenu);
+    // Mobile menu toggle - ensure hamburger exists before adding listener
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+    }
     
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -585,10 +587,46 @@ function toggleCart() {
 }
 
 // Toggle mobile menu
+// Enhanced mobile menu toggle
 function toggleMobileMenu() {
+    const navMenu = document.querySelector('.nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const body = document.body;
+    
+    if (!navMenu || !hamburger) {
+        console.error('Navigation elements not found');
+        return;
+    }
+    
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
+    body.classList.toggle('menu-open');
+    
+    // Close menu when clicking on nav links
+    if (navMenu.classList.contains('active')) {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                body.classList.remove('menu-open');
+            }, { once: true }); // Use once: true to prevent multiple listeners
+        });
+    }
 }
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    const navMenu = document.querySelector('.nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const navContainer = document.querySelector('.nav-container');
+    
+    if (!navContainer.contains(e.target) && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+});
 
 // Open product modal
 function openProductModal(product) {
