@@ -1,4 +1,4 @@
-// Product Management System
+// js/products.js - Updated for Firebase Backend
 class ProductManager {
     constructor() {
         this.products = [];
@@ -7,104 +7,67 @@ class ProductManager {
         this.currentView = 'grid';
         this.currentPage = 1;
         this.itemsPerPage = 12;
+        this.totalPages = 1;
+        this.totalCount = 0;
         this.editingProductId = null;
         this.deleteProductId = null;
+        this.apiBaseUrl = 'http://localhost:5000/api'; // Update this for production
         
         this.init();
     }
 
-    init() {
-        this.loadProducts();
+    async init() {
+        await this.loadProducts();
         this.setupEventListeners();
         this.renderProducts();
     }
 
-    // Load products from localStorage or initialize with sample data
-    loadProducts() {
-        const savedProducts = localStorage.getItem('morozArtProducts');
-        if (savedProducts) {
-            this.products = JSON.parse(savedProducts);
-        } else {
-            // Initialize with sample products based on the client requirements
-            this.products = [
-                {
-                    id: 1,
-                    name: "Serene Lake Watercolor",
-                    category: "postcards",
-                    price: 20,
-                    size: "5x7",
-                    description: "A tranquil watercolor depicting a peaceful lake with perfect reflections of surrounding mountains and trees. Painted on high-quality watercolor paper.",
-                    image: "../../../images/Serene Lake Watercolor Painting.jpeg",
-                    stock: 5,
-                    status: "active",
-                    dateAdded: new Date().toISOString()
-                },
-                {
-                    id: 2,
-                    name: "Mt Hood at Sunset",
-                    category: "postcards",
-                    price: 20,
-                    size: "5x7",
-                    description: "Majestic mountain landscape captured in soft watercolor tones. Features snow-capped peaks and rolling hills in the distance.",
-                    image: "../../../images/Mt Hood at Sunset.jpeg",
-                    stock: 3,
-                    status: "active",
-                    dateAdded: new Date().toISOString()
-                },
-                {
-                    id: 3,
-                    name: "Horseshoe Bend Watercolor Painting",
-                    category: "wall-art",
-                    price: 100,
-                    size: "24x30",
-                    description: "Large format watercolor of the iconic Horseshoe Bend, professionally framed. Original artwork capturing the dramatic curves of the Colorado River.",
-                    image: "../../../images/Horseshoe Bend Watercolor Painting - 24x30 Framed Original Art.jpeg",
-                    stock: 1,
-                    status: "active",
-                    dateAdded: new Date().toISOString()
-                },
-                {
-                    id: 4,
-                    name: "Red Tulips Bookmark",
-                    category: "bookmarks",
-                    price: 15,
-                    size: "8x2.5",
-                    description: "Vibrant red tulips with braided tassel, hand-painted watercolor bookmark.",
-                    image: "../../../images/Handmade Watercolor Red Tulips Bookmark with Braided Tassel.jpeg",
-                    stock: 10,
-                    status: "active",
-                    dateAdded: new Date().toISOString()
-                },
-                {
-                    id: 5,
-                    name: "Custom House Portrait",
-                    category: "custom",
-                    price: 100,
-                    size: "11x14",
-                    description: "Original acrylic painting on canvas of your home or special building. Personalized architectural portrait with attention to detail.",
-                    image: "../../../images/Custom House Portrait - Original Acrylic Painting on Canvas.jpeg",
-                    stock: 0,
-                    status: "active",
-                    dateAdded: new Date().toISOString()
-                }
-            ];
-            this.saveProducts();
-        }
-        this.filteredProducts = [...this.products];
-    }
+    // Load products from Firebase via API
+    async loadProducts() {
+        try {
+            this.showLoading(true);
+            const params = new URLSearchParams({
+                category: this.currentFilter,
+                page: this.currentPage,
+                limit: this.itemsPerPage
+            });
 
-    // Save products to localStorage
-    saveProducts() {
-        localStorage.setItem('morozArtProducts', JSON.stringify(this.products));
+            const searchTerm = document.getElementById('searchInput')?.value;
+            if (searchTerm) {
+                params.append('search', searchTerm);
+            }
+
+            const response = await fetch(`${this.apiBaseUrl}/products?${params}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            this.products = data.products;
+            this.filteredProducts = data.products;
+            this.totalCount = data.totalCount;
+            this.totalPages = data.totalPages;
+            this.currentPage = data.currentPage;
+
+        } catch (error) {
+            console.error('Error loading products:', error);
+            this.showNotification('Failed to load products. Please try again.', 'error');
+        } finally {
+            this.showLoading(false);
+        }
     }
 
     // Setup event listeners
     setupEventListeners() {
         // Product form submission
-        document.getElementById('productForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.saveProduct();
-        });
+        const form = document.getElementById('productForm');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.saveProduct();
+            });
+        }
 
         // Modal close events
         document.addEventListener('click', (e) => {
@@ -119,19 +82,39 @@ class ProductManager {
                 this.closeModals();
             }
         });
+
+        // Search input debounce
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    this.searchProducts();
+                }, 300);
+            });
+        }
     }
 
-    // Render products based on current filter and view
+    // Show/hide loading state
+    showLoading(isLoading) {
+        const container = document.getElementById('productsGrid');
+        if (isLoading) {
+            container.innerHTML = `
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading products...</p>
+                </div>
+            `;
+        }
+    }
+
+    // Render products
     renderProducts() {
         const container = document.getElementById('productsGrid');
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        const endIndex = startIndex + this.itemsPerPage;
-        const productsToShow = this.filteredProducts.slice(startIndex, endIndex);
-
-        // Update container class based on view
         container.className = this.currentView === 'grid' ? 'products-grid' : 'products-list';
 
-        if (productsToShow.length === 0) {
+        if (this.filteredProducts.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-box-open"></i>
@@ -142,7 +125,7 @@ class ProductManager {
             return;
         }
 
-        container.innerHTML = productsToShow.map(product => this.createProductCard(product)).join('');
+        container.innerHTML = this.filteredProducts.map(product => this.createProductCard(product)).join('');
         this.updatePagination();
     }
 
@@ -154,6 +137,9 @@ class ProductManager {
             'bookmarks': 'Bookmarks',
             'custom': 'Custom Pieces'
         };
+
+        const formattedDate = product.dateAdded ? 
+            new Date(product.dateAdded).toLocaleDateString() : 'N/A';
 
         return `
             <div class="product-card" data-category="${product.category}">
@@ -167,10 +153,10 @@ class ProductManager {
                     <div class="product-header">
                         <div>
                             <h3 class="product-title">${product.name}</h3>
-                            <div class="product-category">${categoryNames[product.category]}</div>
+                            <div class="product-category">${categoryNames[product.category] || product.category}</div>
                         </div>
                     </div>
-                    <div class="product-price">$${product.price}</div>
+                    <div class="product-price">$${parseFloat(product.price).toFixed(2)}</div>
                     <div class="product-description">${product.description}</div>
                     <div class="product-meta">
                         <span>Stock: ${product.stock}</span>
@@ -178,13 +164,13 @@ class ProductManager {
                     </div>
                     <div class="product-meta">
                         <span class="product-status status-${product.status}">${product.status}</span>
-                        <span>ID: ${product.id}</span>
+                        <span>Added: ${formattedDate}</span>
                     </div>
                     <div class="product-actions">
-                        <button class="action-btn edit-btn" onclick="productManager.editProduct(${product.id})">
+                        <button class="action-btn edit-btn" onclick="productManager.editProduct('${product.id}')">
                             <i class="fas fa-edit"></i> Edit
                         </button>
-                        <button class="action-btn delete-btn" onclick="productManager.deleteProduct(${product.id})">
+                        <button class="action-btn delete-btn" onclick="productManager.deleteProduct('${product.id}')">
                             <i class="fas fa-trash"></i> Delete
                         </button>
                     </div>
@@ -194,37 +180,18 @@ class ProductManager {
     }
 
     // Filter products
-    filterProducts(category) {
+    async filterProducts(category) {
         this.currentFilter = category;
         this.currentPage = 1;
-        
-        if (category === 'all') {
-            this.filteredProducts = [...this.products];
-        } else {
-            this.filteredProducts = this.products.filter(product => product.category === category);
-        }
-        
+        await this.loadProducts();
         this.renderProducts();
         this.updateFilterButtons();
     }
 
     // Search products
-    searchProducts() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    async searchProducts() {
         this.currentPage = 1;
-        
-        let filtered = this.currentFilter === 'all' ? [...this.products] : 
-                      this.products.filter(product => product.category === this.currentFilter);
-        
-        if (searchTerm) {
-            filtered = filtered.filter(product => 
-                product.name.toLowerCase().includes(searchTerm) ||
-                product.description.toLowerCase().includes(searchTerm) ||
-                product.category.toLowerCase().includes(searchTerm)
-            );
-        }
-        
-        this.filteredProducts = filtered;
+        await this.loadProducts();
         this.renderProducts();
     }
 
@@ -251,27 +218,27 @@ class ProductManager {
 
     // Pagination
     updatePagination() {
-        const totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const paginationInfo = document.getElementById('paginationInfo');
         
-        prevBtn.disabled = this.currentPage === 1;
-        nextBtn.disabled = this.currentPage === totalPages || totalPages === 0;
-        paginationInfo.textContent = `Page ${this.currentPage} of ${totalPages || 1}`;
+        if (prevBtn) prevBtn.disabled = this.currentPage === 1;
+        if (nextBtn) nextBtn.disabled = this.currentPage === this.totalPages || this.totalPages === 0;
+        if (paginationInfo) paginationInfo.textContent = `Page ${this.currentPage} of ${this.totalPages || 1}`;
     }
 
-    previousPage() {
+    async previousPage() {
         if (this.currentPage > 1) {
             this.currentPage--;
+            await this.loadProducts();
             this.renderProducts();
         }
     }
 
-    nextPage() {
-        const totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
-        if (this.currentPage < totalPages) {
+    async nextPage() {
+        if (this.currentPage < this.totalPages) {
             this.currentPage++;
+            await this.loadProducts();
             this.renderProducts();
         }
     }
@@ -279,113 +246,181 @@ class ProductManager {
     // Product CRUD operations
     openAddProductModal() {
         this.editingProductId = null;
-        document.getElementById('modalTitle').textContent = 'Add New Product';
-        document.getElementById('productForm').reset();
-        document.getElementById('imagePreview').innerHTML = '<i class="fas fa-image"></i><span>Click to upload image</span>';
-        document.getElementById('imagePreview').classList.remove('has-image');
-        document.getElementById('productModal').classList.add('show');
-    }
-
-    editProduct(id) {
-        const product = this.products.find(p => p.id === id);
-        if (!product) return;
-        
-        this.editingProductId = id;
-        document.getElementById('modalTitle').textContent = 'Edit Product';
-        
-        // Populate form
-        document.getElementById('productId').value = product.id;
-        document.getElementById('productName').value = product.name;
-        document.getElementById('productCategory').value = product.category;
-        document.getElementById('productPrice').value = product.price;
-        document.getElementById('productSize').value = product.size || '';
-        document.getElementById('productDescription').value = product.description;
-        document.getElementById('productStock').value = product.stock;
-        document.getElementById('productStatus').value = product.status;
-        
-        // Handle image preview
+        const modalTitle = document.getElementById('modalTitle');
+        const form = document.getElementById('productForm');
         const imagePreview = document.getElementById('imagePreview');
-        if (product.image) {
-            imagePreview.innerHTML = `<img src="${product.image}" alt="${product.name}">`;
-            imagePreview.classList.add('has-image');
-        } else {
+        
+        if (modalTitle) modalTitle.textContent = 'Add New Product';
+        if (form) form.reset();
+        if (imagePreview) {
             imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Click to upload image</span>';
             imagePreview.classList.remove('has-image');
         }
         
-        document.getElementById('productModal').classList.add('show');
+        const modal = document.getElementById('productModal');
+        if (modal) modal.classList.add('show');
     }
 
-    saveProduct() {
-        const formData = {
-            name: document.getElementById('productName').value.trim(),
-            category: document.getElementById('productCategory').value,
-            price: parseFloat(document.getElementById('productPrice').value),
-            size: document.getElementById('productSize').value.trim(),
-            description: document.getElementById('productDescription').value.trim(),
-            stock: parseInt(document.getElementById('productStock').value) || 0,
-            status: document.getElementById('productStatus').value
-        };
-
-        // Validation
-        if (!formData.name || !formData.category || !formData.price || !formData.description) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        if (this.editingProductId) {
-            // Update existing product
-            const productIndex = this.products.findIndex(p => p.id === this.editingProductId);
-            if (productIndex !== -1) {
-                this.products[productIndex] = {
-                    ...this.products[productIndex],
-                    ...formData,
-                    dateModified: new Date().toISOString()
-                };
+    async editProduct(id) {
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/products/${id}`);
+            if (!response.ok) {
+                throw new Error('Product not found');
             }
-        } else {
-            // Add new product
-            const newProduct = {
-                id: Date.now(), // Simple ID generation
-                ...formData,
-                image: '', // Handle image upload separately
-                dateAdded: new Date().toISOString()
+            
+            const product = await response.json();
+            this.editingProductId = id;
+            
+            const modalTitle = document.getElementById('modalTitle');
+            if (modalTitle) modalTitle.textContent = 'Edit Product';
+            
+            // Populate form
+            const fields = {
+                'productId': product.id,
+                'productName': product.name,
+                'productCategory': product.category,
+                'productPrice': product.price,
+                'productSize': product.size || '',
+                'productDescription': product.description,
+                'productStock': product.stock,
+                'productStatus': product.status
             };
-            this.products.push(newProduct);
-        }
 
-        this.saveProducts();
-        this.filterProducts(this.currentFilter); // Refresh display
-        this.closeProductModal();
-        
-        // Show success message
-        this.showNotification(this.editingProductId ? 'Product updated successfully!' : 'Product added successfully!', 'success');
+            Object.entries(fields).forEach(([fieldId, value]) => {
+                const field = document.getElementById(fieldId);
+                if (field) field.value = value;
+            });
+
+            // Handle image preview
+            const imagePreview = document.getElementById('imagePreview');
+            if (imagePreview) {
+                if (product.image) {
+                    imagePreview.innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+                    imagePreview.classList.add('has-image');
+                } else {
+                    imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Click to upload image</span>';
+                    imagePreview.classList.remove('has-image');
+                }
+            }
+            
+            const modal = document.getElementById('productModal');
+            if (modal) modal.classList.add('show');
+
+        } catch (error) {
+            console.error('Error loading product for edit:', error);
+            this.showNotification('Failed to load product details.', 'error');
+        }
+    }
+
+    async saveProduct() {
+        try {
+            const formData = new FormData();
+            const form = document.getElementById('productForm');
+            
+            // Get form values
+            const fields = {
+                name: document.getElementById('productName')?.value?.trim(),
+                category: document.getElementById('productCategory')?.value,
+                price: document.getElementById('productPrice')?.value,
+                size: document.getElementById('productSize')?.value?.trim(),
+                description: document.getElementById('productDescription')?.value?.trim(),
+                stock: document.getElementById('productStock')?.value,
+                status: document.getElementById('productStatus')?.value
+            };
+
+            // Validation
+            if (!fields.name || !fields.category || !fields.price || !fields.description) {
+                this.showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            // Add fields to FormData
+            Object.entries(fields).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    formData.append(key, value);
+                }
+            });
+
+            // Add image if selected
+            const imageInput = document.getElementById('productImage');
+            if (imageInput?.files?.[0]) {
+                formData.append('image', imageInput.files[0]);
+            }
+
+            const url = this.editingProductId ? 
+                `${this.apiBaseUrl}/products/${this.editingProductId}` : 
+                `${this.apiBaseUrl}/products`;
+            
+            const method = this.editingProductId ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method,
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to save product');
+            }
+
+            const result = await response.json();
+            
+            this.closeProductModal();
+            await this.loadProducts();
+            this.renderProducts();
+            
+            this.showNotification(
+                this.editingProductId ? 'Product updated successfully!' : 'Product added successfully!', 
+                'success'
+            );
+
+        } catch (error) {
+            console.error('Error saving product:', error);
+            this.showNotification(error.message || 'Failed to save product.', 'error');
+        }
     }
 
     deleteProduct(id) {
         this.deleteProductId = id;
-        document.getElementById('deleteModal').classList.add('show');
+        const modal = document.getElementById('deleteModal');
+        if (modal) modal.classList.add('show');
     }
 
-    confirmDelete() {
-        if (this.deleteProductId) {
-            this.products = this.products.filter(p => p.id !== this.deleteProductId);
-            this.saveProducts();
-            this.filterProducts(this.currentFilter);
+    async confirmDelete() {
+        if (!this.deleteProductId) return;
+
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/products/${this.deleteProductId}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to delete product');
+            }
+
             this.closeDeleteModal();
+            await this.loadProducts();
+            this.renderProducts();
             this.showNotification('Product deleted successfully!', 'success');
             this.deleteProductId = null;
+
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            this.showNotification(error.message || 'Failed to delete product.', 'error');
         }
     }
 
     // Modal management
     closeProductModal() {
-        document.getElementById('productModal').classList.remove('show');
+        const modal = document.getElementById('productModal');
+        if (modal) modal.classList.remove('show');
         this.editingProductId = null;
     }
 
     closeDeleteModal() {
-        document.getElementById('deleteModal').classList.remove('show');
+        const modal = document.getElementById('deleteModal');
+        if (modal) modal.classList.remove('show');
         this.deleteProductId = null;
     }
 
@@ -399,7 +434,7 @@ class ProductManager {
         const file = event.target.files[0];
         const preview = document.getElementById('imagePreview');
         
-        if (file) {
+        if (file && preview) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
@@ -411,7 +446,6 @@ class ProductManager {
 
     // Notification system
     showNotification(message, type = 'info') {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -419,7 +453,6 @@ class ProductManager {
             <span>${message}</span>
         `;
         
-        // Add styles
         notification.style.cssText = `
             position: fixed;
             top: 100px;
@@ -440,50 +473,18 @@ class ProductManager {
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
         
-        // Remove after 3 seconds
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => {
-                document.body.removeChild(notification);
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
             }, 300);
         }, 3000);
-    }
-
-    // Export products data
-    exportProducts() {
-        const dataStr = JSON.stringify(this.products, null, 2);
-        const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'moroz-art-products.json';
-        link.click();
-        URL.revokeObjectURL(url);
-    }
-
-    // Import products data
-    importProducts(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const importedProducts = JSON.parse(e.target.result);
-                    this.products = importedProducts;
-                    this.saveProducts();
-                    this.filterProducts('all');
-                    this.showNotification('Products imported successfully!', 'success');
-                } catch (error) {
-                    this.showNotification('Error importing products. Please check the file format.', 'error');
-                }
-            };
-            reader.readAsText(file);
-        }
     }
 }
 
