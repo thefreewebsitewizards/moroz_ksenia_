@@ -2,6 +2,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -19,10 +20,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
+// Initialize Firestore and Storage
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // Export Firestore and collections you use
 const UserCollection = collection(db, 'Users');
+const ProductCollection = collection(db, 'Products');
 
-export { db, UserCollection };
+export { db, storage, UserCollection, ProductCollection };
