@@ -11,7 +11,7 @@ class ProductManager {
         this.totalCount = 0;
         this.editingProductId = null;
         this.deleteProductId = null;
-        this.apiBaseUrl = 'http://localhost:5000/api'; // Update this for production
+        this.apiBaseUrl = 'http://localhost:4000/api'; 
         
         this.init();
     }
@@ -97,9 +97,10 @@ class ProductManager {
     }
 
     // Show/hide loading state
+    // Fix the showLoading method
     showLoading(isLoading) {
-        const container = document.getElementById('productsGrid');
-        if (isLoading) {
+        const container = document.getElementById('products-container'); // Changed from 'productsGrid'
+        if (container && isLoading) {
             container.innerHTML = `
                 <div class="loading-state">
                     <i class="fas fa-spinner fa-spin"></i>
@@ -108,18 +109,23 @@ class ProductManager {
             `;
         }
     }
-
-    // Render products
+    
+    // Fix the renderProducts method
     renderProducts() {
-        const container = document.getElementById('productsGrid');
+        const container = document.getElementById('products-container'); // Changed from 'productsGrid'
+        if (!container) {
+            console.error('Products container not found');
+            return;
+        }
+        
         container.className = this.currentView === 'grid' ? 'products-grid' : 'products-list';
-
+    
         if (this.filteredProducts.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-box-open"></i>
                     <h3>No products found</h3>
-                    <p>Try adjusting your filters or add a new product.</p>
+                    <p>Try adjusting your search or filter criteria.</p>
                 </div>
             `;
             return;
@@ -261,6 +267,7 @@ class ProductManager {
         if (modal) modal.classList.add('show');
     }
 
+    // Update the editProduct method around line 280
     async editProduct(id) {
         try {
             const response = await fetch(`${this.apiBaseUrl}/products/${id}`);
@@ -274,23 +281,29 @@ class ProductManager {
             const modalTitle = document.getElementById('modalTitle');
             if (modalTitle) modalTitle.textContent = 'Edit Product';
             
-            // Populate form
+            // Populate form with existing fields only
             const fields = {
-                'productId': product.id,
                 'productName': product.name,
                 'productCategory': product.category,
                 'productPrice': product.price,
-                'productSize': product.size || '',
+                'productDimensions': product.size || product.dimensions || '', // Use dimensions field
                 'productDescription': product.description,
                 'productStock': product.stock,
-                'productStatus': product.status
+                'productMaterial': product.material || '',
+                'productFeatured': product.featured || false
             };
-
+    
             Object.entries(fields).forEach(([fieldId, value]) => {
                 const field = document.getElementById(fieldId);
-                if (field) field.value = value;
+                if (field) {
+                    if (field.type === 'checkbox') {
+                        field.checked = value;
+                    } else {
+                        field.value = value;
+                    }
+                }
             });
-
+    
             // Handle image preview
             const imagePreview = document.getElementById('imagePreview');
             if (imagePreview) {
@@ -305,7 +318,7 @@ class ProductManager {
             
             const modal = document.getElementById('productModal');
             if (modal) modal.classList.add('show');
-
+    
         } catch (error) {
             console.error('Error loading product for edit:', error);
             this.showNotification('Failed to load product details.', 'error');
@@ -515,6 +528,11 @@ function closeDeleteModal() {
 
 function confirmDelete() {
     productManager.confirmDelete();
+}
+
+// Add this function after the other global functions around line 530
+function saveProduct() {
+    productManager.saveProduct();
 }
 
 function previewImage(event) {

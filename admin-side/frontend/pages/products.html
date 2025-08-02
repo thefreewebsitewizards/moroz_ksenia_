@@ -76,6 +76,8 @@
             </div>
             <div class="modal-body">
                 <form id="productForm">
+                    <input type="hidden" id="productId" name="id">
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label for="productName">Product Name *</label>
@@ -95,25 +97,27 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productPrice">Price ($) *</label>
+                            <label for="productPrice">Price *</label>
                             <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
                         </div>
                         <div class="form-group">
-                            <label for="productStock">Stock Quantity *</label>
+                            <label for="productStock">Stock *</label>
                             <input type="number" id="productStock" name="stock" min="0" required>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="productDescription">Description</label>
-                        <textarea id="productDescription" name="description" rows="4" placeholder="Enter product description..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productImage">Product Image</label>
-                        <input type="file" id="productImage" name="image" accept="image/*" onchange="previewImage(event)">
-                        <div id="imagePreview" class="image-preview">
-                            <!-- Image preview will appear here -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productSize">Size</label>
+                            <input type="text" id="productSize" name="size" placeholder="e.g., 5x7 inches">
+                        </div>
+                        <div class="form-group">
+                            <label for="productStatus">Status *</label>
+                            <select id="productStatus" name="status" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="draft">Draft</option>
+                            </select>
                         </div>
                     </div>
                     
@@ -125,6 +129,20 @@
                         <div class="form-group">
                             <label for="productMaterial">Material</label>
                             <input type="text" id="productMaterial" name="material" placeholder="e.g., Canvas, Paper">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" name="description" rows="3" placeholder="Product description..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImage">Product Image</label>
+                        <input type="file" id="productImage" name="image" accept="image/*" onchange="previewImage(event)">
+                        <div id="imagePreview" class="image-preview">
+                            <i class="fas fa-image"></i>
+                            <span>Click to upload image</span>
                         </div>
                     </div>
                     
