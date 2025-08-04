@@ -27,5 +27,6 @@ const storage = getStorage(app);
 // Export Firestore and collections you use
 const UserCollection = collection(db, 'Users');
 const ProductCollection = collection(db, 'Products');
+const OrderCollection = collection(db, 'Orders');
 
-export { db, storage, UserCollection, ProductCollection };
+export { db, storage, UserCollection, ProductCollection, OrderCollection };

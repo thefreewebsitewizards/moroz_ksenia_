@@ -120,7 +120,7 @@ router.get('/products/:id', async (req, res) => {
 // POST /api/products - Create new product
 router.post('/products', upload.single('image'), async (req, res) => {
   try {
-    const { name, category, price, size, description, stock, status } = req.body;
+    const { name, category, price, size, description, stock, status, imageUrl: providedImageUrl } = req.body;
     
     // Validation
     if (!name || !category || !price || !description) {
@@ -152,6 +152,10 @@ router.post('/products', upload.single('image'), async (req, res) => {
           code: storageError.code
         });
       }
+    } else if (providedImageUrl) {
+      // Use provided image URL if no file was uploaded
+      imageUrl = providedImageUrl;
+      console.log('Using provided image URL:', imageUrl);
     }
     
     const productData = {
@@ -183,7 +187,7 @@ router.post('/products', upload.single('image'), async (req, res) => {
 router.put('/products/:id', upload.single('image'), async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, price, size, description, stock, status } = req.body;
+    const { name, category, price, size, description, stock, status, imageUrl: providedImageUrl } = req.body;
     
     const docRef = doc(ProductCollection, id);
     const docSnap = await getDoc(docRef);
@@ -196,8 +200,8 @@ router.put('/products/:id', upload.single('image'), async (req, res) => {
     
     // Handle new image upload
     if (req.file) {
-      // Delete old image if exists
-      if (imageUrl) {
+      // Delete old image if exists and it's a Firebase Storage URL
+      if (imageUrl && imageUrl.includes('firebase')) {
         try {
           const oldImageRef = ref(storage, imageUrl);
           await deleteObject(oldImageRef);
@@ -211,6 +215,10 @@ router.put('/products/:id', upload.single('image'), async (req, res) => {
       
       await uploadBytes(storageRef, req.file.buffer);
       imageUrl = await getDownloadURL(storageRef);
+    } else if (providedImageUrl) {
+      // Use provided image URL if no file was uploaded
+      imageUrl = providedImageUrl;
+      console.log('Using provided image URL for update:', imageUrl);
     }
     
     const updateData = {
