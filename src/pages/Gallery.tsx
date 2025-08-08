@@ -62,64 +62,124 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <>
+      {/* CSS Animations */}
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px);
+          }
+          50% {
+            transform: translateY(-10px) translateX(-15px);
+          }
+          75% {
+            transform: translateY(-30px) translateX(5px);
+          }
+        }
+        
+        @keyframes bubble {
+          0% {
+            transform: translateY(0px) scale(1);
+            opacity: 0.7;
+          }
+          50% {
+            transform: translateY(-100px) scale(1.1);
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateY(-200px) scale(0.8);
+            opacity: 0;
+          }
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-bubble {
+          animation: bubble 8s ease-in-out infinite;
+        }
+      `}</style>
+      
+      <div className="min-h-screen bg-neutral-50">
       {/* Header */}
-      <section className="bg-white py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section 
+        className="relative py-16 lg:py-20 overflow-hidden min-h-[50vh] -mt-28" 
+        style={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          paddingTop: '8rem'
+        }}
+      >
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Geometric shapes */}
+          <div className="absolute top-20 left-10 w-20 h-20 border-2 border-white/20 rounded-full animate-float" style={{animationDelay: '0s'}}></div>
+          <div className="absolute top-40 right-20 w-16 h-16 bg-white/10 rounded-lg rotate-45 animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-32 left-1/4 w-24 h-24 border-2 border-white/15 rounded-full animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-1/3 right-1/3 w-12 h-12 bg-white/10 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+          
+          {/* Floating dots */}
+          <div className="absolute top-60 left-1/2 w-3 h-3 bg-white/30 rounded-full animate-bubble" style={{animationDelay: '3s'}}></div>
+          <div className="absolute bottom-40 right-10 w-4 h-4 bg-white/25 rounded-full animate-bubble" style={{animationDelay: '5s'}}></div>
+          <div className="absolute top-1/4 left-20 w-2 h-2 bg-white/40 rounded-full animate-bubble" style={{animationDelay: '1.5s'}}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
+            <h1 className="font-patrick-hand-sc text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Art Gallery
             </h1>
-            <p className="text-base lg:text-lg text-neutral-600 max-w-2xl mx-auto px-4">
+            <p className="text-base lg:text-lg text-white/90 max-w-2xl mx-auto px-4 mb-8">
               Explore my complete collection of artworks. Each piece is unique and 
               created with passion and attention to detail.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="bg-white border-b border-neutral-200 lg:sticky lg:top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* Search */}
-            <div className="relative flex-1 lg:max-w-md">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+            
+            {/* Search and Filters */}
+            <div className="flex flex-col items-center gap-6 mt-8">
+              {/* Search */}
+              <div className="relative w-full max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                   <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                   </svg>
+                 </div>
+                <input
+                  type="text"
+                  placeholder="Search artworks..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="block w-full pl-10 pr-3 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl focus:ring-2 focus:ring-white/50 focus:border-white/50 text-white placeholder-white/70 text-sm lg:text-base"
+                />
               </div>
-              <input
-                type="text"
-                placeholder="Search artworks..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm lg:text-base"
-              />
-            </div>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-xs lg:text-sm font-medium transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                  }`}
-                >
-                  {category === 'all' ? 'All' : 
-                   category === 'wall-art' ? 'Wall Art' :
-                   category === 'custom' ? 'Custom Pieces' :
-                   category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2 justify-center">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 lg:px-6 lg:py-3 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
+                      selectedCategory === category
+                        ? 'bg-gradient-to-r from-yellow-300 to-orange-300 text-white shadow-lg'
+                        : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'
+                    }`}
+                  >
+                    {category === 'all' ? 'All' : 
+                     category === 'wall-art' ? 'Wall Art' :
+                     category === 'custom' ? 'Custom Pieces' :
+                     category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+
 
       {/* Products Grid */}
       <section className="py-12">
@@ -166,43 +226,50 @@ const Gallery: React.FC = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {filteredProducts.map((product) => (
-                  <div key={product.id} className="group card hover:shadow-xl transition-all duration-300">
-                    <div className="aspect-square overflow-hidden rounded-t-lg bg-neutral-100">
+                  <div key={product.id} className="group bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100" style={{borderRadius: '80px 0 80px 0'}}>
+                    <div className="aspect-square overflow-hidden bg-gray-50">
                       <img
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-                    <div className="p-4">
-                      <div className="mb-2">
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-primary-100 text-primary-800 rounded-full">
-                          {product.category}
-                        </span>
-                      </div>
-                      <h3 className="font-playfair text-lg font-semibold text-neutral-900 mb-2 line-clamp-1">
+                    <div className="p-6">
+                      <h3 className="font-patrick-hand-sc text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                         {product.name}
                       </h3>
-                      <p className="text-neutral-600 text-sm mb-3 line-clamp-2">
+                      <p className="text-gray-500 text-sm mb-4 line-clamp-2">
                         {product.description}
                       </p>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xl font-bold text-primary-600">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                           ${product.price}
                         </span>
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                          USD
+                        </span>
                       </div>
-                      <div className="flex space-x-2">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className="flex text-yellow-400">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex space-x-3">
                         <Link
                           to={`/product/${product.id}`}
-                          className="flex-1 btn-secondary text-sm text-center"
+                          className="flex-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium py-3 px-4 rounded-xl text-sm text-center transition-all duration-200"
                         >
-                          View
+                          View Details
                         </Link>
                         <button
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 btn-primary text-sm"
+                          className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200"
                         >
                           Add to Cart
                         </button>
@@ -216,6 +283,7 @@ const Gallery: React.FC = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

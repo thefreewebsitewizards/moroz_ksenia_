@@ -29,14 +29,14 @@ const Header: React.FC = () => {
   return (
     <>
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className="h-20"></div>
+      <div className="h-28"></div>
       
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
+        className={`fixed top-4 left-4 right-4 md:left-8 md:right-8 lg:left-12 lg:right-12 xl:left-16 xl:right-16 z-50 transition-all duration-300 rounded-[80px] ${
+          isScrolled ? 'bg-white/90 backdrop-blur-lg shadow-2xl' : 'bg-white/95 shadow-xl'
         }`}
         style={{
-          borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.1)' : '1px solid #e9ecef'
+          border: 'none'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,60 +44,42 @@ const Header: React.FC = () => {
             {/* Business Name - Left */}
             <Link 
               to="/" 
-              className="flex items-center space-x-3 group transition-transform duration-300 hover:scale-105"
+              className="flex items-center space-x-2 group transition-transform duration-300 hover:scale-105"
             >
               <div 
-                className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:shadow-xl"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
                 style={{ 
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                 }}
               >
-                <i className="fas fa-palette text-white text-lg"></i>
+                <i className="fas fa-palette text-white text-sm"></i>
               </div>
-              <div className="flex flex-col">
-                <span 
-                  className="font-playfair text-2xl font-bold transition-colors duration-300 group-hover:text-purple-600"
-                  style={{ color: '#2c3e50' }}
-                >
-                  Moroz Art
-                </span>
-                <span className="text-xs text-gray-500 font-medium tracking-wide">
-                  Custom Watercolor Art
-                </span>
-              </div>
+              <span 
+                className="font-patrick-hand text-xl font-bold transition-colors duration-300 group-hover:text-purple-600"
+                style={{ color: '#2c3e50' }}
+              >
+                Moroz Art
+              </span>
             </Link>
 
             {/* Navigation Links - Center */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-6">
               {[
-                { to: '/', label: 'Home', icon: 'fas fa-home' },
-                { to: '/gallery', label: 'Shop', icon: 'fas fa-store' },
-                { to: '/about', label: 'About', icon: 'fas fa-info-circle' },
-                { to: '/policies', label: 'Policies', icon: 'fas fa-file-contract' },
-                { to: '/contact', label: 'Contact', icon: 'fas fa-envelope' }
+                { to: '/', label: 'Home' },
+                { to: '/gallery', label: 'Shop' },
+                { to: '/about', label: 'About' },
+                { to: '/policies', label: 'Policies' },
+                { to: '/contact', label: 'Contact' }
               ].map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="group relative px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                  className="font-inter text-base font-medium transition-all duration-200 hover:text-purple-700 hover:bg-purple-50 px-3 py-2 rounded-full"
                   style={{ 
-                    color: '#2c3e50',
-                    textDecoration: 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#667eea';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#2c3e50';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    color: '#6b7280'
                   }}
                 >
-                  <div className="flex items-center space-x-2">
-                    <i className={`${item.icon} text-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300`}></i>
-                    <span>{item.label}</span>
-                  </div>
-                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></div>
+                  {item.label}
                 </Link>
               ))}
             </nav>
@@ -107,10 +89,10 @@ const Header: React.FC = () => {
               {/* Cart Icon */}
               <Link
                 to="/cart"
-                className="group relative p-3 rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                className="group relative p-2 rounded-full transition-all duration-300 hover:bg-gray-50"
                 style={{ color: '#2c3e50' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.1)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
                   e.currentTarget.style.color = '#667eea';
                 }}
                 onMouseLeave={(e) => {
@@ -118,19 +100,17 @@ const Header: React.FC = () => {
                   e.currentTarget.style.color = '#2c3e50';
                 }}
               >
-                <i className="fas fa-shopping-cart text-xl"></i>
+                <i className="fas fa-shopping-cart text-lg"></i>
                 {itemCount > 0 && (
                   <span 
-                    className="absolute -top-1 -right-1 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse"
+                    className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium"
                     style={{ 
-                      background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-                      boxShadow: '0 2px 8px rgba(255, 107, 107, 0.3)'
+                      background: '#667eea'
                     }}
                   >
                     {itemCount}
                   </span>
                 )}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               </Link>
 
               {/* Account Section - Hidden on Mobile */}
@@ -138,20 +118,12 @@ const Header: React.FC = () => {
                 <div className="relative hidden lg:block">
                   <button
                     onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
-                    className="group flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 hover:scale-110"
+                    className="group flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 hover:scale-105"
                     style={{ 
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                     }}
                   >
-                    <i className="fas fa-user text-white text-lg group-hover:scale-110 transition-transform duration-300"></i>
-                    <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <i className="fas fa-user text-white text-sm"></i>
                   </button>
 
                   {/* Enhanced Dropdown Menu */}
@@ -181,8 +153,8 @@ const Header: React.FC = () => {
                               <i className="fas fa-user text-white"></i>
                             </div>
                             <div>
-                              <p className="text-sm font-semibold" style={{ color: '#2c3e50' }}>Welcome back!</p>
-                              <p className="text-xs truncate" style={{ color: '#7f8c8d' }}>{currentUser.email}</p>
+                              <p className="font-inter text-sm font-semibold" style={{ color: '#2c3e50' }}>Welcome back!</p>
+                              <p className="font-inter text-xs truncate" style={{ color: '#7f8c8d' }}>{currentUser.email}</p>
                             </div>
                           </div>
                         </div>
@@ -192,7 +164,7 @@ const Header: React.FC = () => {
                           {isAdmin && (
                             <Link
                               to="/admin"
-                              className="flex items-center px-6 py-3 text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                              className="flex items-center px-6 py-3 font-inter text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
                               style={{ color: '#2c3e50' }}
                               onClick={() => setIsAccountDropdownOpen(false)}
                               onMouseEnter={(e) => {
@@ -210,7 +182,7 @@ const Header: React.FC = () => {
                           )}
                           <Link
                             to="/orders"
-                            className="flex items-center px-6 py-3 text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50"
+                            className="flex items-center px-6 py-3 font-inter text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50"
                             style={{ color: '#2c3e50' }}
                             onClick={() => setIsAccountDropdownOpen(false)}
                             onMouseEnter={(e) => {
@@ -227,7 +199,7 @@ const Header: React.FC = () => {
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="w-full flex items-center px-6 py-3 text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50"
+                            className="w-full flex items-center px-6 py-3 font-inter text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50"
                             style={{ color: '#2c3e50' }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.color = '#e74c3c';
@@ -247,34 +219,25 @@ const Header: React.FC = () => {
                   )}
                 </div>
               ) : (
-                <div className="hidden lg:flex items-center space-x-3">
+                <div className="hidden lg:flex items-center space-x-2">
                   <Link
                     to="/login"
-                    className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                    className="px-3 py-2 font-inter text-base font-medium rounded-lg transition-all duration-300 hover:bg-gray-50"
                     style={{ color: '#2c3e50' }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = '#667eea';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = '#2c3e50';
-                      e.currentTarget.style.transform = 'translateY(0)';
                     }}
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/register"
-                    className="px-4 py-2 text-sm font-medium text-white rounded-lg transition-all duration-300 hover:scale-105"
+                    className="px-3 py-2 font-inter text-base font-medium text-white rounded-full transition-all duration-300 hover:scale-105"
                     style={{ 
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                     }}
                   >
                     Sign Up
@@ -312,28 +275,19 @@ const Header: React.FC = () => {
             <div className="py-4 space-y-2 border-t overflow-y-auto" style={{ borderTopColor: '#e9ecef', maxHeight: 'calc(100vh - 200px)' }}>
               {/* Navigation Links */}
               {[
-                { to: '/', label: 'Home', icon: 'fas fa-home' },
-                { to: '/gallery', label: 'Shop', icon: 'fas fa-store' },
-                { to: '/about', label: 'About', icon: 'fas fa-info-circle' },
-                { to: '/policies', label: 'Policies', icon: 'fas fa-file-contract' },
-                { to: '/contact', label: 'Contact', icon: 'fas fa-envelope' }
+                { to: '/', label: 'Home' },
+                { to: '/gallery', label: 'Shop' },
+                { to: '/about', label: 'About' },
+                { to: '/policies', label: 'Policies' },
+                { to: '/contact', label: 'Contact' }
               ].map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
-                  style={{ color: '#2c3e50' }}
+                  className="block px-4 py-3 font-inter text-base font-medium transition-colors duration-200 hover:text-purple-600 hover:bg-gray-50 rounded-lg mx-2"
+                  style={{ color: '#6b7280' }}
                   onClick={() => setIsMenuOpen(false)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#667eea';
-                    e.currentTarget.style.paddingLeft = '1.25rem';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#2c3e50';
-                    e.currentTarget.style.paddingLeft = '1rem';
-                  }}
                 >
-                  <i className={`${item.icon} mr-3 text-purple-500`}></i>
                   {item.label}
                 </Link>
               ))}
@@ -352,8 +306,8 @@ const Header: React.FC = () => {
                           <i className="fas fa-user text-white text-sm"></i>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold" style={{ color: '#2c3e50' }}>Welcome back!</p>
-                          <p className="text-xs truncate" style={{ color: '#7f8c8d' }}>{currentUser.email}</p>
+                          <p className="font-inter text-sm font-semibold" style={{ color: '#2c3e50' }}>Welcome back!</p>
+                          <p className="font-inter text-xs truncate" style={{ color: '#7f8c8d' }}>{currentUser.email}</p>
                         </div>
                       </div>
                     </div>
@@ -362,7 +316,7 @@ const Header: React.FC = () => {
                     {isAdmin && (
                       <Link
                         to="/admin"
-                        className="flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                        className="flex items-center px-4 py-3 font-inter rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
                         style={{ color: '#2c3e50' }}
                         onClick={() => setIsMenuOpen(false)}
                         onMouseEnter={(e) => {
@@ -382,7 +336,7 @@ const Header: React.FC = () => {
                     {/* Order History Link */}
                     <Link
                       to="/orders"
-                      className="flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50"
+                      className="flex items-center px-4 py-3 font-inter rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50"
                       style={{ color: '#2c3e50' }}
                       onClick={() => setIsMenuOpen(false)}
                       onMouseEnter={(e) => {
@@ -404,7 +358,7 @@ const Header: React.FC = () => {
                         handleLogout();
                         setIsMenuOpen(false);
                       }}
-                      className="w-full flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50"
+                      className="w-full flex items-center px-4 py-3 font-inter rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50"
                       style={{ color: '#2c3e50' }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.color = '#e74c3c';
@@ -424,7 +378,7 @@ const Header: React.FC = () => {
                     {/* Sign In Link */}
                     <Link
                       to="/login"
-                      className="flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                      className="flex items-center px-4 py-3 font-inter rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
                       style={{ color: '#2c3e50' }}
                       onClick={() => setIsMenuOpen(false)}
                       onMouseEnter={(e) => {
@@ -443,7 +397,7 @@ const Header: React.FC = () => {
                     {/* Sign Up Link */}
                     <Link
                       to="/register"
-                      className="flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
+                      className="flex items-center px-4 py-3 font-inter rounded-lg mx-2 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50"
                       style={{ color: '#2c3e50' }}
                       onClick={() => setIsMenuOpen(false)}
                       onMouseEnter={(e) => {

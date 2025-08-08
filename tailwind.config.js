@@ -44,8 +44,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
-        'inter': ['Inter', 'sans-serif'],
+        'patrick-hand-sc': ['Patrick Hand SC', 'sans-serif'],
+        'patrick-hand': ['Patrick Hand', 'sans-serif'],
       },
     },
   },

@@ -42,28 +42,63 @@ const Cart: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-neutral-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="w-24 h-24 bg-neutral-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-              <svg className="w-12 h-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div 
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+        }}
+      >
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+          <div 
+            className="bg-white/80 backdrop-blur-sm p-12 relative overflow-hidden text-center"
+            style={{
+              borderRadius: '40px',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+              border: '1px solid rgba(226, 232, 240, 0.8)'
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            
+            <div 
+              className="w-32 h-32 mx-auto mb-8 flex items-center justify-center"
+              style={{
+                background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
+                borderRadius: '40px',
+                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.3)'
+              }}
+            >
+              <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01" />
               </svg>
             </div>
-            <h2 className="font-playfair text-3xl font-bold text-neutral-900 mb-4">
+            
+            <h2 className="font-patrick-hand-sc text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
               Your Cart is Empty
             </h2>
-            <p className="text-lg text-neutral-600 mb-8">
-              Looks like you haven't added any artworks to your cart yet.
+            <p className="font-patrick-hand text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Looks like you haven't added any beautiful artworks to your cart yet. Discover our unique watercolor collection!
             </p>
             <Link
               to="/gallery"
-              className="btn-primary inline-flex items-center"
+              className="group font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
+                boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+              }}
             >
-              <svg className="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
               </svg>
-              Continue Shopping
+              <span className="relative z-10">Explore Gallery</span>
             </Link>
           </div>
         </div>
@@ -72,146 +107,365 @@ const Cart: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="font-playfair text-3xl lg:text-4xl font-bold text-neutral-900">
-            Your Cart
-          </h1>
-          <button
-            onClick={clearCart}
-            className="btn-secondary text-sm"
+    <div
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+      }}
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
+        <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        {/* Enhanced Breadcrumb */}
+        <nav className="flex items-center space-x-3 mb-12">
+          <div className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20" style={{ boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)' }}>
+            <Link to="/" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Home
+            </Link>
+            <span className="text-slate-400">/</span>
+            <Link to="/gallery" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300">
+              Gallery
+            </Link>
+            <span className="text-slate-400">/</span>
+            <span className="font-patrick-hand text-slate-900 font-semibold">Your Cart</span>
+          </div>
+        </nav>
+        
+        {/* Header Section */}
+        <div className="mb-12">
+          <div 
+            className="bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden"
+            style={{
+              borderRadius: '40px',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+              border: '1px solid rgba(226, 232, 240, 0.8)'
+            }}
           >
-            Clear Cart
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-neutral-900 mb-6">
-                  Your Items ({items.length})
-                </h2>
+            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="text-center sm:text-left">
+                <h1 className="font-patrick-hand-sc text-4xl lg:text-5xl font-bold mb-2 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+                  Your Cart
+                </h1>
+                <p className="font-patrick-hand text-xl text-slate-600">
+                  {items.length} {items.length === 1 ? 'artwork' : 'artworks'} ready for checkout
+                </p>
                 
-                {/* Cart Items Grid - Simplified Layout */}
-                <div className="space-y-4">
-                  {items.map((item) => (
-                    <div key={item.id} className="flex flex-col sm:grid sm:grid-cols-3 gap-4 p-4 border border-neutral-200 rounded-lg hover:shadow-md transition-shadow">
-                      {/* Mobile Layout */}
-                      <div className="flex gap-4 sm:contents">
-                        {/* Product Image */}
-                        <div className="w-20 h-20 sm:w-full sm:h-auto sm:aspect-square overflow-hidden rounded-lg bg-neutral-100 flex-shrink-0">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        
-                        {/* Product Info - Mobile */}
-                        <div className="flex-1 sm:hidden">
-                          <h3 className="font-playfair text-base font-semibold text-neutral-900 mb-2">
-                            {item.name}
-                          </h3>
-                          <span className="text-lg font-bold text-primary-600">
-                            ${item.price.toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                      
-                      {/* Desktop Layout */}
-                      {/* Product Name - Desktop */}
-                      <div className="hidden sm:flex items-center">
-                        <h3 className="font-playfair text-lg font-semibold text-neutral-900">
-                          {item.name}
-                        </h3>
-                      </div>
-                      
-                      {/* Product Price - Desktop */}
-                      <div className="hidden sm:flex items-center justify-end">
-                        <span className="text-xl font-bold text-primary-600">
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                {/* Rating stars for cart experience */}
+                <div className="flex items-center gap-2 mt-4 justify-center sm:justify-start">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="font-patrick-hand text-slate-500 text-sm">(Secure Shopping Experience)</span>
                 </div>
               </div>
+              
+              <button
+                onClick={clearCart}
+                className="font-patrick-hand-sc px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 font-bold hover:shadow-lg"
+              >
+                Clear Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Cart Items */}
+          <div className="space-y-8">
+            {/* Cart Items Header */}
+            <div 
+              className="bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden"
+              style={{
+                borderRadius: '40px',
+                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+                border: '1px solid rgba(226, 232, 240, 0.8)'
+              }}
+            >
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+              
+              <div className="mb-6">
+                <span 
+                  className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full"
+                  style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)' }}
+                >
+                  ✨ Your Collection
+                </span>
+              </div>
+              
+              <h2 className="font-patrick-hand-sc text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+                Selected Artworks ({items.length})
+              </h2>
+              
+              <p className="font-patrick-hand text-xl text-slate-600 leading-relaxed">
+                Handpicked watercolor masterpieces ready for your collection
+              </p>
+            </div>
+            
+            {/* Cart Items List */}
+            <div className="space-y-6">
+              {items.map((item, index) => (
+                <div 
+                  key={item.id} 
+                  className="group bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden transition-all duration-500 hover:shadow-2xl"
+                  style={{
+                    borderTopLeftRadius: '60px',
+                    borderBottomRightRadius: '60px',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+                    border: '1px solid rgba(226, 232, 240, 0.8)',
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-6 relative z-10">
+                    {/* Product Image */}
+                    <div className="relative">
+                      <div 
+                        className="w-full sm:w-32 h-48 sm:h-32 overflow-hidden bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+                        style={{
+                          borderTopLeftRadius: '30px',
+                          borderBottomRightRadius: '30px'
+                        }}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    
+                    {/* Product Info */}
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-patrick-hand-sc text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-blue-600 transition-all duration-300">
+                          {item.name}
+                        </h3>
+                        <p className="font-patrick-hand text-slate-600 mb-4">
+                          Original Watercolor on Premium Paper
+                        </p>
+                        
+                        {/* Value proposition */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          <div className="flex items-center gap-1 text-slate-600">
+                            <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="font-patrick-hand text-xs">Original</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-slate-600">
+                            <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="font-patrick-hand text-xs">Handcrafted</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-slate-600">
+                            <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="font-patrick-hand text-xs">Premium Quality</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                            ${item.price.toFixed(2)}
+                          </span>
+                          <span className="text-sm text-slate-400 font-medium">USD</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                          <span className="font-patrick-hand text-green-700 text-sm font-medium">In Stock</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 lg:sticky lg:top-8">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-neutral-900 mb-6">
+          <div className="lg:sticky lg:top-8">
+            {/* Unified Order Summary Section */}
+            <div 
+              className="bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden space-y-8"
+              style={{
+                borderRadius: '40px',
+                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
+                border: '1px solid rgba(226, 232, 240, 0.8)'
+              }}
+            >
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+              
+              {/* Order Header */}
+              <div>
+                <div className="mb-6">
+                  <span 
+                    className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full"
+                    style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)' }}
+                  >
+                    💳 Checkout
+                  </span>
+                </div>
+                
+                <h2 className="font-patrick-hand-sc text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
                   Order Summary
                 </h2>
                 
+                <p className="font-patrick-hand text-xl text-slate-600 leading-relaxed">
+                  Ready to complete your purchase?
+                </p>
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="border-t border-slate-200 pt-8">
                 <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-neutral-600">
-                    <span>Subtotal ({items.length} items)</span>
-                    <span>${total.toFixed(2)}</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
+                    <span className="font-patrick-hand font-medium text-slate-700">Subtotal ({items.length} {items.length === 1 ? 'item' : 'items'})</span>
+                    <span className="font-patrick-hand-sc font-bold text-slate-900">${total.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-neutral-600">
-                    <span>Shipping</span>
-                    <span>Free</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
+                    <span className="font-patrick-hand font-medium text-slate-700">Shipping</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="font-patrick-hand-sc font-bold text-green-600">Free</span>
+                      <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
                   </div>
-                  <div className="border-t border-neutral-200 pt-4">
-                    <div className="flex justify-between text-lg font-semibold text-neutral-900">
-                      <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
+                  <div className="border-t border-slate-200 pt-4">
+                    <div className="flex justify-between items-center">
+                      <span className="font-patrick-hand-sc text-2xl font-bold text-slate-900">Total</span>
+                      <span className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        ${total.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="space-y-3">
+              {/* Action Buttons */}
+              <div className="border-t border-slate-200 pt-8">
+                <div className="space-y-4">
                   <StripeCheckout 
                     onSuccess={handleStripeSuccess}
                     onCancel={handleStripeCancel}
                   />
                   <Link
                     to="/gallery"
-                    className="w-full btn-secondary text-center block"
+                    className="w-full font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"
                   >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
                     Continue Shopping
                   </Link>
                 </div>
+              </div>
 
-                {/* Security Badge */}
-                <div className="mt-6 pt-6 border-t border-neutral-200">
-                  <div className="flex items-center justify-center space-x-2 text-sm text-neutral-600">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span>Secure Checkout</span>
+              {/* Enhanced Security Section */}
+              <div className="border-t border-slate-200 pt-8">
+                <div 
+                  className="p-6 relative overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    borderRadius: '30px',
+                    boxShadow: '0 15px 30px rgba(102, 126, 234, 0.2)'
+                  }}
+                >
+                  <div className="flex items-start space-x-4">
+                    <div 
+                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
+                    >
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-patrick-hand-sc text-lg font-bold text-white mb-2">
+                        Secure Checkout
+                      </h4>
+                      <p className="font-patrick-hand text-white/90 text-sm">
+                        Your payment information is encrypted and secure. All transactions are protected.
+                      </p>
+                      
+                      <div className="flex items-center gap-3 mt-3">
+                        <div className="flex items-center gap-1">
+                          <div className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></div>
+                          <span className="font-patrick-hand text-white/90 text-xs">SSL Encrypted</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
+                          <span className="font-patrick-hand text-white/90 text-xs">PCI Compliant</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Mobile Responsive Note */}
-        <div className="mt-8 p-4 bg-primary-50 rounded-lg border border-primary-200">
-          <div className="flex items-start space-x-3">
-            <svg className="w-5 h-5 text-primary-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div>
-              <h3 className="font-semibold text-primary-900 mb-1">
-                Free Shipping
-              </h3>
-              <p className="text-sm text-primary-700">
-                We offer free shipping on all orders. Your artwork will be carefully packaged and delivered to your door.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+      
+      {/* CSS Animations */}
+      <style>
+        {`
+          @keyframes float {
+            0%, 100% {
+              transform: translateY(0px) translateX(0px);
+            }
+            25% {
+              transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+              transform: translateY(-10px) translateX(-15px);
+            }
+            75% {
+              transform: translateY(-30px) translateX(5px);
+            }
+          }
+          
+          .animate-float {
+            animation: float 6s ease-in-out infinite;
+          }
+          
+          @keyframes shimmer {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(100%);
+            }
+          }
+          
+          .animate-shimmer {
+            animation: shimmer 2s ease-in-out infinite;
+          }
+        `}
+      </style>
     </div>
   );
 };
