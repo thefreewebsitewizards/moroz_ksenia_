@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar for webkit browsers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Style select dropdown options for better readability */
+select option {
+  background-color: #1f2937;
+  color: white;
+  padding: 8px;
+}
+
+select option:hover {
+  background-color: #374151;
+}
+
 /* Custom animations for About page */
 @keyframes float {
   0%, 100% {

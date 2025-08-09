@@ -195,52 +195,52 @@ const Admin: React.FC = () => {
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-4">
-              <i className="fas fa-box text-lg"></i>
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-4">
+                <i className="fas fa-box text-lg"></i>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalProducts}</h3>
+                <p className="text-gray-600 text-sm">Total Products</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalProducts}</h3>
-              <p className="text-gray-600 text-sm">Total Products</p>
-            </div>
-          </div>
         </div>
         
-        <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
-              <i className="fas fa-shopping-cart text-lg"></i>
+              <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
+                <i className="fas fa-shopping-cart text-lg"></i>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalOrders}</h3>
+                <p className="text-gray-600 text-sm">Total Orders</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalOrders}</h3>
-              <p className="text-gray-600 text-sm">Total Orders</p>
-            </div>
-          </div>
         </div>
         
-        <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white mr-4">
-              <i className="fas fa-users text-lg"></i>
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white mr-4">
+                <i className="fas fa-users text-lg"></i>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalCustomers}</h3>
+                <p className="text-gray-600 text-sm">Total Customers</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalCustomers}</h3>
-              <p className="text-gray-600 text-sm">Total Customers</p>
-            </div>
-          </div>
         </div>
         
-        <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-400 rounded-full flex items-center justify-center text-white mr-4">
-              <i className="fas fa-dollar-sign text-lg"></i>
+              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-400 rounded-full flex items-center justify-center text-white mr-4">
+                <i className="fas fa-dollar-sign text-lg"></i>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : `$${stats.totalRevenue.toLocaleString()}`}</h3>
+                <p className="text-gray-600 text-sm">Total Revenue</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : `$${stats.totalRevenue.toLocaleString()}`}</h3>
-              <p className="text-gray-600 text-sm">Total Revenue</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -319,10 +319,10 @@ const Admin: React.FC = () => {
   const renderProducts = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-800">Product Management</h2>
+        <h2 className="text-2xl font-bold text-white">Product Management</h2>
         <button 
           onClick={() => setShowAddProduct(true)}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 flex items-center"
+          className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-2 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 flex items-center"
         >
           <i className="fas fa-plus mr-2"></i>
           Add Product
@@ -342,7 +342,7 @@ const Admin: React.FC = () => {
             <p className="text-gray-500 mb-4">Start by adding your first artwork to the gallery.</p>
             <button 
               onClick={() => setShowAddProduct(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-2 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200"
             >
               <i className="fas fa-plus mr-2"></i>
               Add Product
@@ -459,7 +459,7 @@ const Admin: React.FC = () => {
 
   const renderOrders = () => (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800">Order Management</h2>
+      <h2 className="text-2xl font-bold text-white">Order Management</h2>
       
       <div className="bg-white rounded-xl shadow-lg p-6">
         {loading ? (
@@ -559,7 +559,7 @@ const Admin: React.FC = () => {
       case 'customers':
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">Customer Management</h2>
+            <h2 className="text-2xl font-bold text-white">Customer Management</h2>
             <div className="bg-white rounded-xl shadow-lg p-6">
               {loading ? (
                 <div className="text-center py-12">
@@ -633,9 +633,9 @@ const Admin: React.FC = () => {
       case 'analytics':
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">Analytics</h2>
+            <h2 className="text-2xl font-bold text-white">Analytics</h2>
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <p className="text-gray-500 text-center py-12">Analytics dashboard coming soon...</p>
+              <p className="text-gray-600 text-center py-12">Analytics dashboard coming soon...</p>
             </div>
           </div>
         );
@@ -645,18 +645,18 @@ const Admin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-purple-800">
-      {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-blue-600 to-purple-700 text-white transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0`}>
-        <div className="flex items-center justify-center h-16 border-b border-white border-opacity-20">
-          <i className="fas fa-palette text-yellow-400 mr-3 text-xl"></i>
-          <h2 className="text-xl font-semibold">Moroz Art Admin</h2>
+    <div className="min-h-screen bg-white relative">
+      {/* Floating Island Sidebar */}
+      <aside className={`fixed top-6 left-6 z-50 w-72 bg-gradient-to-br from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-lg border border-white/20 text-white transform transition-all duration-300 ease-in-out shadow-2xl ${
+         sidebarOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
+       } lg:translate-x-0 lg:opacity-100`} style={{height: 'calc(100vh - 3rem)', borderTopLeftRadius: '50px', borderBottomRightRadius: '50px'}}>
+        <div className="flex items-center justify-center h-20 border-b border-white/20 px-6">
+          <i className="fas fa-palette text-yellow-400 mr-3 text-2xl"></i>
+          <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Moroz Art Admin</h2>
         </div>
         
-        <nav className="mt-8">
-          <ul className="space-y-2 px-4">
+        <nav className="mt-6 px-6">
+          <ul className="space-y-3">
             {sidebarItems.map((item) => (
               <li key={item.id}>
                 <button
@@ -664,68 +664,84 @@ const Admin: React.FC = () => {
                     setActiveSection(item.id);
                     setSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200 ${
+                  className={`w-full flex items-center px-5 py-4 text-left rounded-2xl transition-all duration-300 group ${
                     activeSection === item.id
-                      ? 'bg-white bg-opacity-20 border-l-4 border-yellow-400'
-                      : 'hover:bg-white hover:bg-opacity-10'
+                      ? 'bg-white shadow-lg'
+                      : 'hover:bg-white/10 hover:backdrop-blur-sm'
                   }`}
                 >
-                  <i className={`${item.icon} mr-3 w-5 text-center`}></i>
-                  {item.label}
+                  <i className={`${item.icon} mr-4 w-5 text-center text-lg ${
+                    activeSection === item.id ? 'text-gray-700' : 'text-white/80 group-hover:text-white'
+                  }`}></i>
+                  <span className={`font-medium ${
+                     activeSection === item.id ? 'text-gray-700' : 'text-white/90 group-hover:text-white'
+                   }`}>{item.label}</span>
                 </button>
               </li>
             ))}
           </ul>
         </nav>
         
-        <div className="absolute bottom-0 w-full p-4 border-t border-white border-opacity-20">
+        <div className="absolute bottom-6 left-6 right-6">
           <Link
             to="/"
-            className="w-full flex items-center justify-center px-4 py-3 bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition-all duration-200"
+            className="w-full flex items-center justify-center px-5 py-4 bg-white/10 hover:bg-white/20 rounded-2xl transition-all duration-300 border border-white/20 hover:border-white/30 group"
           >
-            <i className="fas fa-sign-out-alt mr-2"></i>
-            Back to Site
+            <i className="fas fa-sign-out-alt mr-3 text-white/80 group-hover:text-white"></i>
+            <span className="font-medium text-white/90 group-hover:text-white">Back to Site</span>
           </Link>
         </div>
       </aside>
 
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Main Content */}
-      <div className="lg:ml-64">
-        {/* Header */}
-        <header className="bg-white shadow-lg">
-          <div className="flex items-center justify-between px-6 py-4">
+      <div className="lg:ml-80 transition-all duration-300">
+        {/* Floating Header */}
+        <header className="mx-6 mt-6 mb-6 bg-gradient-to-r from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-lg border border-white/20 shadow-xl" style={{borderRadius: '50px'}}>
+          <div className="flex items-center justify-between px-8 py-6">
             <div className="flex items-center">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden mr-4 text-gray-600 hover:text-gray-800"
+                className="lg:hidden mr-4 text-white/90 hover:text-white p-2 rounded-xl hover:bg-white/20 transition-all duration-200"
               >
                 <i className="fas fa-bars text-xl"></i>
               </button>
-              <h1 className="text-2xl font-semibold text-gray-800 capitalize">
+              <h1 className="text-3xl font-bold text-white capitalize">
                 {activeSection}
               </h1>
             </div>
             
-            <div className="flex items-center space-x-3">
-              <i className="fas fa-user-circle text-2xl text-gray-600"></i>
-              <span className="text-gray-700 font-medium">Admin</span>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center">
+                <i className="fas fa-user text-purple-800 text-lg"></i>
+              </div>
+              <span className="text-white/90 font-semibold">Admin</span>
             </div>
           </div>
         </header>
 
         {/* Content */}
-        <main className="p-6 bg-gray-50 min-h-screen">
-          {renderContent()}
+        <main className="px-6 pb-6">
+          <div className="bg-gradient-to-br from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg p-8 min-h-[calc(100vh-12rem)]">
+            {renderContent()}
+          </div>
         </main>
       </div>
 
       {/* Product Form Modal */}
       {showAddProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-[#667eea]/95 to-[#764ba2]/95 backdrop-blur-lg border border-white/20 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto scrollbar-hide" style={{borderTopLeftRadius: '50px', borderBottomRightRadius: '50px', scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-gray-800">
+                <h3 className="text-xl font-bold text-white">
                   {editingProduct ? 'Edit Product' : 'Add New Product'}
                 </h3>
                 <button
@@ -734,7 +750,7 @@ const Admin: React.FC = () => {
                     setEditingProduct(null);
                     setProductForm({ name: '', description: '', price: '', category: '', image: '' });
                   }}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-white/70 hover:text-white p-2 rounded-xl hover:bg-white/20 transition-all duration-200"
                 >
                   <i className="fas fa-times text-xl"></i>
                 </button>
@@ -742,44 +758,48 @@ const Admin: React.FC = () => {
               
               <form onSubmit={(e) => { e.preventDefault(); handleProductSubmit(); }} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
+                  <label className="block text-sm font-medium text-white/90 mb-2">Product Name</label>
                   <input
                     type="text"
                     value={productForm.name}
                     onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-white/90 mb-2">Description</label>
                   <textarea
                     value={productForm.description}
                     onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
                     rows={3}
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
+                  <label className="block text-sm font-medium text-white/90 mb-2">Price</label>
                   <input
                     type="number"
                     step="0.01"
                     value={productForm.price}
                     onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                  <label className="block text-sm font-medium text-white/90 mb-2">Category</label>
                   <select
                     value={productForm.category}
                     onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
+                    style={{
+                      color: 'white',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    }}
                     required
                   >
                     <option value="">Select Category</option>
@@ -791,12 +811,12 @@ const Admin: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                  <label className="block text-sm font-medium text-white/90 mb-2">Image URL</label>
                   <input
                     type="url"
                     value={productForm.image}
                     onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
                   />
                 </div>
                 
@@ -810,13 +830,13 @@ const Admin: React.FC = () => {
                       setEditingProduct(null);
                       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
                     }}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex-1 px-4 py-2 bg-white/10 border border-white/20 text-white/90 rounded-lg hover:bg-white/20 transition-all duration-200"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 font-medium"
                   >
                     {editingProduct ? 'Update Product' : 'Add Product'}
                   </button>
