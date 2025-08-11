@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -11,7 +11,6 @@ import { ShippingRate } from '../services/clientShipping';
 const Cart: React.FC = () => {
   const { items, total, clearCart } = useCart();
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
   const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
   
   // Calculate total including shipping
@@ -423,7 +422,7 @@ const Cart: React.FC = () => {
                       <StripeCheckout 
                         onSuccess={handleStripeSuccess}
                         onCancel={handleStripeCancel}
-                        connectedAccountId={STRIPE_CONFIG.connectedAccountId}
+                        disabled={!selectedShippingRate}
                         selectedShippingRate={selectedShippingRate}
                       />
                     </div>

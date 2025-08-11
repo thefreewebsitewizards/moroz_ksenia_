@@ -4,15 +4,14 @@ const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const stripe = require("stripe");
 
-// Initialize Firebase Admin
-admin.initializeApp();
+// Initialize Firebase Admin with explicit project ID
+admin.initializeApp({
+  projectId: 'ksenia-munoz'
+});
 const db = admin.firestore();
 const FieldValue = admin.firestore.FieldValue;
 
-// Debug logging
-console.log('Admin firestore:', admin.firestore);
-console.log('FieldValue:', FieldValue);
-console.log('FieldValue.serverTimestamp:', FieldValue ? FieldValue.serverTimestamp : 'undefined');
+
 
 // CORS configuration
 const corsOptions = {
@@ -34,16 +33,16 @@ const formatAmountForStripe = (amount) => {
 
 // Firebase Function: Get Shipping Rates for Connected Account
 exports.getShippingRates = onRequest(
-    {cors: corsOptions},
+    {cors: corsOptions, invoker: 'public'},
     async (req, res) => {
       try {
-        const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+        const stripeClient = stripe(functions.config().stripe.secret_key);
         const {connectedAccountId, orderTotal = 0} = req.body;
 
         if (!connectedAccountId || connectedAccountId === "acct_placeholder") {
           return res.status(400).json({
             error: "Connected account ID is required",
-            message: "Please configure a valid Stripe connected account"
+            message: "Please configure a valid Stripe connected account",
           });
         }
 
@@ -58,8 +57,8 @@ exports.getShippingRates = onRequest(
               stripeAccount: connectedAccountId,
             },
         );
-        logger.info("Found shipping rates on connected account:", shippingRates.data.length, shippingRates.data.map(r => ({id: r.id, name: r.display_name})));
-        
+        logger.info("Found shipping rates on connected account:", shippingRates.data.length, shippingRates.data.map((r) => ({id: r.id, name: r.display_name})));
+
         // Return error if no shipping rates found
         if (shippingRates.data.length === 0) {
           return res.status(404).json({
@@ -87,15 +86,15 @@ exports.getShippingRates = onRequest(
               ...rate.metadata,
               originalAmount: originalAmount,
               developerFee: developerShippingFee,
-              totalAmount: totalAmount
+              totalAmount: totalAmount,
             },
             active: rate.active,
           };
         });
-        
+
         logger.info("Applied developer shipping fee to rates for frontend", {
           ratesCount: formattedRates.length,
-          developerFee: developerShippingFee / 100
+          developerFee: developerShippingFee / 100,
         });
 
         // Add free shipping option if qualified
@@ -132,17 +131,15 @@ exports.getShippingRates = onRequest(
 );
 
 
-
-
-
 // Firebase Function: Create Checkout Session (V2)
 exports.createCheckoutSessionV2 = onRequest(
     {
       cors: corsOptions,
+      invoker: 'public',
     },
     async (req, res) => {
       try {
-        const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+        const stripeClient = stripe(functions.config().stripe.secret_key);
         const {
           items,
           customerEmail,
@@ -179,7 +176,7 @@ exports.createCheckoutSessionV2 = onRequest(
         let selectedShippingCost = 0;
         let originalShippingCost = 0;
         let developerShippingFee = 0;
-        
+
         // If a specific shipping rate is selected, use it directly
         if (selectedShippingRateId) {
           try {
@@ -190,11 +187,11 @@ exports.createCheckoutSessionV2 = onRequest(
                   stripeAccount: connectedAccountId,
                 },
             );
-            
+
             originalShippingCost = selectedRate.fixed_amount.amount / 100;
             developerShippingFee = 1.00; // $1 developer fee for shipping
             selectedShippingCost = originalShippingCost + developerShippingFee;
-            
+
             // Create shipping rate data for platform account checkout session
             // We can't use shipping rates from connected account in platform account checkout
             // Add the developer fee to the shipping amount
@@ -212,13 +209,13 @@ exports.createCheckoutSessionV2 = onRequest(
                 },
               },
             }];
-            
+
             logger.info("Applied developer shipping fee", {
               originalCost: originalShippingCost,
               developerFee: developerShippingFee,
-              totalCost: selectedShippingCost
-            });
-            
+              totalCost: selectedShippingCost,
+          });
+
             logger.info("Using pre-selected shipping rate from connected account", {
               rateId: selectedShippingRateId,
               cost: selectedShippingCost,
@@ -231,7 +228,7 @@ exports.createCheckoutSessionV2 = onRequest(
             });
           }
         }
-        
+
         // Get shipping rates from connected account only (when useStripeShipping is true)
         if (shippingOptions.length === 0 && useStripeShipping) {
           try {
@@ -272,10 +269,10 @@ exports.createCheckoutSessionV2 = onRequest(
                 },
               },
             }));
-            
+
             logger.info("Applied developer shipping fee to all shipping rates", {
               originalRatesCount: shippingRates.data.length,
-              developerFeeAmount: developerShippingFeeAmount / 100
+              developerFeeAmount: developerShippingFeeAmount / 100,
             });
 
             // Add free shipping option if qualified
@@ -356,7 +353,7 @@ exports.createCheckoutSessionV2 = onRequest(
         // Add transfer and application fee for connected account (only if different from platform account)
         // Create session on platform account and transfer to connected account
         const platformAccountId = process.env.STRIPE_ACCOUNT_ID;
-        if (connectedAccountId !== platformAccountId && connectedAccountId !== 'acct_1RrxjBJHHLWU5Kg3') {
+        if (connectedAccountId !== platformAccountId && connectedAccountId !== "acct_1RrxjBJHHLWU5Kg3") {
           const applicationFee = calculateApplicationFee(
               formatAmountForStripe(subtotal),
           );
@@ -375,7 +372,7 @@ exports.createCheckoutSessionV2 = onRequest(
         );
 
         const finalOrderTotal = subtotal + selectedShippingCost;
-        
+
         res.json({
           id: session.id,
           url: session.url,
@@ -403,43 +400,24 @@ exports.createCheckoutSessionV2 = onRequest(
 exports.getCheckoutSessionV2 = onRequest(
     {
       cors: corsOptions,
+      invoker: 'public',
     },
     async (req, res) => {
       try {
-        const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+        const stripeClient = stripe(functions.config().stripe.secret_key);
         const {sessionId} = req.query;
 
-        console.log('🔍 getCheckoutSessionV2 called with sessionId:', sessionId);
-
         if (!sessionId) {
-          console.log('❌ No session ID provided');
           return res.status(400).json({error: "Session ID is required"});
         }
 
-        console.log('🔄 Attempting to retrieve session from Stripe...');
-        
-        // Handle test session ID for development
-        if (sessionId.startsWith('cs_test_mock_')) {
-          console.log('🧪 Using mock session for testing');
-          const mockSession = {
-            id: sessionId,
-            payment_status: 'paid',
-            status: 'complete',
-            amount_total: 2000, // $20.00 in cents
-            customer_email: 'test@example.com',
-            metadata: {},
-            created: Math.floor(Date.now() / 1000)
-          };
-          return res.json({session: mockSession});
-        }
-        
+
+
         const session = await stripeClient.checkout.sessions.retrieve(
             sessionId,
         );
-        console.log('✅ Session retrieved successfully:', session.id);
         res.json({session: session});
       } catch (error) {
-        console.log('❌ Error retrieving checkout session:', error.message);
         logger.error("Error retrieving checkout session:", error);
         res.status(500).json({error: error.message});
       }
@@ -451,6 +429,7 @@ exports.getCheckoutSessionV2 = onRequest(
 exports.createOrderFromStripeSessionV2 = onRequest(
     {
       cors: corsOptions,
+      invoker: 'public',
     },
     async (req, res) => {
       try {
@@ -495,7 +474,7 @@ exports.createOrderFromStripeSessionV2 = onRequest(
     });
 
 // Firebase Function: Get User Orders
-exports.getUserOrdersV2 = onRequest({cors: corsOptions}, async (req, res) => {
+exports.getUserOrdersV2 = onRequest({cors: corsOptions, invoker: 'public'}, async (req, res) => {
   try {
     const {userId} = req.query;
 
@@ -522,124 +501,97 @@ exports.getUserOrdersV2 = onRequest({cors: corsOptions}, async (req, res) => {
 
 // Firebase Function: Create Order from Payment ID (for manual/testing purposes)
 // Clean, simplified order creation function
-exports.createOrderFromPaymentId = onRequest({cors: corsOptions}, async (req, res) => {
+exports.createOrderFromPaymentId = onRequest({cors: corsOptions, invoker: 'public'}, async (req, res) => {
   try {
-    const { sessionId, userId, customerEmail } = req.body;
+    const {sessionId, userId, customerEmail} = req.body;
 
     // Validate required parameters
     if (!sessionId) {
-      return res.status(400).json({ error: "Session ID is required" });
+      return res.status(400).json({error: "Session ID is required"});
     }
 
-    console.log('🚀 Creating order from session:', { sessionId, userId, customerEmail });
+
 
     // Check if order already exists
     const existingOrder = await checkExistingOrder(sessionId);
     if (existingOrder) {
-      console.log('✅ Order already exists:', existingOrder.id);
-      return res.json({ 
-        success: true, 
-        orderId: existingOrder.id, 
-        message: "Order already exists" 
+      return res.json({
+        success: true,
+        orderId: existingOrder.id,
+        message: "Order already exists",
       });
     }
 
-    // Get payment data (mock or real)
+    // Get payment data
     const paymentData = await getPaymentData(sessionId);
     if (!paymentData.isValid) {
-      return res.status(400).json({ error: paymentData.error });
+      return res.status(400).json({error: paymentData.error});
     }
 
     // Create order in Firestore
     const orderData = buildOrderData(paymentData, userId, customerEmail);
     const orderId = await createOrder(orderData);
 
-    console.log('✅ Order created successfully:', orderId);
-    return res.json({ 
-      success: true, 
-      orderId, 
+    return res.json({
+      success: true,
+      orderId,
       message: "Order created successfully",
-      order: orderData 
+      order: orderData,
     });
-
   } catch (error) {
-    console.error('❌ Error creating order:', error);
-    return res.status(500).json({ error: error.message });
+    logger.error("Error creating order:", error);
+    return res.status(500).json({error: error.message});
   }
 });
 
 // Helper function to check if order already exists
 async function checkExistingOrder(sessionId) {
-  const snapshot = await db.collection("orders")
-    .where("stripeSessionId", "==", sessionId)
-    .limit(1)
-    .get();
-  
-  return snapshot.empty ? null : { id: snapshot.docs[0].id, ...snapshot.docs[0].data() };
+  try {
+    const snapshot = await db.collection("orders")
+        .where("stripeSessionId", "==", sessionId)
+        .limit(1)
+        .get();
+
+    return snapshot.empty ? null : {id: snapshot.docs[0].id, ...snapshot.docs[0].data()};
+  } catch (error) {
+    logger.warn("Could not check existing order due to permissions, proceeding with order creation:", error.message);
+    // Return null to proceed with order creation
+    return null;
+  }
 }
 
-// Helper function to get payment data (handles both mock and real sessions)
+// Helper function to get payment data from Stripe
 async function getPaymentData(sessionId) {
   try {
-    // Handle mock sessions for testing
-    if (sessionId.startsWith('cs_test_mock_')) {
-      console.log('🧪 Using mock payment data');
-      return {
-        isValid: true,
-        sessionId,
-        paymentIntentId: `pi_mock_${sessionId.replace('cs_test_mock_', '')}`,
-        amount: 2000, // $20.00 in cents
-        currency: 'usd',
-        status: 'succeeded',
-        customerEmail: 'test@example.com',
-        items: [
-          {
-            name: 'Test Product',
-            price: 20.00,
-            quantity: 1
-          }
-        ],
-        shippingAddress: null
-      };
-    }
+
 
     // Handle real Stripe sessions
-    const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+    const stripeClient = stripe(functions.config().stripe.secret_key);
     const session = await stripeClient.checkout.sessions.retrieve(sessionId, {
-      expand: ['payment_intent', 'line_items']
+      expand: ["payment_intent", "line_items"],
     });
-    
-    console.log('📊 Retrieved session data:', {
-      id: session.id,
-      payment_status: session.payment_status,
-      status: session.status,
-      payment_intent_status: session.payment_intent?.status,
-      line_items_count: session.line_items?.data?.length || 0
-    });
+
+
 
     // Validate payment status according to Stripe best practices
     // Check both payment_status and payment_intent status
-    const isPaymentComplete = session.payment_status === 'paid' || 
-                             (session.payment_intent && session.payment_intent.status === 'succeeded');
-    
-    console.log('💳 Payment validation:', {
-      payment_status: session.payment_status,
-      payment_intent_status: session.payment_intent?.status,
-      isPaymentComplete
-    });
-    
+    const isPaymentComplete = session.payment_status === "paid" ||
+                             (session.payment_intent && session.payment_intent.status === "succeeded");
+
+
+
     if (!isPaymentComplete) {
       return {
         isValid: false,
-        error: `Payment not completed. Payment status: ${session.payment_status}, Intent status: ${session.payment_intent?.status || 'unknown'}`
+        error: `Payment not completed. Payment status: ${session.payment_status}, Intent status: ${session.payment_intent?.status || "unknown"}`,
       };
     }
 
     // Extract items from line items
-    const items = session.line_items?.data?.map(item => ({
-      name: item.description || 'Unknown Item',
+    const items = session.line_items?.data?.map((item) => ({
+      name: item.description || "Unknown Item",
       price: (item.amount_total || 0) / 100,
-      quantity: item.quantity || 1
+      quantity: item.quantity || 1,
     })) || [];
 
     return {
@@ -651,14 +603,13 @@ async function getPaymentData(sessionId) {
       status: session.payment_intent.status,
       customerEmail: session.customer_details?.email || session.customer_email,
       items,
-      shippingAddress: session.shipping_details?.address || null
+      shippingAddress: session.shipping_details?.address || null,
     };
-
   } catch (error) {
-    console.error('Error retrieving payment data:', error);
+    logger.error("Error retrieving payment data:", error);
     return {
       isValid: false,
-      error: `Failed to retrieve payment data: ${error.message}`
+      error: `Failed to retrieve payment data: ${error.message}`,
     };
   }
 }
@@ -666,7 +617,7 @@ async function getPaymentData(sessionId) {
 // Helper function to build order data object
 function buildOrderData(paymentData, userId, customerEmail) {
   const now = new Date();
-  
+
   return {
     stripeSessionId: paymentData.sessionId,
     stripePaymentIntentId: paymentData.paymentIntentId,
@@ -675,61 +626,47 @@ function buildOrderData(paymentData, userId, customerEmail) {
     items: paymentData.items,
     total: paymentData.amount / 100, // Convert cents to dollars
     currency: paymentData.currency,
-    status: 'paid',
-    paymentMethod: 'stripe',
+    status: "paid",
+    paymentMethod: "stripe",
     shippingAddress: paymentData.shippingAddress,
     createdAt: now,
-    updatedAt: now
+    updatedAt: now,
   };
 }
 
 // Helper function to create order in Firestore
 async function createOrder(orderData) {
-  const orderRef = await db.collection("orders").add(orderData);
-  return orderRef.id;
+  try {
+    const orderRef = await db.collection("orders").add(orderData);
+    return orderRef.id;
+  } catch (error) {
+    logger.error("Error creating order in Firestore:", error);
+    throw new Error(`Failed to create order: ${error.message}`);
+  }
 }
 
 // Legacy function for backward compatibility
-exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (req, res) => {
+exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions, invoker: 'public'}, async (req, res) => {
   try {
-    const { paymentIntentId, sessionId } = req.body;
+    const {paymentIntentId, sessionId} = req.body;
 
     if (!paymentIntentId && !sessionId) {
       return res.status(400).json({error: "Payment Intent ID or Session ID is required"});
     }
 
-    console.log('🔍 createOrderFromPaymentId called with:', { paymentIntentId, sessionId });
+
 
     // Initialize Stripe client
-    const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+    const stripeClient = stripe(functions.config().stripe.secret_key);
 
     let session;
     let paymentIntent;
 
-    // Handle mock session ID for development
-    if (sessionId && sessionId.startsWith('cs_test_mock_')) {
-      console.log('🧪 Using mock session for order creation');
-      session = {
-        id: sessionId,
-        payment_status: 'paid',
-        status: 'complete',
-        amount_total: 2000, // $20.00 in cents
-        customer_email: 'test@example.com',
-        metadata: {},
-        created: Math.floor(Date.now() / 1000)
-      };
-      paymentIntent = {
-        id: 'pi_mock_' + sessionId.replace('cs_test_mock_', ''),
-        status: 'succeeded',
-        amount: 2000,
-        currency: 'usd',
-        created: Math.floor(Date.now() / 1000)
-      };
-    } else {
+    {
       // If we have a session ID, retrieve the session and payment intent
       if (sessionId) {
         session = await stripeClient.checkout.sessions.retrieve(sessionId, {
-          expand: ['payment_intent', 'line_items']
+          expand: ["payment_intent", "line_items"],
         });
         paymentIntent = session.payment_intent;
       } else {
@@ -738,14 +675,7 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
       }
     }
 
-    logger.info("Retrieved payment details:", {
-      paymentIntentId: paymentIntent?.id,
-      status: paymentIntent?.status,
-      amount: paymentIntent?.amount,
-      sessionId: session?.id,
-      sessionStatus: session?.status,
-      paymentStatus: session?.payment_status
-    });
+
 
     // Check if we have valid payment information
     if (!paymentIntent) {
@@ -753,18 +683,18 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
     }
 
     // Check if payment is successful
-    if (paymentIntent.status !== 'succeeded') {
+    if (paymentIntent.status !== "succeeded") {
       return res.status(400).json({
-        error: `Payment not successful. Status: ${paymentIntent.status}`
+        error: `Payment not successful. Status: ${paymentIntent.status}`,
       });
     }
 
     // Check if order already exists for this session/payment
     const existingOrderQuery = await db.collection("orders")
-      .where("stripeSessionId", "==", sessionId)
-      .limit(1)
-      .get();
-    
+        .where("stripeSessionId", "==", sessionId)
+        .limit(1)
+        .get();
+
     if (!existingOrderQuery.empty) {
       const existingOrder = existingOrderQuery.docs[0];
       logger.info("Order already exists:", existingOrder.id);
@@ -775,7 +705,7 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
     const metadata = session?.metadata || paymentIntent.metadata || {};
     const customerEmail = session?.customer_details?.email || metadata.customerEmail;
     const userId = metadata.userId;
-    
+
     let items = [];
     if (metadata.orderItems) {
       try {
@@ -787,10 +717,10 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
 
     // If we have session with line items, use those
     if (session?.line_items?.data) {
-      items = session.line_items.data.map(item => ({
+      items = session.line_items.data.map((item) => ({
         name: item.description,
         price: item.amount_total / 100, // Convert from cents
-        quantity: item.quantity
+        quantity: item.quantity,
       }));
     }
 
@@ -810,7 +740,7 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
       updatedAt: new Date(),
     };
 
-    logger.info("Creating order with data:", orderData);
+
 
     // Check if order already exists by payment intent ID (secondary check)
     const existingPaymentOrderQuery = await db.collection("orders")
@@ -823,7 +753,7 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
         orderId: existingOrder.id,
         success: true,
         message: "Order already exists",
-        order: existingOrder.data()
+        order: existingOrder.data(),
       });
     }
 
@@ -835,9 +765,8 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
       orderId: orderRef.id,
       success: true,
       message: "Order created successfully",
-      order: orderData
+      order: orderData,
     });
-
   } catch (error) {
     logger.error("Error creating order from payment ID:", error);
     res.status(500).json({error: error.message});
@@ -845,7 +774,7 @@ exports.createOrderFromPaymentIdLegacy = onRequest({cors: corsOptions}, async (r
 });
 
 // Firebase Function: Get All Orders (Admin)
-exports.getAllOrdersV2 = onRequest({cors: corsOptions}, async (req, res) => {
+exports.getAllOrdersV2 = onRequest({cors: corsOptions, invoker: 'public'}, async (req, res) => {
   try {
     const ordersSnapshot = await db.collection("orders")
         .orderBy("createdAt", "desc")

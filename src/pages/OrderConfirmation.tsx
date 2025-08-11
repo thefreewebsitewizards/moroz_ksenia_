@@ -36,7 +36,6 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
     const sessionId = urlParams.get('session_id');
     
     if (!cartLoaded || !sessionId || processedSessionRef.current === sessionId) {
-      console.log('🛑 Skipping order confirmation:', { cartLoaded, sessionId, alreadyProcessed: processedSessionRef.current === sessionId });
       return;
     }
     
@@ -44,14 +43,10 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
       try {
         // Session ID already extracted above
         
-        console.log('🔄 Starting order confirmation process');
-        console.log('📍 Session ID from URL:', sessionId);
-        console.log('👤 Current user:', currentUser?.uid);
-        console.log('🛒 Cart items count:', items?.length || 0);
-        console.log('💰 Total:', total);
+
         
         if (sessionId) {
-          console.log('✅ Session ID found, processing order...');
+  
           
           if (!currentUser) {
             console.warn('⚠️ No authenticated user found, proceeding with test user for order creation');
@@ -60,18 +55,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
 
           try {
             // First verify the payment was successful by checking session status
-            console.log('🔍 Fetching session data for:', sessionId);
             const sessionData = await getCheckoutSession(sessionId); // getCheckoutSession already returns the session data directly
-            console.log('📊 Session data received:', {
-              id: sessionData.id,
-              status: sessionData.status,
-              payment_status: sessionData.payment_status,
-              amount_total: sessionData.amount_total,
-              customer_email: sessionData.customer_email
-            });
-            
-            console.log('🔍 Session payment status:', sessionData.payment_status);
-            console.log('🔍 Session status:', sessionData.status);
             
             // Stripe checkout sessions use 'complete' status when payment is successful
             // For test sessions, we should also accept 'open' status as valid
@@ -79,36 +63,19 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
             const paymentCondition = true; // sessionData.payment_status === 'paid' || 
                                    // sessionData.status === 'complete' ||
                                    // (sessionId.includes('test') && sessionData.status === 'open');
-            console.log('💳 Payment condition check:', {
-              payment_status: sessionData.payment_status,
-              status: sessionData.status,
-              paymentCondition,
-              hasCurrentUser: !!currentUser,
-              currentUserUid: currentUser?.uid,
-              isTestSession: sessionId.includes('test'),
-              fullSessionData: sessionData
-            });
+
             
             if (paymentCondition) {
-              // Temporarily bypass authentication check for testing
-              if (!currentUser) {
-                console.warn('⚠️ No authenticated user found, using test user for order creation');
-              }
-              
               // Payment confirmed, now create the order using session data
               // Don't rely on cart items as they might not be loaded yet
-              const testUserId = 'test-user-123'; // Temporary test user ID
-              const userIdToUse = currentUser?.uid || testUserId;
-              const emailToUse = currentUser?.email || sessionData.customer_email || 'test@example.com';
+              const userIdToUse = currentUser?.uid;
+              const emailToUse = currentUser?.email || sessionData.customer_email;
               
-              console.log('🚀 Calling createOrderFromStripeSession with:', {
-                sessionId,
-                userId: userIdToUse,
-                itemsCount: (items || []).length,
-                total: sessionData.amount_total ? sessionData.amount_total / 100 : total || 0,
-                email: emailToUse,
-                currentUserExists: !!currentUser
-              });
+              if (!userIdToUse || !emailToUse) {
+                throw new Error('User authentication required for order creation');
+              }
+              
+
               
               const createdOrderId = await createOrderFromStripeSession(
                   sessionId,
@@ -119,7 +86,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
                   undefined
                 );
                 
-              console.log('📦 Order creation result:', createdOrderId);
+
                
                if (createdOrderId) {
                  setOrderId(createdOrderId);
@@ -131,11 +98,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
                  throw new Error('Order creation failed');
                }
             } else {
-              console.log('❌ Payment not completed. Session data:', {
-                payment_status: sessionData.payment_status,
-                status: sessionData.status,
-                amount_total: sessionData.amount_total
-              });
+
               throw new Error(`Payment not completed. Status: ${sessionData.payment_status || sessionData.status}`);
             }
           } catch (error) {
@@ -147,16 +110,16 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
              // Don't clear cart or set success status if order creation failed
            }
         } else {
-          console.log('❌ No session ID found, checking navigation state...');
+
           // Check for order ID from navigation state (fallback)
           const orderIdFromState = location.state?.orderId;
           
           if (orderIdFromState) {
-            console.log('✅ Order ID found in navigation state:', orderIdFromState);
+
             setOrderId(orderIdFromState);
             clearCart();
           } else {
-            console.log('❌ No session ID or order ID found, redirecting to home');
+
             // If no session ID or order ID, redirect to home
             navigate('/');
             return;
@@ -169,7 +132,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = () => {
         const sessionId = urlParams.get('session_id');
         
         if (sessionId) {
-          console.log('🔄 Using session ID as fallback order ID:', sessionId);
+
           setOrderId(sessionId);
           clearCart();
           toast.success('🎉 Payment successful! Your order has been confirmed.');

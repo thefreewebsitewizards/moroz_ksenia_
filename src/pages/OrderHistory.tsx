@@ -12,12 +12,12 @@ const OrderHistory: React.FC = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       if (currentUser) {
-        console.log('🔄 Fetching orders for user:', currentUser.uid);
+    
         setLoading(true);
         setError(null);
         try {
           const userOrders = await getUserOrders(currentUser.uid);
-          console.log('📦 Fetched orders:', userOrders);
+    
           setOrders(userOrders);
         } catch (error) {
           console.error('❌ Error fetching orders:', error);
@@ -27,7 +27,7 @@ const OrderHistory: React.FC = () => {
           setLoading(false);
         }
       } else {
-        console.log('❌ No current user found');
+    
         setLoading(false);
       }
     };

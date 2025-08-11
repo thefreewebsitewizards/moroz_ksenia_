@@ -2,7 +2,7 @@
 // This file handles all Stripe Connect operations through Firebase Functions
 
 // Firebase Functions API base URL
-const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'http://127.0.0.1:5001/demo-test/us-central1';
+const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'https://us-central1-ksenia-munoz.cloudfunctions.net';
 
 // Types for Stripe Connect
 export interface ConnectedAccount {

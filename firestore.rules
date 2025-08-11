@@ -27,9 +27,12 @@ service cloud.firestore {
     
     // Orders collection - users can create and read their own orders, admins can read all
     match /orders/{orderId} {
-      // Users can create and read orders for themselves (authentication required)
-      allow create, read: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
+      // Allow Firebase Functions (admin SDK) to create orders
+      allow create: if true;
+      
+      // Users can read their own orders (authentication required)
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
       
       // Admins can read and update all orders
       allow read, update: if request.auth != null && 

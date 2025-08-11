@@ -1,7 +1,10 @@
 // Client shipping management service for Stripe Connect
 
-// Firebase Functions API base URL
-const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'http://127.0.0.1:5001/demo-test/us-central1';
+// Firebase Functions URLs (v2 functions use individual Cloud Run URLs)
+const FUNCTION_URLS = {
+  getShippingRates: process.env.REACT_APP_GET_SHIPPING_RATES_URL || 'https://getshippingrates-dri6av73tq-uc.a.run.app',
+  // Add other function URLs as needed
+};
 
 export interface ShippingRate {
   id: string;
@@ -33,7 +36,7 @@ export const listShippingRates = async (
   connectedAccountId: string,
   options: { limit?: number; active?: boolean } = {}
 ): Promise<{ data: ShippingRate[] }> => {
-  const response = await fetch(`${API_BASE_URL}/getShippingRates`, {
+  const response = await fetch(FUNCTION_URLS.getShippingRates, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +61,7 @@ export const updateShippingRate = async (
   rateId: string,
   updates: { active?: boolean; metadata?: Record<string, string> }
 ): Promise<ShippingRate> => {
-  const response = await fetch(`${API_BASE_URL}/shipping/stripe-rates/${rateId}`, {
+  const response = await fetch(`${FUNCTION_URLS.getShippingRates}/shipping/stripe-rates/${rateId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -85,7 +88,7 @@ export const getCheckoutRates = async (
   orderTotal: number,
   freeShippingThreshold: number = 50
 ): Promise<CheckoutRatesResponse> => {
-  const response = await fetch(`${API_BASE_URL}/getShippingRates`, {
+  const response = await fetch(FUNCTION_URLS.getShippingRates, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

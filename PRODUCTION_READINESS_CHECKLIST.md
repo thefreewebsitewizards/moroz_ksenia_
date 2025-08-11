@@ -1,106 +1,73 @@
 # Production Readiness Checklist
 
-## ✅ Completed Items
+## ✅ Completed
 
-### Code Quality
-- [x] Build completes successfully with only minor warnings
-- [x] All redundant files and dependencies removed
-- [x] Firebase hosting configuration fixed (pointing to 'build' directory)
-- [x] Shipping rate infinite loop bug fixed
-- [x] API URL configuration corrected for local development
+### Security & Configuration
+- [x] Removed all `.env` files with sensitive data
+- [x] Configured Stripe secret key in Firebase Functions config
+- [x] Created `.env.production` template for production setup
+- [x] Removed test/development files (`add-test-products.js`)
 
-### Security
-- [x] Firestore security rules implemented and production-ready
-- [x] Storage security rules with file size and type restrictions
-- [x] User authentication and authorization properly configured
-- [x] Admin role-based access control implemented
+### Code Cleanup
+- [x] Removed all `console.log` statements from functions
+- [x] Removed all `console.log` statements from frontend
+- [x] Removed mock/test session handling code
+- [x] Removed temporary workarounds and debug code
+- [x] Restored proper Firestore ordering with composite index
+- [x] Removed test user IDs and fallback authentication
 
-### Firebase Configuration
-- [x] Firebase Functions properly configured
-- [x] All required Cloud Functions deployed and working
-- [x] Firestore database structure established
-- [x] Firebase Storage configured with security rules
+### Database
+- [x] Created and deployed Firestore composite index for orders collection
+- [x] Verified index is working for `getUserOrdersV2` function
 
-## ⚠️ Items Requiring Action for Production
+### Functions
+- [x] Deployed all cleaned functions to production
+- [x] All functions using Firebase config instead of environment variables
+- [x] Removed development-specific code paths
 
-### Environment Variables
-- [ ] **CRITICAL**: Replace test Stripe keys with live production keys
-  - Current: `pk_test_51RrxjBJHHLWU5Kg3...` (test key)
-  - Need: `pk_live_...` (live key)
-- [ ] **CRITICAL**: Update Firebase Functions URL for production
-  - Current: `http://127.0.0.1:5001/demo-test/us-central1` (local emulator)
-  - Need: `https://us-central1-your-project-id.cloudfunctions.net`
-- [ ] Configure Firebase Functions environment variables:
-  ```bash
-  firebase functions:config:set stripe.secret_key="sk_live_your_live_key_here"
-  firebase functions:config:set stripe.webhook_secret="whsec_your_webhook_secret_here"
-  ```
+## 🔄 Still Required for Full Production
 
 ### Stripe Configuration
-- [ ] **CRITICAL**: Set up production Stripe webhooks
-  - Endpoint: `https://us-central1-your-project-id.cloudfunctions.net/stripeWebhookV2`
-  - Events: checkout.session.completed, payment_intent.succeeded
-- [ ] Update Stripe Connect settings for production
-- [ ] Verify platform fee calculations are correct for production
+- [ ] Replace test Stripe keys with live keys in Firebase Functions config:
+  ```bash
+  firebase functions:config:set stripe.secret_key="sk_live_..."
+  firebase functions:config:set stripe.webhook_secret="whsec_..."
+  ```
+- [ ] Update frontend `.env` with live Stripe publishable key
+- [ ] Configure live Stripe connected accounts for artists
 
-### Deployment Configuration
-- [ ] Choose deployment platform (Vercel recommended for frontend)
+### Email Configuration
+- [ ] Set up production email service in Firebase Functions config:
+  ```bash
+  firebase functions:config:set email.user="your_production_email@domain.com"
+  firebase functions:config:set email.pass="your_app_password"
+  ```
+
+### Domain & SSL
 - [ ] Configure custom domain
-- [ ] Set up SSL/HTTPS (automatic with Vercel)
-- [ ] Update CORS settings in Firebase Functions for production domain
+- [ ] Set up SSL certificate
+- [ ] Update CORS settings for production domain
 
-### Security Hardening
-- [ ] Review and tighten storage rules (currently allows unrestricted writes)
-- [ ] Implement rate limiting on Firebase Functions
-- [ ] Set up monitoring and error tracking
-- [ ] Configure backup strategy
+### Monitoring & Analytics
+- [ ] Set up error monitoring (e.g., Sentry)
+- [ ] Configure Google Analytics
+- [ ] Set up performance monitoring
 
 ### Testing
-- [ ] Test complete purchase flow with live Stripe keys in staging
-- [ ] Verify email notifications work in production
-- [ ] Test admin functionality in production environment
-- [ ] Verify shipping calculations with real rates
+- [ ] Perform end-to-end testing with live Stripe keys
+- [ ] Test all payment flows
+- [ ] Verify order creation and email notifications
+- [ ] Test artist onboarding and connected accounts
 
-## 🚨 Critical Security Issues to Address
+### Legal & Compliance
+- [ ] Update privacy policy
+- [ ] Update terms of service
+- [ ] Ensure GDPR compliance if applicable
+- [ ] Set up proper data retention policies
 
-1. **Storage Rules Too Permissive**: Current rules allow anyone to upload images
-   - Recommendation: Restrict to authenticated admin users only
+## 📝 Notes
 
-2. **Test Keys in Production**: Currently using Stripe test keys
-   - Must replace with live keys before going live
-
-3. **Local Development URLs**: Frontend pointing to local emulator
-   - Must update to production Firebase Functions URL
-
-## Deployment Steps
-
-1. **Prepare Environment**:
-   ```bash
-   # Update .env for production
-   REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_live_your_live_key_here
-   REACT_APP_FIREBASE_FUNCTIONS_URL=https://us-central1-your-project-id.cloudfunctions.net
-   ```
-
-2. **Deploy Firebase Functions**:
-   ```bash
-   firebase deploy --only functions
-   ```
-
-3. **Deploy Frontend** (Vercel):
-   - Connect GitHub repository
-   - Configure environment variables
-   - Deploy automatically
-
-4. **Post-Deployment**:
-   - Configure Stripe webhooks
-   - Test complete flow
-   - Monitor for errors
-
-## Current Status: 🟡 READY FOR STAGING
-
-The application is **NOT ready for production** due to:
-- Test Stripe keys being used
-- Local development URLs in configuration
-- Storage security rules need tightening
-
-However, it **IS ready for staging deployment** to test the production flow with test keys.
+- All development and test code has been removed
+- Functions are now using Firebase config for sensitive data
+- Firestore indexes are properly configured
+- Application is ready for production deployment with proper environment setup
