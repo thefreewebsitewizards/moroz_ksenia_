@@ -6,7 +6,7 @@ This checklist ensures the project is ready for GitHub and production deployment
 
 ### Security & Environment
 - [x] `.env` files are excluded from Git (added to .gitignore)
-- [x] `.env.example` files created for both frontend and backend
+- [x] `.env.example` files created for frontend and Firebase Functions
 - [x] Sensitive API keys and secrets are not committed
 - [x] Firebase configuration is properly handled
 - [x] Stripe test keys are documented but not committed
@@ -14,7 +14,7 @@ This checklist ensures the project is ready for GitHub and production deployment
 ### Code Quality
 - [x] No development utilities (CreateAdmin, etc.) in production code
 - [x] Console.error statements kept for production debugging
-- [x] Console.log statements in backend kept for monitoring
+- [x] Console.log statements in Firebase Functions kept for monitoring
 - [x] Syntax errors fixed
 - [x] Unused imports and files removed
 
@@ -26,7 +26,7 @@ This checklist ensures the project is ready for GitHub and production deployment
 - [x] Project structure documented
 
 ### Configuration Files
-- [x] .gitignore updated for both frontend and backend
+- [x] .gitignore updated for frontend and Firebase Functions
 - [x] package.json files are properly configured
 - [x] TypeScript configuration is present
 - [x] Tailwind CSS configuration is included
@@ -35,7 +35,7 @@ This checklist ensures the project is ready for GitHub and production deployment
 - [x] Legacy files removed (firebase-config.js)
 - [x] OLD FRONTEND directory excluded from Git
 - [x] Development artifacts cleaned up
-- [x] Proper separation of frontend and backend
+- [x] Proper separation of frontend and Firebase Functions
 
 ## 📋 Pre-Push Checklist
 
@@ -48,12 +48,12 @@ Before pushing to GitHub, verify:
 
 ### 2. Dependencies
 - [ ] `npm install` works in root directory
-- [ ] `npm install` works in backend directory
+- [ ] `npm install` works in functions directory
 - [ ] No security vulnerabilities in dependencies
 
 ### 3. Build Process
 - [ ] `npm run build` succeeds for frontend
-- [ ] `npm start` works for backend
+- [ ] `firebase emulators:start` works for Firebase Functions
 - [ ] No build errors or warnings
 
 ### 4. Code Quality
@@ -95,7 +95,7 @@ Once all items are checked:
 
 5. **Configure Deployment**
    - Set up Vercel for frontend
-   - Set up Railway/Heroku for backend
+   - Set up Firebase Functions deployment
    - Configure environment variables
    - Set up webhooks
 

@@ -54,6 +54,8 @@ export interface Order {
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'paid';
   paymentMethod?: string;
+  stripeSessionId?: string;
+  customerEmail?: string;
   shippingAddress?: {
     name: string;
     address: string;
@@ -270,24 +272,95 @@ export const createOrder = async (orderData: Omit<Order, 'id'>): Promise<string 
   }
 };
 
+// Create order from Stripe checkout session
+export const createOrderFromStripeSession = async (
+  sessionId: string,
+  userId: string,
+  items: CartItem[],
+  total: number,
+  customerEmail: string,
+  shippingAddress?: {
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  }
+): Promise<string | null> => {
+  try {
+    console.log('🚀 Creating order from Stripe session via Firebase Functions:', {
+      sessionId,
+      userId,
+      itemCount: items.length,
+      total,
+      customerEmail
+    });
+    
+    const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'https://us-central1-ksenia-munoz.cloudfunctions.net';
+    const requestUrl = `${API_BASE_URL}/createOrderFromPaymentId`;
+    
+    console.log('📡 Making request to:', requestUrl);
+    console.log('📦 Request payload:', {
+      sessionId,
+      userId,
+      customerEmail
+    });
+    
+    const response = await fetch(requestUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sessionId,
+        userId,
+        customerEmail
+      }),
+    });
+    
+    console.log('📨 Response status:', response.status, response.statusText);
+    
+    if (!response.ok) {
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (parseError) {
+        console.error('❌ Failed to parse error response:', parseError);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      console.error('❌ API Error Response:', errorData);
+      throw new Error(errorData.error || `HTTP ${response.status}: Failed to create order`);
+    }
+    
+    const result = await response.json();
+    console.log('✅ Order created successfully with ID:', result.orderId);
+    return result.orderId;
+  } catch (error) {
+    console.error('❌ Error creating order from Stripe session:', error);
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      console.error('🌐 Network error - check if Firebase Functions emulator is running');
+    }
+    return null;
+  }
+};
+
 export const getUserOrders = async (userId: string): Promise<Order[]> => {
   try {
-    const q = query(
-      collection(db, 'orders'),
-      where('userId', '==', userId)
-    );
-    const querySnapshot = await getDocs(q);
-    const orders: Order[] = [];
-    querySnapshot.forEach((doc) => {
-      orders.push({ id: doc.id, ...doc.data() } as Order);
+    const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'https://us-central1-ksenia-munoz.cloudfunctions.net';
+    
+    const response = await fetch(`${API_BASE_URL}/getUserOrdersV2?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    // Sort orders by createdAt in JavaScript instead of Firestore
-    orders.sort((a, b) => {
-      if (a.createdAt && b.createdAt) {
-        return b.createdAt.seconds - a.createdAt.seconds;
-      }
-      return 0;
-    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to get user orders');
+    }
+    
+    const orders = await response.json();
     return orders;
   } catch (error) {
     console.error('Error getting user orders:', error);
@@ -297,12 +370,21 @@ export const getUserOrders = async (userId: string): Promise<Order[]> => {
 
 export const getAllOrders = async (): Promise<Order[]> => {
   try {
-    const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
-    const querySnapshot = await getDocs(q);
-    const orders: Order[] = [];
-    querySnapshot.forEach((doc) => {
-      orders.push({ id: doc.id, ...doc.data() } as Order);
+    const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'https://us-central1-ksenia-munoz.cloudfunctions.net';
+    
+    const response = await fetch(`${API_BASE_URL}/getAllOrdersV2`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to get all orders');
+    }
+    
+    const orders = await response.json();
     return orders;
   } catch (error) {
     console.error('Error getting orders:', error);

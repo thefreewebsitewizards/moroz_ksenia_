@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getAllProducts, addProduct, updateProduct, deleteProduct, Product, updateOrderStatus } from '../services/firebase';
+import { getAllProducts, addProduct, updateProduct, deleteProduct, Product, updateOrderStatus, uploadProductImage } from '../services/firebase';
 import { collection, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -54,6 +54,8 @@ const Admin: React.FC = () => {
     category: '',
     image: ''
   });
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
 
   useEffect(() => {
     loadDashboardData();
@@ -61,14 +63,32 @@ const Admin: React.FC = () => {
 
   const handleAddProduct = async () => {
     try {
+      let imageUrl = productForm.image;
+      
+      // If a file is selected, upload it first
+      if (selectedImageFile) {
+        const tempProductId = Date.now().toString(); // Temporary ID for upload
+        const uploadedImageUrl = await uploadProductImage(selectedImageFile, tempProductId);
+        if (uploadedImageUrl) {
+          imageUrl = uploadedImageUrl;
+        } else {
+          toast.error('❌ Failed to upload image. Please try again.');
+          return;
+        }
+      }
+      
       const productData = {
         ...productForm,
+        image: imageUrl,
         price: parseFloat(productForm.price),
         createdAt: Timestamp.now()
       };
+      
       await addProduct(productData);
       setShowAddProduct(false);
       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
+      setSelectedImageFile(null);
+      setImagePreview('');
       loadDashboardData(); // Refresh data
       toast.success(`✅ Product "${productForm.name}" added successfully!`);
     } catch (error) {
@@ -86,20 +106,65 @@ const Admin: React.FC = () => {
       category: product.category,
       image: product.image || ''
     });
+    setSelectedImageFile(null);
+    setImagePreview(product.image || '');
     setShowAddProduct(true);
+  };
+
+  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('❌ Please select a valid image file.');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('❌ Image file size must be less than 5MB.');
+        return;
+      }
+      
+      setSelectedImageFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleUpdateProduct = async () => {
     if (!editingProduct?.id) return;
     try {
+      let imageUrl = productForm.image;
+      
+      // If a new file is selected, upload it
+      if (selectedImageFile) {
+        const uploadedImageUrl = await uploadProductImage(selectedImageFile, editingProduct.id);
+        if (uploadedImageUrl) {
+          imageUrl = uploadedImageUrl;
+        } else {
+          toast.error('❌ Failed to upload image. Please try again.');
+          return;
+        }
+      }
+      
       const productData = {
         ...productForm,
+        image: imageUrl,
         price: parseFloat(productForm.price)
       };
+      
       await updateProduct(editingProduct.id, productData);
       setShowAddProduct(false);
       setEditingProduct(null);
       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
+      setSelectedImageFile(null);
+      setImagePreview('');
       loadDashboardData(); // Refresh data
       toast.success(`✏️ Product "${productForm.name}" updated successfully!`);
     } catch (error) {
@@ -749,6 +814,8 @@ const Admin: React.FC = () => {
                     setShowAddProduct(false);
                     setEditingProduct(null);
                     setProductForm({ name: '', description: '', price: '', category: '', image: '' });
+                    setSelectedImageFile(null);
+                    setImagePreview('');
                   }}
                   className="text-white/70 hover:text-white p-2 rounded-xl hover:bg-white/20 transition-all duration-200"
                 >
@@ -811,13 +878,43 @@ const Admin: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-white/90 mb-2">Image URL</label>
-                  <input
-                    type="url"
-                    value={productForm.image}
-                    onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
-                    className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 backdrop-blur-sm"
-                  />
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
+                  <div className="space-y-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                    
+                    {/* Image Preview */}
+                    {imagePreview && (
+                      <div className="mt-3">
+                        <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                        <img
+                          src={imagePreview}
+                          alt="Product preview"
+                          className="w-32 h-32 object-cover rounded-lg border border-gray-300"
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Alternative: Image URL input */}
+                    <div className="border-t pt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Or enter Image URL</label>
+                      <input
+                        type="url"
+                        value={productForm.image}
+                        onChange={(e) => {
+                          setProductForm({ ...productForm, image: e.target.value });
+                          setImagePreview(e.target.value);
+                          setSelectedImageFile(null);
+                        }}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="https://example.com/image.jpg"
+                      />
+                    </div>
+                  </div>
                 </div>
                 
 
@@ -829,6 +926,8 @@ const Admin: React.FC = () => {
                       setShowAddProduct(false);
                       setEditingProduct(null);
                       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
+                      setSelectedImageFile(null);
+                      setImagePreview('');
                     }}
                     className="flex-1 px-4 py-2 bg-white/10 border border-white/20 text-white/90 rounded-lg hover:bg-white/20 transition-all duration-200"
                   >

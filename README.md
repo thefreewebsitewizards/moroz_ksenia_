@@ -16,9 +16,9 @@ A modern e-commerce platform for showcasing and selling artwork, built with Reac
 ## Tech Stack
 
 - **Frontend**: React 18, TypeScript, Tailwind CSS
-- **Backend**: Firebase (Firestore, Authentication, Storage)
+- **Backend**: Firebase Functions (Firestore, Authentication, Storage)
 - **Payment**: Stripe
-- **Deployment**: Vercel (Frontend), Railway (Backend)
+- **Deployment**: Vercel (Frontend), Firebase Functions (Backend)
 
 ## Getting Started
 
@@ -41,9 +41,9 @@ A modern e-commerce platform for showcasing and selling artwork, built with Reac
    npm install
    ```
 
-3. **Backend Setup**
+3. **Firebase Functions Setup**
    ```bash
-   cd backend
+   cd functions
    npm install
    cd ..
    ```
@@ -56,23 +56,23 @@ A modern e-commerce platform for showcasing and selling artwork, built with Reac
    ```
    Edit `.env` and add your configuration:
    - `REACT_APP_STRIPE_PUBLISHABLE_KEY`: Your Stripe publishable key
-   - `REACT_APP_BACKEND_URL`: Backend API URL (http://localhost:3001/api for development)
+   - `REACT_APP_FIREBASE_FUNCTIONS_URL`: Firebase Functions API URL
    
-   **Backend (backend/.env):**
+   **Firebase Functions (functions/.env):**
    ```bash
-   cp backend/.env.example backend/.env
+   cp functions/.env.example functions/.env
    ```
-   Edit `backend/.env` and add your configuration:
+   Edit `functions/.env` and add your configuration:
    - Stripe keys and webhook secret
    - Firebase configuration
    - Email service configuration (optional)
 
 5. **Start the Development Servers**
    
-   **Backend (Terminal 1):**
+   **Firebase Functions (Terminal 1):**
    ```bash
-   cd backend
-   npm run dev
+   cd functions
+   npm run serve
    ```
    
    **Frontend (Terminal 2):**
@@ -82,7 +82,7 @@ A modern e-commerce platform for showcasing and selling artwork, built with Reac
 
 6. **Access the Application**
    - Frontend: [http://localhost:3000](http://localhost:3000)
-   - Backend API: [http://localhost:3001](http://localhost:3001)
+   - Firebase Functions: [http://localhost:5001](http://localhost:5001)
 
 ### Test Accounts
 
@@ -96,9 +96,9 @@ A modern e-commerce platform for showcasing and selling artwork, built with Reac
 npm run build
 ```
 
-**Backend:**
+**Firebase Functions:**
 ```bash
-cd backend
+cd functions
 npm run build
 ```
 
@@ -110,20 +110,19 @@ npm run build
 2. Set environment variables in Vercel dashboard
 3. Deploy automatically on push to main branch
 
-### Backend Deployment (Railway/Heroku)
+### Firebase Functions Deployment
 
-1. Create a new project on Railway or Heroku
-2. Connect your GitHub repository
-3. Set environment variables in the platform dashboard
-4. Deploy the `backend` directory
+1. Install Firebase CLI: `npm install -g firebase-tools`
+2. Login to Firebase: `firebase login`
+3. Deploy functions: `firebase deploy --only functions`
 
 ### Environment Variables for Production
 
 **Frontend:**
 - `REACT_APP_STRIPE_PUBLISHABLE_KEY`
-- `REACT_APP_BACKEND_URL`
+- `REACT_APP_FIREBASE_FUNCTIONS_URL`
 
-**Backend:**
+**Firebase Functions:**
 - `PORT`
 - `NODE_ENV=production`
 - `FRONTEND_URL`
@@ -141,10 +140,10 @@ npm run build
 │   ├── context/           # React context providers
 │   ├── services/          # API service functions
 │   └── config/            # Configuration files
-├── backend/               # Node.js backend
-│   ├── routes/            # API route handlers
+├── functions/             # Firebase Functions (backend)
+│   ├── src/               # Function source code
 │   ├── utils/             # Utility functions
-│   └── config/            # Backend configuration
+│   └── config/            # Function configuration
 ├── public/                # Static assets
 └── .env.example          # Environment variables template
 ```

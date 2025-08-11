@@ -82,6 +82,7 @@ const Header: React.FC = () => {
                   {item.label}
                 </Link>
               ))}
+
             </nav>
 
             {/* Right Section - Cart & Account */}

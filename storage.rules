@@ -7,6 +7,13 @@ service firebase.storage {
     }
     
     // Allow write access to product images
+    match /products/{productId}/{imageId} {
+      allow write: if true
+        && request.resource.size < 5 * 1024 * 1024 // 5MB limit
+        && request.resource.contentType.matches('image/.*'); // Only images
+    }
+    
+    // Allow write access to product images (alternative path)
     match /products/{imageId} {
       allow write: if true
         && request.resource.size < 5 * 1024 * 1024 // 5MB limit

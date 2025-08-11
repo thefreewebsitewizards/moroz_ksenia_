@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCDy5hBMFfqzWQinV0sLLZAFh8koVZE5Qk",
   authDomain: "ksenia-munoz.firebaseapp.com",
   projectId: "ksenia-munoz",
-  storageBucket: "ksenia-munoz.appspot.com",
+  storageBucket: "ksenia-munoz.firebasestorage.app",
   messagingSenderId: "982189236395",
   appId: "1:982189236395:web:594648694ec020153f17ee"
 };

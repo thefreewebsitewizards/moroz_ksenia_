@@ -1,39 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { createOrder } from '../services/firebase';
 import StripeCheckout from '../components/StripeCheckout';
+import ShippingSelector from '../components/ShippingSelector';
+import { STRIPE_CONFIG } from '../config/stripe';
+import { ShippingRate } from '../services/clientShipping';
 
 const Cart: React.FC = () => {
   const { items, total, clearCart } = useCart();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
+  
+  // Calculate total including shipping
+  const shippingCost = selectedShippingRate ? selectedShippingRate.amount / 100 : 0;
+  const finalTotal = total + shippingCost;
 
   const handleStripeSuccess = async () => {
-    try {
-      const orderData = {
-        userId: currentUser?.uid || 'guest',
-        items: items,
-        total: total,
-        status: 'paid' as const,
-        paymentMethod: 'stripe'
-      };
-
-      const orderId = await createOrder(orderData);
-      
-      if (orderId) {
-        toast.success('🎉 Payment successful! Your order has been placed.');
-        clearCart();
-        navigate('/order-confirmation', { state: { orderId } });
-      } else {
-        toast.error('❌ Failed to save order details. Please contact support.');
-      }
-    } catch (error) {
-      console.error('Error saving order:', error);
-      toast.error('❌ Failed to save order details. Please contact support.');
-    }
+    // Order creation is now handled in OrderConfirmation component
+    // after successful Stripe payment verification
+    toast.success('🎉 Payment successful! Redirecting to confirmation...');
   };
 
   const handleStripeCancel = () => {
@@ -337,6 +325,16 @@ const Cart: React.FC = () => {
                 </p>
               </div>
 
+              {/* Shipping Selector */}
+              <div className="border-t border-slate-200 pt-8">
+                <ShippingSelector
+                  orderTotal={total}
+                  connectedAccountId={STRIPE_CONFIG.connectedAccountId}
+                  onShippingSelect={setSelectedShippingRate}
+                  selectedShippingRate={selectedShippingRate}
+                />
+              </div>
+
               {/* Price Breakdown */}
               <div className="border-t border-slate-200 pt-8">
                 <div className="space-y-4 mb-6">
@@ -345,19 +343,31 @@ const Cart: React.FC = () => {
                     <span className="font-patrick-hand-sc font-bold text-slate-900">${total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                    <span className="font-patrick-hand font-medium text-slate-700">Shipping</span>
+                    <div className="flex flex-col">
+                      <span className="font-patrick-hand font-medium text-slate-700">Shipping & Handling</span>
+                      {selectedShippingRate && (
+                        <span className="font-patrick-hand text-sm text-slate-600">
+                          {selectedShippingRate.display_name}
+                        </span>
+                      )}
+                    </div>
                     <div className="flex items-center space-x-2">
-                      <span className="font-patrick-hand-sc font-bold text-green-600">Free</span>
-                      <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
+                      {selectedShippingRate ? (
+                        <span className={`font-patrick-hand-sc font-bold ${
+                          selectedShippingRate.amount === 0 ? 'text-green-600' : 'text-slate-900'
+                        }`}>
+                          {selectedShippingRate.amount === 0 ? 'Free' : `$${shippingCost.toFixed(2)}`}
+                        </span>
+                      ) : (
+                        <span className="font-patrick-hand-sc font-bold text-slate-900">Select shipping option</span>
+                      )}
                     </div>
                   </div>
                   <div className="border-t border-slate-200 pt-4">
                     <div className="flex justify-between items-center">
                       <span className="font-patrick-hand-sc text-2xl font-bold text-slate-900">Total</span>
                       <span className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        ${total.toFixed(2)}
+                        ${finalTotal.toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -367,10 +377,57 @@ const Cart: React.FC = () => {
               {/* Action Buttons */}
               <div className="border-t border-slate-200 pt-8">
                 <div className="space-y-4">
-                  <StripeCheckout 
-                    onSuccess={handleStripeSuccess}
-                    onCancel={handleStripeCancel}
-                  />
+                  {!currentUser ? (
+                    <div className="space-y-4">
+                      <div className="p-6 bg-blue-50 border border-blue-200 rounded-2xl">
+                        <div className="flex items-center gap-3 mb-3">
+                          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <h3 className="font-patrick-hand-sc text-xl font-bold text-blue-800">
+                            Sign In Required
+                          </h3>
+                        </div>
+                        <p className="font-patrick-hand text-blue-700 mb-4">
+                          Please sign in to your account to complete your purchase and track your orders.
+                        </p>
+                        <Link
+                          to="/login"
+                          state={{ from: '/cart', message: 'Please sign in to complete your purchase' }}
+                          className="w-full font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg"
+                          style={{
+                            background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)'
+                          }}
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h18" />
+                          </svg>
+                          Sign In to Checkout
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {!selectedShippingRate && (
+                        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                          <div className="flex items-center gap-2">
+                            <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                            <span className="font-patrick-hand text-amber-700 font-medium">
+                              Please select a shipping option to continue
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                      <StripeCheckout 
+                        onSuccess={handleStripeSuccess}
+                        onCancel={handleStripeCancel}
+                        connectedAccountId={STRIPE_CONFIG.connectedAccountId}
+                        selectedShippingRate={selectedShippingRate}
+                      />
+                    </div>
+                  )}
                   <Link
                     to="/gallery"
                     className="w-full font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"

@@ -13,7 +13,8 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = (location.state as any)?.from?.pathname || '/';
+  const from = (location.state as any)?.from || '/';
+  const message = (location.state as any)?.message;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,6 +97,19 @@ const Login: React.FC = () => {
                   </svg>
                   <div className="ml-3">
                     <p className="text-sm text-red-800">{error}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {message && (
+              <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
+                <div className="flex">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="ml-3">
+                    <p className="text-sm text-blue-800">{message}</p>
                   </div>
                 </div>
               </div>

@@ -19,6 +19,7 @@ import Register from './pages/Register';
 import ProductDetail from './pages/ProductDetail';
 import Admin from './pages/Admin';
 
+
 import OrderHistory from './pages/OrderHistory';
 
 
@@ -48,16 +49,14 @@ function App() {
                       <Route path="/cart" element={<Cart />} />
                       <Route path="/policies" element={<Policies />} />
 
-                      <Route path="/order-confirmation" element={
-                        <ProtectedRoute>
-                          <OrderConfirmation />
-                        </ProtectedRoute>
-                      } />
+                      <Route path="/order-confirmation" element={<OrderConfirmation />} />
                       <Route path="/orders" element={
                         <ProtectedRoute>
                           <OrderHistory />
                         </ProtectedRoute>
                       } />
+              
+
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
 

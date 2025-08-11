@@ -1,8 +1,8 @@
 // Stripe Connect operations for artist account management
-// This file handles all Stripe Connect operations through our backend API
+// This file handles all Stripe Connect operations through Firebase Functions
 
-// Backend API base URL
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001/api';
+// Firebase Functions API base URL
+const API_BASE_URL = process.env.REACT_APP_FIREBASE_FUNCTIONS_URL || 'http://127.0.0.1:5001/demo-test/us-central1';
 
 // Types for Stripe Connect
 export interface ConnectedAccount {

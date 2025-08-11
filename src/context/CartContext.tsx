@@ -112,7 +112,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
   const clearCart = () => {
+    console.log('🧹 Clearing cart - items before clear:', state.items.length);
     dispatch({ type: 'CLEAR_CART' });
+    console.log('🧹 Cart cleared successfully');
     toast.success('🧹 Cart cleared!');
   };
 

@@ -9,11 +9,11 @@ export default stripePromise;
 // Stripe Connect configuration
 export const STRIPE_CONFIG = {
   publishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!,
-  // Application fee percentage (10% as requested)
-  applicationFeePercent: 0.10,
-  // Connected account ID - this would typically come from the seller/artist
-  // For now, we'll use a placeholder that should be replaced with actual connected account IDs
-  connectedAccountId: 'acct_placeholder', // This should be dynamic based on the artist
+  // Application fee percentage (7.9% platform fee to reach ~10% total with Stripe fees)
+  applicationFeePercent: 0.079,
+  // Connected account ID - provided for testing
+  // In production, this should be dynamic based on the artist/seller
+  connectedAccountId: 'acct_1Ru6p0Qo1HuV6Ppu', // Test connected account
 };
 
 // Helper function to calculate application fee

@@ -12,18 +12,23 @@ const OrderHistory: React.FC = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       if (currentUser) {
+        console.log('🔄 Fetching orders for user:', currentUser.uid);
         setLoading(true);
         setError(null);
         try {
           const userOrders = await getUserOrders(currentUser.uid);
+          console.log('📦 Fetched orders:', userOrders);
           setOrders(userOrders);
         } catch (error) {
-          console.error('Error fetching orders:', error);
+          console.error('❌ Error fetching orders:', error);
           setError('Failed to load orders');
           toast.error('Failed to load orders');
         } finally {
           setLoading(false);
         }
+      } else {
+        console.log('❌ No current user found');
+        setLoading(false);
       }
     };
 
@@ -155,11 +160,25 @@ const OrderHistory: React.FC = () => {
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900">Order #{order.id?.slice(-8).toUpperCase()}</h3>
                         <p className="text-sm text-gray-600">
-                          Placed on {order.createdAt ? new Date(order.createdAt.toDate()).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          }) : 'Unknown date'}
+                          Placed on {order.createdAt ? (() => {
+                            // Handle both Firestore Timestamp and serialized date
+                            let date: Date;
+                            if (order.createdAt && typeof order.createdAt.toDate === 'function') {
+                              // Firestore Timestamp object
+                              date = order.createdAt.toDate();
+                            } else if (order.createdAt && typeof order.createdAt === 'object' && 'seconds' in order.createdAt) {
+                              // Serialized Firestore Timestamp
+                              date = new Date((order.createdAt as any).seconds * 1000);
+                            } else {
+                              // Regular date string or Date object
+                              date = new Date(order.createdAt as any);
+                            }
+                            return date.toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            });
+                          })() : 'Unknown date'}
                         </p>
                       </div>
                     </div>

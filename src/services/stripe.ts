@@ -1,31 +1,63 @@
-// Stripe Connect integration with backend API calls
-// This file handles all Stripe-related operations through our backend API
+// Stripe Connect integration with Firebase Functions
+// This file handles all Stripe-related operations through Firebase Functions
 
 import { CartItem } from './firebase';
 import { formatAmountForStripe, calculateApplicationFee } from '../config/stripe';
 
-// Backend API base URL
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001/api';
+// Firebase Functions URLs - Temporarily hardcoded for testing
+const API_BASE_URL = 'http://127.0.0.1:5001/ksenia-munoz/us-central1';
+const CHECKOUT_SESSION_URL = `${API_BASE_URL}/createCheckoutSessionV2`;
+const GET_SESSION_URL = `${API_BASE_URL}/getCheckoutSessionV2`;
+
+// Debug logging
+console.log('🔧 Stripe service configuration:', {
+  REACT_APP_FIREBASE_FUNCTIONS_URL: process.env.REACT_APP_FIREBASE_FUNCTIONS_URL,
+  API_BASE_URL,
+  GET_SESSION_URL
+});
 
 // Types for Stripe integration
 export interface CheckoutSessionData {
   items: CartItem[];
   customerEmail?: string;
-  connectedAccountId?: string; // Made optional to support direct payments
+  userId?: string;
+  connectedAccountId: string; // Required - no local testing support
   successUrl: string;
   cancelUrl: string;
+  useStripeShipping?: boolean;
+  selectedShippingRateId?: string; // ID of the pre-selected shipping rate
+  shippingAddress?: {
+    line1: string;
+    line2?: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: string;
+  };
 }
 
 export interface StripeCheckoutSession {
   id: string;
   url?: string;
   client_secret?: string;
+  subtotal: number;
+  shippingCost: number;
+  orderTotal: number;
+  applicationFee: number;
+  platformFeePercent: number;
+  freeShipping: boolean;
+  useStripeShipping?: boolean;
+  shippingBreakdown: {
+    actualCost: number;
+    markup: number;
+    total: number;
+  };
 }
 
-// Create a Stripe Checkout Session through our backend API
+// Create a Stripe Checkout Session through Firebase Functions
 export const createCheckoutSession = async (data: CheckoutSessionData): Promise<StripeCheckoutSession> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/stripe/create-checkout-session`, {
+    const response = await fetch(CHECKOUT_SESSION_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +72,10 @@ export const createCheckoutSession = async (data: CheckoutSessionData): Promise<
           imageUrl: item.imageUrl
         })),
         customerEmail: data.customerEmail,
-        ...(data.connectedAccountId && { connectedAccountId: data.connectedAccountId }),
+        ...(data.userId && { userId: data.userId }),
+        connectedAccountId: data.connectedAccountId,
+        useStripeShipping: data.useStripeShipping !== false,
+        ...(data.selectedShippingRateId && { selectedShippingRateId: data.selectedShippingRateId }),
         successUrl: data.successUrl,
         cancelUrl: data.cancelUrl,
         metadata: {
@@ -51,8 +86,22 @@ export const createCheckoutSession = async (data: CheckoutSessionData): Promise<
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error?.message || 'Failed to create checkout session');
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse error response:', parseError);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const errorMessage = errorData.error?.message || `Failed to create checkout session (${response.status})`;
+      console.error('Checkout session creation failed:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorData
+      });
+      
+      throw new Error(errorMessage);
     }
 
     const result = await response.json();
@@ -60,7 +109,14 @@ export const createCheckoutSession = async (data: CheckoutSessionData): Promise<
     return {
       id: result.sessionId,
       client_secret: result.clientSecret,
-      url: result.url
+      url: result.url,
+      subtotal: result.subtotal,
+      shippingCost: result.shippingCost,
+      orderTotal: result.orderTotal,
+      applicationFee: result.applicationFee,
+      platformFeePercent: result.platformFeePercent,
+      freeShipping: result.freeShipping,
+      shippingBreakdown: result.shippingBreakdown
     };
   } catch (error) {
     console.error('Error creating checkout session:', error);
@@ -71,7 +127,7 @@ export const createCheckoutSession = async (data: CheckoutSessionData): Promise<
 // Function to retrieve checkout session status
 export const getCheckoutSession = async (sessionId: string): Promise<any> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/stripe/checkout-session/${sessionId}`, {
+    const response = await fetch(`${GET_SESSION_URL}?sessionId=${encodeURIComponent(sessionId)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -96,7 +152,7 @@ export const createPaymentIntent = async (data: CheckoutSessionData): Promise<an
   try {
     const totalAmount = data.items.reduce((sum, item) => sum + item.price, 0);
     
-    const response = await fetch(`${API_BASE_URL}/stripe/create-payment-intent`, {
+    const response = await fetch(`${API_BASE_URL}/createPaymentIntent`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +196,7 @@ export const createPaymentIntent = async (data: CheckoutSessionData): Promise<an
 // Function to get payment intent status
 export const getPaymentIntent = async (paymentIntentId: string): Promise<any> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/stripe/payment-intent/${paymentIntentId}`, {
+    const response = await fetch(`${API_BASE_URL}/getPaymentIntent/${paymentIntentId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +219,7 @@ export const getPaymentIntent = async (paymentIntentId: string): Promise<any> =>
 // Function to create a refund
 export const createRefund = async (paymentIntentId: string, amount?: number, reason?: string): Promise<any> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/stripe/refund`, {
+    const response = await fetch(`${API_BASE_URL}/createRefund`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
