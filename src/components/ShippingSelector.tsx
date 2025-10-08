@@ -63,7 +63,7 @@ const ShippingSelector: React.FC<ShippingSelectorProps> = ({
   if (loading) {
     return (
       <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200">
-        <h3 className="font-patrick-hand-sc text-lg font-bold mb-3 text-slate-800">
+        <h3 className="font-playfair text-lg font-bold mb-3 text-slate-800">
           Shipping Options
         </h3>
         <div className="space-y-2">
@@ -80,7 +80,7 @@ const ShippingSelector: React.FC<ShippingSelectorProps> = ({
   if (error) {
     return (
       <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-red-200">
-        <h3 className="font-patrick-hand-sc text-lg font-bold mb-3 text-slate-800">
+        <h3 className="font-playfair text-lg font-bold mb-3 text-slate-800">
           Shipping Options
         </h3>
         <div className="text-center py-3">
@@ -98,7 +98,7 @@ const ShippingSelector: React.FC<ShippingSelectorProps> = ({
   if (shippingRates.length === 0) {
     return (
       <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200">
-        <h3 className="font-patrick-hand-sc text-lg font-bold mb-3 text-slate-800">
+        <h3 className="font-playfair text-lg font-bold mb-3 text-slate-800">
           Shipping Options
         </h3>
         <div className="text-center py-3">

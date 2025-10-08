@@ -49,11 +49,11 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 -mt-32 pt-44">
+    <div className="min-h-screen bg-gradient-to-br from-[#91a68a]/10 via-white to-[#cf955f]/10 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 -mt-32 pt-44 font-playfair">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-blue-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-tr from-blue-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-gradient-to-br from-[#91a68a]/20 to-[#cf955f]/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-tr from-[#cf955f]/20 to-[#91a68a]/20 rounded-full blur-3xl"></div>
       </div>
       
       <div className="max-w-md w-full space-y-8 relative z-10">
@@ -63,7 +63,7 @@ const Register: React.FC = () => {
               <div 
                 className="w-10 h-10 rounded-full flex items-center justify-center"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)'
                 }}
               >
                 <i className="fas fa-palette text-white"></i>
@@ -76,7 +76,7 @@ const Register: React.FC = () => {
               </span>
             </div>
           </div>
-          <h2 className="font-patrick-hand-sc text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="font-playfair text-4xl font-bold bg-gradient-to-r from-[#91a68a] to-[#cf955f] bg-clip-text text-transparent">
             Create Your Account
           </h2>
           <p className="mt-3 text-neutral-600 text-lg">
@@ -241,7 +241,7 @@ const Register: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+              className="w-full bg-gradient-to-r from-[#91a68a] to-[#cf955f] hover:from-[#7a8c75] hover:to-[#b8864e] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#91a68a] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -268,10 +268,10 @@ const Register: React.FC = () => {
         </div>
 
         {/* Benefits */}
-        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border border-purple-200/50 p-6 shadow-lg">
+        <div className="bg-gradient-to-r from-[#91a68a]/10 to-[#cf955f]/10 rounded-2xl border border-[#91a68a]/20 p-6 shadow-lg">
           <div className="flex items-start space-x-4">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-xl flex items-center justify-center">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
@@ -283,7 +283,7 @@ const Register: React.FC = () => {
               </h3>
               <ul className="space-y-3 text-neutral-700">
                 <li className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center mt-0.5">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
@@ -291,7 +291,7 @@ const Register: React.FC = () => {
                   <span className="text-sm font-medium">Track your orders and purchase history</span>
                 </li>
                 <li className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center mt-0.5">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
@@ -299,7 +299,7 @@ const Register: React.FC = () => {
                   <span className="text-sm font-medium">Save your favorite artworks</span>
                 </li>
                 <li className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center mt-0.5">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
@@ -307,7 +307,7 @@ const Register: React.FC = () => {
                   <span className="text-sm font-medium">Get notified about new collections</span>
                 </li>
                 <li className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center mt-0.5">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f1f3f4 100%)' }}>
-      <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-[#1b1d1a] via-[#3b5237] to-[#1f221d] text-white relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1b1d1a 0%, #3b5237 100%)' }}>
+      <div className="bg-gradient-to-br from-[#1b1d1a] via-[#3b5237] to-[#1f221d] text-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-400 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-purple-400 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-pink-400 rounded-full blur-2xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-primary-400 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-accent-400 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-primary-300 rounded-full blur-2xl animate-pulse" style={{animationDelay: '4s'}}></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
@@ -17,14 +17,15 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center shadow-lg">
                 <i className="fas fa-palette text-white text-lg"></i>
+                
               </div>
               <div>
-                <span className="font-patrick-hand-sc text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="font-playfair text-2xl font-bold bg-gradient-to-r from-[#91a68a] to-[#cf955f] bg-clip-text text-transparent">
                   Ksenia Moroz
                 </span>
-                <p className="text-sm text-neutral-300">Watercolor Artist</p>
+                <p className="text-sm font-lora text-neutral-300">Watercolor Artist</p>
               </div>
             </div>
             <p className="text-neutral-300 mb-6 max-w-md leading-relaxed">
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-10 h-10 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -42,7 +43,7 @@ const Footer: React.FC = () => {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-10 h-10 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -51,7 +52,7 @@ const Footer: React.FC = () => {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-10 h-10 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Twitter"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -65,7 +66,7 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-lg mb-6 text-white relative">
               Quick Links
-              <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-[#98a486] to-[#c79866] rounded-full"></div>
             </h3>
             <ul className="space-y-3">
               <li>
@@ -73,7 +74,7 @@ const Footer: React.FC = () => {
                   to="/"
                   className="text-neutral-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group"
                 >
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 group-hover:bg-purple-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-[#98a486] rounded-full mr-3 group-hover:bg-[#c79866] transition-colors"></span>
                   Home
                 </Link>
               </li>
@@ -82,7 +83,7 @@ const Footer: React.FC = () => {
                   to="/gallery"
                   className="text-neutral-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group"
                 >
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 group-hover:bg-purple-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-[#98a486] rounded-full mr-3 group-hover:bg-[#c79866] transition-colors"></span>
                   Gallery
                 </Link>
               </li>
@@ -91,7 +92,7 @@ const Footer: React.FC = () => {
                   to="/cart"
                   className="text-neutral-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group"
                 >
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 group-hover:bg-purple-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-[#98a486] rounded-full mr-3 group-hover:bg-[#c79866] transition-colors"></span>
                   Cart
                 </Link>
               </li>
@@ -100,7 +101,7 @@ const Footer: React.FC = () => {
                   to="/about"
                   className="text-neutral-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group"
                 >
-                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 group-hover:bg-purple-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-[#98a486] rounded-full mr-3 group-hover:bg-[#c79866] transition-colors"></span>
                   About
                 </Link>
               </li>
@@ -111,11 +112,11 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-lg mb-6 text-white relative">
               Get In Touch
-              <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <div className="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-[#98a486] to-[#c79866] rounded-full"></div>
             </h3>
             <ul className="space-y-4 text-neutral-300">
               <li className="flex items-center space-x-3 group hover:text-white transition-colors">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
@@ -124,7 +125,7 @@ const Footer: React.FC = () => {
                 <span className="text-sm">contact@kseniamoroz.com</span>
               </li>
               <li className="flex items-center space-x-3 group hover:text-white transition-colors">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#98a486] to-[#c79866] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>

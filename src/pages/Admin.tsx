@@ -262,48 +262,48 @@ const Admin: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center text-white mr-4">
                 <i className="fas fa-box text-lg"></i>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalProducts}</h3>
-                <p className="text-gray-600 text-sm">Total Products</p>
+                <h3 className="text-2xl font-bold text-gray-800 font-playfair">{loading ? '...' : stats.totalProducts}</h3>
+                <p className="text-gray-600 text-sm font-playfair">Total Products</p>
               </div>
             </div>
         </div>
         
         <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center text-white mr-4">
                 <i className="fas fa-shopping-cart text-lg"></i>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalOrders}</h3>
-                <p className="text-gray-600 text-sm">Total Orders</p>
+                <h3 className="text-2xl font-bold text-gray-800 font-playfair">{loading ? '...' : stats.totalOrders}</h3>
+                <p className="text-gray-600 text-sm font-playfair">Total Orders</p>
               </div>
             </div>
         </div>
         
         <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white mr-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center text-white mr-4">
                 <i className="fas fa-users text-lg"></i>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : stats.totalCustomers}</h3>
-                <p className="text-gray-600 text-sm">Total Customers</p>
+                <h3 className="text-2xl font-bold text-gray-800 font-playfair">{loading ? '...' : stats.totalCustomers}</h3>
+                <p className="text-gray-600 text-sm font-playfair">Total Customers</p>
               </div>
             </div>
         </div>
         
         <div className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300" style={{borderRadius: '300px'}}>
           <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-400 rounded-full flex items-center justify-center text-white mr-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center text-white mr-4">
                 <i className="fas fa-dollar-sign text-lg"></i>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">{loading ? '...' : `$${stats.totalRevenue.toLocaleString()}`}</h3>
-                <p className="text-gray-600 text-sm">Total Revenue</p>
+                <h3 className="text-2xl font-bold text-gray-800 font-playfair">{loading ? '...' : `$${stats.totalRevenue.toLocaleString()}`}</h3>
+                <p className="text-gray-600 text-sm font-playfair">Total Revenue</p>
               </div>
             </div>
         </div>
@@ -311,12 +311,12 @@ const Admin: React.FC = () => {
 
       {/* Recent Activity */}
       <div className="bg-white rounded-xl shadow-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4 font-playfair">Recent Activity</h3>
         <div className="space-y-4">
           {loading ? (
             <div className="text-center py-8">
               <i className="fas fa-spinner fa-spin text-2xl text-gray-400 mb-2"></i>
-              <p className="text-gray-500">Loading recent activity...</p>
+              <p className="text-gray-500 font-playfair">Loading recent activity...</p>
             </div>
           ) : (
             <>
@@ -327,11 +327,11 @@ const Admin: React.FC = () => {
                     <i className="fas fa-shopping-cart"></i>
                   </div>
                   <div>
-                    <p className="text-gray-800 font-medium">New order received</p>
-                    <p className="text-gray-600 text-sm">Order #{order.id?.slice(-8) || 'N/A'} - ${order.total?.toFixed(2) || '0.00'}</p>
+                    <p className="text-gray-800 font-medium font-playfair">New order received</p>
+                    <p className="text-gray-600 text-sm font-playfair">Order #{order.id?.slice(-8) || 'N/A'} - ${order.total?.toFixed(2) || '0.00'}</p>
                   </div>
                   <span className="ml-auto text-gray-500 text-sm">
-                    {order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                    <span className="font-playfair">{order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</span>
                   </span>
                 </div>
               ))}
@@ -343,10 +343,10 @@ const Admin: React.FC = () => {
                     <i className="fas fa-box"></i>
                   </div>
                   <div>
-                    <p className="text-gray-800 font-medium">Product available</p>
-                    <p className="text-gray-600 text-sm">{product.name} - ${product.price}</p>
+                    <p className="text-gray-800 font-medium font-playfair">Product available</p>
+                    <p className="text-gray-600 text-sm font-playfair">{product.name} - <span className="font-playfair">${product.price}</span></p>
                   </div>
-                  <span className="ml-auto text-gray-500 text-sm">
+                  <span className="ml-auto text-gray-500 text-sm font-playfair">
                     ${product.price}
                   </span>
                 </div>
@@ -359,11 +359,11 @@ const Admin: React.FC = () => {
                     <i className="fas fa-user"></i>
                   </div>
                   <div>
-                    <p className="text-gray-800 font-medium">Customer registered</p>
-                    <p className="text-gray-600 text-sm">{customer.email}</p>
+                    <p className="text-gray-800 font-medium font-playfair">Customer registered</p>
+                    <p className="text-gray-600 text-sm font-playfair">{customer.email}</p>
                   </div>
                   <span className="ml-auto text-gray-500 text-sm">
-                    {customer.createdAt ? new Date(customer.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                    <span className="font-playfair">{customer.createdAt ? new Date(customer.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</span>
                   </span>
                 </div>
               ))}
@@ -371,7 +371,7 @@ const Admin: React.FC = () => {
               {orders.length === 0 && products.length === 0 && customers.length === 0 && (
                 <div className="text-center py-8">
                   <i className="fas fa-clock text-4xl text-gray-300 mb-2"></i>
-                  <p className="text-gray-500">No recent activity</p>
+                  <p className="text-gray-500 font-playfair">No recent activity</p>
                 </div>
               )}
             </>
@@ -384,7 +384,7 @@ const Admin: React.FC = () => {
   const renderProducts = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-white">Product Management</h2>
+        <h2 className="text-2xl font-bold text-white font-playfair">Product Management</h2>
         <button 
           onClick={() => setShowAddProduct(true)}
           className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-2 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 flex items-center"
@@ -398,13 +398,13 @@ const Admin: React.FC = () => {
         {loading ? (
           <div className="text-center py-12">
             <i className="fas fa-spinner fa-spin text-4xl text-gray-400 mb-4"></i>
-            <p className="text-gray-500">Loading products...</p>
+            <p className="text-gray-500 font-playfair">Loading products...</p>
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-12">
             <i className="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No Products Found</h3>
-            <p className="text-gray-500 mb-4">Start by adding your first artwork to the gallery.</p>
+            <h3 className="text-xl font-semibold text-gray-600 mb-2 font-playfair">No Products Found</h3>
+            <p className="text-gray-500 mb-4 font-playfair">Start by adding your first artwork to the gallery.</p>
             <button 
               onClick={() => setShowAddProduct(true)}
               className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-2 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200"
@@ -428,9 +428,9 @@ const Admin: React.FC = () => {
                       />
                       <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-gray-900 truncate">{product.name}</h4>
-                        <p className="text-sm text-gray-600 mb-2">{product.category}</p>
+                        <p className="text-sm text-gray-600 mb-2 font-playfair">{product.category}</p>
                         <div className="flex items-center justify-between">
-                          <span className="text-lg font-bold text-gray-900">${product.price}</span>
+                          <span className="text-lg font-bold text-gray-900 font-playfair">${product.price}</span>
                         </div>
                         <div className="flex space-x-3 mt-3">
                           <button 
@@ -478,7 +478,7 @@ const Admin: React.FC = () => {
                           </div>
                           <div>
                             <h4 className="font-semibold text-gray-900">{product.name}</h4>
-                            <p className="text-sm text-gray-500">ID: {product.id?.slice(-8) || 'N/A'}</p>
+                            <p className="text-sm text-gray-500 font-playfair">ID: {product.id?.slice(-8) || 'N/A'}</p>
                           </div>
                         </div>
                       </td>
@@ -488,7 +488,7 @@ const Admin: React.FC = () => {
                         </span>
                       </td>
                       <td className="py-4 px-6">
-                        <span className="text-lg font-bold text-gray-900">${product.price}</span>
+                        <span className="text-lg font-bold text-gray-900 font-playfair">${product.price}</span>
                       </td>
 
                       <td className="py-4 px-6">
@@ -524,19 +524,19 @@ const Admin: React.FC = () => {
 
   const renderOrders = () => (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">Order Management</h2>
+      <h2 className="text-2xl font-bold text-white font-playfair">Order Management</h2>
       
       <div className="bg-white rounded-xl shadow-lg p-6">
         {loading ? (
           <div className="text-center py-12">
             <i className="fas fa-spinner fa-spin text-4xl text-gray-400 mb-4"></i>
-            <p className="text-gray-500">Loading orders...</p>
+            <p className="text-gray-500 font-playfair">Loading orders...</p>
           </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-12">
             <i className="fas fa-shopping-cart text-6xl text-gray-300 mb-4"></i>
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No Orders Found</h3>
-            <p className="text-gray-500">No orders have been placed yet.</p>
+            <h3 className="text-xl font-semibold text-gray-600 mb-2 font-playfair">No Orders Found</h3>
+            <p className="text-gray-500 font-playfair">No orders have been placed yet.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -570,8 +570,8 @@ const Admin: React.FC = () => {
                         <span className="text-gray-900">{order.customerEmail || 'N/A'}</span>
                       </div>
                     </td>
-                    <td className="py-4 px-6 text-gray-600">
-                      {order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                    <td className="py-4 px-6 text-gray-600 font-playfair">
+                      <span className="font-playfair">{order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</span>
                     </td>
                     <td className="py-4 px-6">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
@@ -624,18 +624,18 @@ const Admin: React.FC = () => {
       case 'customers':
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white">Customer Management</h2>
+            <h2 className="text-2xl font-bold text-white font-playfair">Customer Management</h2>
             <div className="bg-white rounded-xl shadow-lg p-6">
               {loading ? (
                 <div className="text-center py-12">
                   <i className="fas fa-spinner fa-spin text-4xl text-gray-400 mb-4"></i>
-                  <p className="text-gray-500">Loading customers...</p>
+                  <p className="text-gray-500 font-playfair">Loading customers...</p>
                 </div>
               ) : customers.length === 0 ? (
                 <div className="text-center py-12">
                   <i className="fas fa-users text-6xl text-gray-300 mb-4"></i>
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">No Customers Found</h3>
-                  <p className="text-gray-500">No customers have registered yet.</p>
+                  <h3 className="text-xl font-semibold text-gray-600 mb-2 font-playfair">No Customers Found</h3>
+                  <p className="text-gray-500 font-playfair">No customers have registered yet.</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -654,14 +654,14 @@ const Admin: React.FC = () => {
                         <tr key={customer.id} className="hover:bg-gray-50 transition-colors duration-150">
                           <td className="py-4 px-6">
                             <div className="flex items-center">
-                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                              <div className="w-10 h-10 bg-gradient-to-r from-[#91a68a] to-[#cf955f] rounded-full flex items-center justify-center mr-4">
                                 <span className="text-white font-semibold text-sm">
                                   {customer.name?.charAt(0)?.toUpperCase() || 'U'}
                                 </span>
                               </div>
                               <div>
                                 <h4 className="font-semibold text-gray-900">{customer.name}</h4>
-                                <p className="text-sm text-gray-500">ID: {customer.id?.slice(-8) || 'N/A'}</p>
+                                <p className="text-sm text-gray-500 font-playfair">ID: {customer.id?.slice(-8) || 'N/A'}</p>
                               </div>
                             </div>
                           </td>
@@ -698,9 +698,9 @@ const Admin: React.FC = () => {
       case 'analytics':
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white">Analytics</h2>
+            <h2 className="text-2xl font-bold text-white font-playfair">Analytics</h2>
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <p className="text-gray-600 text-center py-12">Analytics dashboard coming soon...</p>
+              <p className="text-gray-600 text-center py-12 font-playfair">Analytics dashboard coming soon...</p>
             </div>
           </div>
         );
@@ -712,12 +712,12 @@ const Admin: React.FC = () => {
   return (
     <div className="min-h-screen bg-white relative">
       {/* Floating Island Sidebar */}
-      <aside className={`fixed top-6 left-6 z-50 w-72 bg-gradient-to-br from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-lg border border-white/20 text-white transform transition-all duration-300 ease-in-out shadow-2xl ${
+      <aside className={`fixed top-6 left-6 z-50 w-72 bg-gradient-to-br from-[#91a68a]/90 to-[#cf955f]/90 backdrop-blur-lg border border-white/20 text-white transform transition-all duration-300 ease-in-out shadow-2xl ${
          sidebarOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
        } lg:translate-x-0 lg:opacity-100`} style={{height: 'calc(100vh - 3rem)', borderTopLeftRadius: '50px', borderBottomRightRadius: '50px'}}>
         <div className="flex items-center justify-center h-20 border-b border-white/20 px-6">
           <i className="fas fa-palette text-yellow-400 mr-3 text-2xl"></i>
-          <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">Moroz Art Admin</h2>
+          <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent font-playfair">Moroz Art Admin</h2>
         </div>
         
         <nav className="mt-6 px-6">
@@ -769,7 +769,7 @@ const Admin: React.FC = () => {
       {/* Main Content */}
       <div className="lg:ml-80 transition-all duration-300">
         {/* Floating Header */}
-        <header className="mx-6 mt-6 mb-6 bg-gradient-to-r from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-lg border border-white/20 shadow-xl" style={{borderRadius: '50px'}}>
+        <header className="mx-6 mt-6 mb-6 bg-gradient-to-r from-[#91a68a]/90 to-[#cf955f]/90 backdrop-blur-lg border border-white/20 shadow-xl" style={{borderRadius: '50px'}}>
           <div className="flex items-center justify-between px-8 py-6">
             <div className="flex items-center">
               <button
@@ -778,8 +778,8 @@ const Admin: React.FC = () => {
               >
                 <i className="fas fa-bars text-xl"></i>
               </button>
-              <h1 className="text-3xl font-bold text-white capitalize">
-                {activeSection}
+              <h1 className="text-3xl font-bold text-white capitalize font-playfair">
+                Admin Dashboard
               </h1>
             </div>
             
@@ -787,14 +787,14 @@ const Admin: React.FC = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center">
                 <i className="fas fa-user text-purple-800 text-lg"></i>
               </div>
-              <span className="text-white/90 font-semibold">Admin</span>
+              <span className="text-white/90 font-semibold font-playfair">Admin</span>
             </div>
           </div>
         </header>
 
         {/* Content */}
         <main className="px-6 pb-6">
-          <div className="bg-gradient-to-br from-[#667eea]/90 to-[#764ba2]/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg p-8 min-h-[calc(100vh-12rem)]">
+          <div className="bg-gradient-to-br from-[#91a68a]/90 to-[#cf955f]/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg p-8 min-h-[calc(100vh-12rem)]">
             {renderContent()}
           </div>
         </main>
@@ -803,10 +803,10 @@ const Admin: React.FC = () => {
       {/* Product Form Modal */}
       {showAddProduct && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-[#667eea]/95 to-[#764ba2]/95 backdrop-blur-lg border border-white/20 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto scrollbar-hide" style={{borderTopLeftRadius: '50px', borderBottomRightRadius: '50px', scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+          <div className="bg-gradient-to-br from-[#91a68a]/95 to-[#cf955f]/95 backdrop-blur-lg border border-white/20 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto scrollbar-hide" style={{borderTopLeftRadius: '50px', borderBottomRightRadius: '50px', scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-white">
+                <h3 className="text-xl font-bold text-white font-playfair">
                   {editingProduct ? 'Edit Product' : 'Add New Product'}
                 </h3>
                 <button
@@ -890,7 +890,7 @@ const Admin: React.FC = () => {
                     {/* Image Preview */}
                     {imagePreview && (
                       <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                        <p className="text-sm text-gray-600 mb-2 font-playfair">Preview:</p>
                         <img
                           src={imagePreview}
                           alt="Product preview"

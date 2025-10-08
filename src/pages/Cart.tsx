@@ -37,10 +37,10 @@ const Cart: React.FC = () => {
       >
         {/* Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
-          <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
-          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-accent-200/30 to-primary-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-accent-200/30 to-primary-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
@@ -52,14 +52,14 @@ const Cart: React.FC = () => {
               border: '1px solid rgba(226, 232, 240, 0.8)'
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
             
             <div 
               className="w-32 h-32 mx-auto mb-8 flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
+                background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 50%, #cf955f 100%)',
                 borderRadius: '40px',
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.3)'
+                boxShadow: '0 20px 40px rgba(145, 166, 138, 0.3)'
               }}
             >
               <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,18 +67,18 @@ const Cart: React.FC = () => {
               </svg>
             </div>
             
-            <h2 className="font-patrick-hand-sc text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent">
               Your Cart is Empty
             </h2>
-            <p className="font-patrick-hand text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="font-lora text-xl text-primary-600 mb-10 max-w-2xl mx-auto leading-relaxed">
               Looks like you haven't added any beautiful artworks to your cart yet. Discover our unique watercolor collection!
             </p>
             <Link
               to="/gallery"
-              className="group font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
+              className="group font-open-sans inline-flex items-center justify-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
-                boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+                background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 50%, #cf955f 100%)',
+                boxShadow: '0 10px 30px rgba(145, 166, 138, 0.3)'
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -102,28 +102,28 @@ const Cart: React.FC = () => {
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
-        <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-xl animate-float"></div>
+        <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-accent-200/30 to-primary-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-accent-200/30 to-primary-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Enhanced Breadcrumb */}
         <nav className="flex items-center space-x-3 mb-12">
           <div className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20" style={{ boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300 flex items-center gap-2">
+            <Link to="/" className="font-lora text-primary-600 hover:text-accent-600 transition-colors duration-300 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Home
             </Link>
-            <span className="text-slate-400">/</span>
-            <Link to="/gallery" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300">
+            <span className="text-primary-400">/</span>
+            <Link to="/gallery" className="font-lora text-primary-600 hover:text-accent-600 transition-colors duration-300">
               Gallery
             </Link>
-            <span className="text-slate-400">/</span>
-            <span className="font-patrick-hand text-slate-900 font-semibold">Your Cart</span>
+            <span className="text-primary-400">/</span>
+            <span className="font-lora text-primary-900 font-semibold">Your Cart</span>
           </div>
         </nav>
         
@@ -137,14 +137,14 @@ const Cart: React.FC = () => {
               border: '1px solid rgba(226, 232, 240, 0.8)'
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
             
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="text-center sm:text-left">
-                <h1 className="font-patrick-hand-sc text-4xl lg:text-5xl font-bold mb-2 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+                <h1 className="font-playfair text-4xl lg:text-5xl font-bold mb-2 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent">
                   Your Cart
                 </h1>
-                <p className="font-patrick-hand text-xl text-slate-600">
+                <p className="font-lora text-xl text-primary-600">
                   {items.length} {items.length === 1 ? 'artwork' : 'artworks'} ready for checkout
                 </p>
                 
@@ -157,13 +157,13 @@ const Cart: React.FC = () => {
                       </svg>
                     ))}
                   </div>
-                  <span className="font-patrick-hand text-slate-500 text-sm">(Secure Shopping Experience)</span>
+                  <span className="font-open-sans text-primary-500 text-sm">(Secure Shopping Experience)</span>
                 </div>
               </div>
               
               <button
                 onClick={clearCart}
-                className="font-patrick-hand-sc px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 font-bold hover:shadow-lg"
+                className="font-playfair px-8 py-4 bg-primary-50 text-primary-700 rounded-full hover:bg-primary-100 transition-all duration-300 font-bold hover:shadow-lg"
               >
                 Clear Cart
               </button>
@@ -183,22 +183,22 @@ const Cart: React.FC = () => {
                 border: '1px solid rgba(226, 232, 240, 0.8)'
               }}
             >
-              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
               
               <div className="mb-6">
                 <span 
-                  className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full"
-                  style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)' }}
+                  className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full font-open-sans"
+                  style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                 >
                   ✨ Your Collection
                 </span>
               </div>
               
-              <h2 className="font-patrick-hand-sc text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+              <h2 className="font-playfair text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent">
                 Selected Artworks ({items.length})
               </h2>
               
-              <p className="font-patrick-hand text-xl text-slate-600 leading-relaxed">
+              <p className="font-lora text-xl text-primary-600 leading-relaxed">
                 Handpicked watercolor masterpieces ready for your collection
               </p>
             </div>
@@ -241,10 +241,10 @@ const Cart: React.FC = () => {
                     {/* Product Info */}
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="font-patrick-hand-sc text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:to-blue-600 transition-all duration-300">
+                        <h3 className="font-playfair text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 bg-clip-text text-transparent group-hover:from-[#91a68a] group-hover:to-[#cf955f] transition-all duration-300">
                           {item.name}
                         </h3>
-                        <p className="font-patrick-hand text-slate-600 mb-4">
+                        <p className="font-playfair text-slate-600 mb-4">
                           Original Watercolor on Premium Paper
                         </p>
                         
@@ -254,26 +254,26 @@ const Cart: React.FC = () => {
                             <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="font-patrick-hand text-xs">Original</span>
+                            <span className="font-playfair text-xs">Original</span>
                           </div>
                           <div className="flex items-center gap-1 text-slate-600">
                             <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="font-patrick-hand text-xs">Handcrafted</span>
+                            <span className="font-playfair text-xs">Handcrafted</span>
                           </div>
                           <div className="flex items-center gap-1 text-slate-600">
                             <svg className="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="font-patrick-hand text-xs">Premium Quality</span>
+                            <span className="font-playfair text-xs">Premium Quality</span>
                           </div>
                         </div>
                       </div>
                       
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                          <span className="font-playfair text-3xl font-bold bg-gradient-to-r from-[#91a68a] to-[#cf955f] bg-clip-text text-transparent">
                             ${item.price.toFixed(2)}
                           </span>
                           <span className="text-sm text-slate-400 font-medium">USD</span>
@@ -281,7 +281,7 @@ const Cart: React.FC = () => {
                         
                         <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full">
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                          <span className="font-patrick-hand text-green-700 text-sm font-medium">In Stock</span>
+                          <span className="font-playfair text-green-700 text-sm font-medium">In Stock</span>
                         </div>
                       </div>
                     </div>
@@ -302,24 +302,24 @@ const Cart: React.FC = () => {
                 border: '1px solid rgba(226, 232, 240, 0.8)'
               }}
             >
-              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
               
               {/* Order Header */}
               <div>
                 <div className="mb-6">
                   <span 
                     className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full"
-                    style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)' }}
+                    style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                   >
                     💳 Checkout
                   </span>
                 </div>
                 
-                <h2 className="font-patrick-hand-sc text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+                <h2 className="font-playfair text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent">
                   Order Summary
                 </h2>
                 
-                <p className="font-patrick-hand text-xl text-slate-600 leading-relaxed">
+                <p className="font-playfair text-xl text-slate-600 leading-relaxed">
                   Ready to complete your purchase?
                 </p>
               </div>
@@ -338,34 +338,34 @@ const Cart: React.FC = () => {
               <div className="border-t border-slate-200 pt-8">
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                    <span className="font-patrick-hand font-medium text-slate-700">Subtotal ({items.length} {items.length === 1 ? 'item' : 'items'})</span>
-                    <span className="font-patrick-hand-sc font-bold text-slate-900">${total.toFixed(2)}</span>
+                    <span className="font-playfair font-medium text-slate-700">Subtotal ({items.length} {items.length === 1 ? 'item' : 'items'})</span>
+                    <span className="font-playfair font-bold text-slate-900">${total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
                     <div className="flex flex-col">
-                      <span className="font-patrick-hand font-medium text-slate-700">Shipping & Handling</span>
+                      <span className="font-playfair font-medium text-slate-700">Shipping & Handling</span>
                       {selectedShippingRate && (
-                        <span className="font-patrick-hand text-sm text-slate-600">
+                        <span className="font-playfair text-sm text-slate-600">
                           {selectedShippingRate.display_name}
                         </span>
                       )}
                     </div>
                     <div className="flex items-center space-x-2">
                       {selectedShippingRate ? (
-                        <span className={`font-patrick-hand-sc font-bold ${
+                        <span className={`font-playfair font-bold ${
                           selectedShippingRate.amount === 0 ? 'text-green-600' : 'text-slate-900'
                         }`}>
                           {selectedShippingRate.amount === 0 ? 'Free' : `$${shippingCost.toFixed(2)}`}
                         </span>
                       ) : (
-                        <span className="font-patrick-hand-sc font-bold text-slate-900">Select shipping option</span>
+                        <span className="font-playfair font-bold text-slate-900">Select shipping option</span>
                       )}
                     </div>
                   </div>
                   <div className="border-t border-slate-200 pt-4">
                     <div className="flex justify-between items-center">
-                      <span className="font-patrick-hand-sc text-2xl font-bold text-slate-900">Total</span>
-                      <span className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      <span className="font-playfair text-2xl font-bold text-slate-900">Total</span>
+                      <span className="font-playfair text-3xl font-bold bg-gradient-to-r from-[#91a68a] to-[#cf955f] bg-clip-text text-transparent">
                         ${finalTotal.toFixed(2)}
                       </span>
                     </div>
@@ -378,24 +378,24 @@ const Cart: React.FC = () => {
                 <div className="space-y-4">
                   {!currentUser ? (
                     <div className="space-y-4">
-                      <div className="p-6 bg-blue-50 border border-blue-200 rounded-2xl">
+                      <div className="p-6 bg-slate-50 border border-brown-200 rounded-2xl">
                         <div className="flex items-center gap-3 mb-3">
-                          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-6 h-6 text-[#cf955f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                           </svg>
-                          <h3 className="font-patrick-hand-sc text-xl font-bold text-blue-800">
+                          <h3 className="font-playfair text-xl font-bold text-[#cf955f]">
                             Sign In Required
                           </h3>
                         </div>
-                        <p className="font-patrick-hand text-blue-700 mb-4">
+                        <p className="font-playfair text-[#91a68a] mb-4">
                           Please sign in to your account to complete your purchase and track your orders.
                         </p>
                         <Link
                           to="/login"
                           state={{ from: '/cart', message: 'Please sign in to complete your purchase' }}
-                          className="w-full font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg"
+                          className="w-full font-playfair inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg"
                           style={{
-                            background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)'
+                            background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)'
                           }}
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -413,7 +413,7 @@ const Cart: React.FC = () => {
                             <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                             </svg>
-                            <span className="font-patrick-hand text-amber-700 font-medium">
+                            <span className="font-playfair text-amber-700 font-medium">
                               Please select a shipping option to continue
                             </span>
                           </div>
@@ -429,7 +429,7 @@ const Cart: React.FC = () => {
                   )}
                   <Link
                     to="/gallery"
-                    className="w-full font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"
+                    className="w-full font-playfair inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -445,7 +445,7 @@ const Cart: React.FC = () => {
                 <div 
                   className="p-6 relative overflow-hidden"
                   style={{
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                     borderRadius: '30px',
                     boxShadow: '0 15px 30px rgba(102, 126, 234, 0.2)'
                   }}
@@ -460,21 +460,21 @@ const Cart: React.FC = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-patrick-hand-sc text-lg font-bold text-white mb-2">
+                      <h4 className="font-playfair text-lg font-bold text-white mb-2">
                         Secure Checkout
                       </h4>
-                      <p className="font-patrick-hand text-white/90 text-sm">
+                      <p className="font-playfair text-white/90 text-sm">
                         Your payment information is encrypted and secure. All transactions are protected.
                       </p>
                       
                       <div className="flex items-center gap-3 mt-3">
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></div>
-                          <span className="font-patrick-hand text-white/90 text-xs">SSL Encrypted</span>
+                          <span className="font-playfair text-white/90 text-xs">SSL Encrypted</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
-                          <span className="font-patrick-hand text-white/90 text-xs">PCI Compliant</span>
+                          <span className="font-playfair text-white/90 text-xs">PCI Compliant</span>
                         </div>
                       </div>
                     </div>

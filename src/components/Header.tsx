@@ -49,14 +49,14 @@ const Header: React.FC = () => {
               <div 
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)'
                 }}
               >
                 <i className="fas fa-palette text-white text-sm"></i>
               </div>
               <span 
-                className="font-patrick-hand text-xl font-bold transition-colors duration-300 group-hover:text-purple-600"
-                style={{ color: '#2c3e50' }}
+                className="font-playfair text-xl font-bold transition-colors duration-300 group-hover:text-accent-400"
+                style={{ color: '#3e493a' }}
               >
                 Moroz Art
               </span>
@@ -74,9 +74,9 @@ const Header: React.FC = () => {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="font-inter text-base font-medium transition-all duration-200 hover:text-purple-700 hover:bg-purple-50 px-3 py-2 rounded-full"
+                  className="font-lora text-base font-medium transition-all duration-200 hover:text-primary-400 hover:bg-primary-50 px-3 py-2 rounded-full"
                   style={{ 
-                    color: '#6b7280'
+                    color: '#4c5a47'
                   }}
                 >
                   {item.label}
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
                 style={{ color: '#2c3e50' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.color = '#667eea';
+                  e.currentTarget.style.color = '#91a68a';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1)';
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
                   <span 
                     className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium"
                     style={{ 
-                      background: '#667eea'
+                      background: '#91a68a'
                     }}
                   >
                     {itemCount}
@@ -121,7 +121,7 @@ const Header: React.FC = () => {
                     onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
                     className="group flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 hover:scale-105"
                     style={{ 
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      background: 'linear-gradient(135deg, #98a486 0%, #c79866 100%)'
                     }}
                   >
                     <i className="fas fa-user text-white text-sm"></i>
@@ -149,7 +149,7 @@ const Header: React.FC = () => {
                           <div className="flex items-center space-x-3">
                             <div 
                               className="w-10 h-10 rounded-full flex items-center justify-center"
-                              style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                              style={{ background: 'linear-gradient(135deg, #98a486 0%, #c79866 100%)' }}
                             >
                               <i className="fas fa-user text-white"></i>
                             </div>
@@ -238,7 +238,7 @@ const Header: React.FC = () => {
                     to="/register"
                     className="px-3 py-2 font-inter text-base font-medium text-white rounded-full transition-all duration-300 hover:scale-105"
                     style={{ 
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      background: 'linear-gradient(135deg, #98a486 0%, #c79866 100%)'
                     }}
                   >
                     Sign Up
@@ -302,7 +302,7 @@ const Header: React.FC = () => {
                       <div className="flex items-center space-x-3">
                         <div 
                           className="w-8 h-8 rounded-full flex items-center justify-center"
-                          style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                          style={{ background: 'linear-gradient(135deg, #98a486 0%, #c79866 100%)' }}
                         >
                           <i className="fas fa-user text-white text-sm"></i>
                         </div>

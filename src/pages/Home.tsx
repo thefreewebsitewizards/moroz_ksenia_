@@ -81,8 +81,9 @@ const Home: React.FC = () => {
       <section 
         className="relative min-h-screen flex items-center overflow-hidden -mt-28" 
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          paddingTop: '7rem'
+          background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+          paddingTop: '7rem',
+          paddingBottom: '3rem'
         }}
       >
         {/* Animated Background Elements */}
@@ -103,39 +104,66 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Side - Enhanced Text Content */}
             <div className="space-y-8 text-center lg:text-left">
-              <div className="space-y-6">
+              <div className="space-y-6 max-w-2xl mx-auto lg:mx-0">
+                {/* Watercolor Artist Badge */}
+                <div className="inline-flex items-center mb-2 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                  <div className="w-4.5 h-5.5 rounded-full bg-[#8fa68b] mr-2"></div>
+                  <span className="px-5 py-1.5 rounded-full border border-white/30 text-white/90 text-base backdrop-blur-sm font-open-sans">
+                    Watercolor Artist
+                  </span>
+                </div>
+                
                 <h1 
-                  className="font-patrick-hand text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight text-white animate-fade-in-up"
+                  className="font-playfair text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight text-white animate-fade-in-up"
                   style={{ animationDelay: '0.2s' }}
                 >
-                  Original
+                  Nature-Inspired
                   <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                    Watercolor Art
+                    Watercolors with a Story
                   </span>
                 </h1>
                 <p 
-                  className="font-inter text-lg lg:text-xl leading-relaxed text-white/90 max-w-xl animate-fade-in-up"
+                  className="font-lora text-lg lg:text-xl leading-relaxed text-white/90 max-w-xl animate-fade-in-up"
                   style={{ animationDelay: '0.4s' }}
                 >
-                  Each piece is a unique work of art capturing the beauty of nature through delicate watercolor techniques and artistic passion.
+                  Phoenix-based artist Ksenia Moroz blends the soulful depth of Russian artistry with the vibrant freedom of the American Southwest.
                 </p>
+                
+                {/* Three horizontal points */}
+                <div className="flex flex-wrap md:flex-nowrap justify-between gap-x-4 gap-y-3 mt-4 animate-fade-in-up font-lora" style={{ animationDelay: '0.5s' }}>
+                  <div className="flex items-center whitespace-nowrap">
+                    <div className="w-2 h-2 rounded-full bg-white/90 mr-2"></div>
+                    <span className="text-white/90">Handcrafted Originals</span>
+                  </div>
+                  <div className="flex items-center whitespace-nowrap">
+                    <div className="w-2 h-2 rounded-full bg-white/90 mr-2"></div>
+                    <span className="text-white/90">Custom Commissions</span>
+                  </div>
+                  <div className="flex items-center whitespace-nowrap">
+                    <div className="w-2 h-2 rounded-full bg-white/90 mr-2"></div>
+                    <span className="text-white/90">Worldwide Shipping</span>
+                  </div>
+                </div>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <Link
                   to="/gallery"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-purple-600 font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl group"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#8fa68b] font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl group"
                 >
-                  <span>Shop Collection</span>
+                  <span>View Portfolio</span>
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full transition-all duration-300 hover:bg-white/10 backdrop-blur-sm"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-white/30 text-[#8fa68b] font-semibold rounded-full transition-all duration-300 hover:bg-white/10 backdrop-blur-sm"
                 >
-                  Learn More
+                  <span className='mr-2'>Request a Custom Piece</span>
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                  </svg>
                 </Link>
               </div>
             </div>
@@ -254,22 +282,21 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-block mb-6">
-              <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-medium rounded-full shadow-lg">
+              <span className="px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-medium font-open-sans rounded-full shadow-lg">
                 ✨ Handcrafted Collection
               </span>
             </div>
             <h2 
-              className="font-patrick-hand-sc text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent leading-tight"
+              className="font-playfair text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent leading-tight"
             >
-              Our Collection
+              Featured Works
             </h2>
             <p 
-              className="font-patrick-hand text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed"
-              style={{ color: '#64748b' }}
+              className="font-lora text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed text-primary-700"
             >
-              Discover our handcrafted watercolor artworks, each piece telling a unique story through delicate brushstrokes and vibrant colors
+              A glimpse into Ksenia's world of watercolor landscapes, floral studies, and one-of-a-kind commissions. Each piece tells a story—of nature, travel, and emotion.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto mt-8 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto mt-8 rounded-full"></div>
           </div>
           
           {loading ? (
@@ -335,14 +362,12 @@ const Home: React.FC = () => {
                   <div className="p-8 relative">
                     <div className="mb-4">
                       <h3 
-                        className="font-patrick-hand-sc text-xl font-bold mb-3 group-hover:text-purple-700 transition-colors duration-300"
-                        style={{ color: '#1e293b' }}
+                        className="font-playfair text-xl font-bold mb-3 group-hover:text-primary-700 transition-colors duration-300 text-primary-800"
                       >
                         {product.name}
                       </h3>
                       <p 
-                        className="font-patrick-hand text-sm leading-relaxed line-clamp-2"
-                        style={{ color: '#64748b' }}
+                        className="font-lora text-sm leading-relaxed line-clamp-2 text-primary-700"
                       >
                         {product.description}
                       </p>
@@ -351,11 +376,11 @@ const Home: React.FC = () => {
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center gap-2">
                         <span 
-                          className="font-patrick-hand-sc text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+                          className="font-playfair text-3xl font-bold bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent"
                         >
                           ${product.price}
                         </span>
-                        <span className="text-xs text-slate-400 font-medium">USD</span>
+                        <span className="text-xs text-primary-600 font-medium font-open-sans">USD</span>
                       </div>
                       
                       {/* Rating stars placeholder */}
@@ -371,15 +396,15 @@ const Home: React.FC = () => {
                     <div className="flex gap-3">
                       <Link
                         to={`/product/${product.id}`}
-                        className="flex-1 font-patrick-hand px-6 py-3 bg-slate-100 text-slate-700 rounded-2xl hover:bg-slate-200 transition-all duration-300 text-center font-medium group-hover:shadow-lg"
+                        className="flex-1 font-open-sans px-6 py-3 bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 rounded-2xl hover:bg-gradient-to-r hover:from-primary-100 hover:to-primary-200 transition-all duration-300 text-center font-medium group-hover:shadow-lg"
                       >
                         View Details
                       </Link>
                       <button
                         onClick={() => handleAddToCart(product)}
-                        className="flex-1 font-patrick-hand px-6 py-3 text-white rounded-2xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                        className="flex-1 font-open-sans px-6 py-3 text-white rounded-2xl font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                         style={{
-                          background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)'
+                          background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)'
                         }}
                       >
                         Add to Cart
@@ -393,15 +418,15 @@ const Home: React.FC = () => {
           
           <div className="text-center mt-16">
             <div className="inline-flex flex-col items-center gap-4">
-              <p className="font-patrick-hand text-slate-600 text-lg">
+              <p className="font-lora text-primary-600 text-lg">
                 Explore our complete collection of unique watercolor artworks
               </p>
               <Link
                 to="/gallery"
-                className="group font-patrick-hand-sc inline-flex items-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
+                className="group font-open-sans inline-flex items-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
-                  boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 50%, #cf955f 100%)',
+                  boxShadow: '0 10px 30px rgba(145, 166, 138, 0.3)'
                 }}
               >
                 {/* Animated background */}
@@ -414,17 +439,17 @@ const Home: React.FC = () => {
               </Link>
               
               {/* Stats */}
-              <div className="flex items-center gap-8 mt-6 text-sm text-slate-500">
+              <div className="flex items-center gap-8 mt-6 text-sm text-primary-600 font-open-sans">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
                   <span>50+ Unique Pieces</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
                   <span>Handcrafted Quality</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
                   <span>Free Shipping $50+</span>
                 </div>
               </div>
@@ -439,19 +464,17 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 
-                className="font-patrick-hand-sc text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent leading-tight"
+                className="font-playfair text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-800 via-accent-700 to-primary-800 bg-clip-text text-transparent leading-tight"
               >
                 About Moroz Custom Art
               </h2>
               <p 
-                className="font-patrick-hand text-xl lg:text-2xl mb-6 leading-relaxed"
-                style={{ color: '#64748b' }}
+                className="font-lora text-xl lg:text-2xl mb-6 leading-relaxed text-primary-700"
               >
                 Welcome to my world of watercolor art! I'm passionate about creating unique, handmade pieces that capture the beauty of nature and landscapes. Each artwork is carefully crafted using high-quality watercolor paints and professional paper.
               </p>
               <p 
-                className="font-patrick-hand text-xl lg:text-2xl mb-6 leading-relaxed"
-                style={{ color: '#64748b' }}
+                className="font-lora text-xl lg:text-2xl mb-6 leading-relaxed text-primary-700"
               >
                 Based in Phoenix, Arizona, I draw inspiration from the stunning desert landscapes, national parks, and natural wonders of the Southwest. Every piece is original and one-of-a-kind.
               </p>
@@ -460,25 +483,24 @@ const Home: React.FC = () => {
                 <div className="text-center">
                   <div 
                     className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ background: '#667eea', color: 'white' }}
+                    style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)', color: 'white' }}
                   >
                     <i className="fas fa-palette text-xl"></i>
                   </div>
                   <h3 
-                    className="font-inter text-lg font-semibold mb-2"
-                    style={{ color: '#2c3e50' }}
+                    className="font-playfair text-lg font-semibold mb-2 text-primary-800"
                   >
                     Original Art
                   </h3>
-                  <p className="font-inter" style={{ color: '#7f8c8d' }}>
-                    Every piece is hand-painted and unique
-                  </p>
+                  <p className="font-lora text-primary-700">
+                     Every piece is hand-painted and unique
+                   </p>
                 </div>
                 
                 <div className="text-center">
                   <div 
                     className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ background: '#667eea', color: 'white' }}
+                    style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)', color: 'white' }}
                   >
                     <i className="fas fa-leaf text-xl"></i>
                   </div>
@@ -496,7 +518,7 @@ const Home: React.FC = () => {
                 <div className="text-center">
                   <div 
                     className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ background: '#667eea', color: 'white' }}
+                    style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)', color: 'white' }}
                   >
                     <i className="fas fa-heart text-xl"></i>
                   </div>
@@ -538,9 +560,9 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 
-              className="font-inter text-4xl lg:text-5xl font-bold mb-6"
+              className="font-playfair text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r bg-clip-text text-transparent"
               style={{ 
-                background: 'linear-gradient(135deg, #2c3e50 0%, #667eea 100%)',
+                background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
@@ -548,10 +570,10 @@ const Home: React.FC = () => {
             >
               Shipping & Policies
             </h2>
-            <div className="w-24 h-1 mx-auto mb-8" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            <div className="w-24 h-1 mx-auto mb-8" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
             <p 
-              className="font-inter text-xl max-w-3xl mx-auto leading-relaxed"
-              style={{ color: '#555', lineHeight: '1.8' }}
+              className="font-lora text-xl max-w-3xl mx-auto leading-relaxed text-primary-700"
+              style={{ color: '#4a5d4a', lineHeight: '1.8' }}
             >
               We're committed to providing you with exceptional service and ensuring your beautiful artwork arrives safely at your doorstep.
             </p>
@@ -562,61 +584,61 @@ const Home: React.FC = () => {
               className="p-10 text-center group relative overflow-hidden"
               style={{ 
                 backgroundColor: 'white',
-                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 15px 35px rgba(145, 166, 138, 0.08)',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 borderTopLeftRadius: '50px',
                 borderBottomRightRadius: '60px',
-                border: '1px solid rgba(102, 126, 234, 0.1)'
+                border: '1px solid rgba(145, 166, 138, 0.1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 25px 60px rgba(102, 126, 234, 0.15)';
+                e.currentTarget.style.boxShadow = '0 25px 60px rgba(145, 166, 138, 0.15)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.08)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(145, 166, 138, 0.08)';
               }}
             >
               <div 
                 className="absolute top-0 left-0 w-full h-1"
-                style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
               ></div>
               <div 
                 className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-300"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+                  boxShadow: '0 10px 25px rgba(145, 166, 138, 0.3)'
                 }}
               >
                 <i className="fas fa-shipping-fast text-white text-2xl"></i>
               </div>
               <h3 
-                className="font-inter text-2xl font-bold mb-6"
-                style={{ color: '#2c3e50' }}
+                className="font-playfair text-2xl font-bold mb-6"
+                style={{ color: '#4a5d4a' }}
               >
                 Fast Shipping
               </h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-inter font-medium" style={{ color: '#2c3e50' }}>Postcards/Bookmarks</span>
-                  <span className="font-inter font-bold" style={{ color: '#667eea' }}>$6</span>
+                  <span className="font-open-sans font-medium" style={{ color: '#4a5d4a' }}>Postcards/Bookmarks</span>
+                  <span className="font-playfair font-bold" style={{ color: '#cf955f' }}>$6</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-inter font-medium" style={{ color: '#2c3e50' }}>Wall Art (Small)</span>
-                  <span className="font-inter font-bold" style={{ color: '#667eea' }}>$12</span>
+                  <span className="font-open-sans font-medium" style={{ color: '#4a5d4a' }}>Wall Art (Small)</span>
+                  <span className="font-playfair font-bold" style={{ color: '#cf955f' }}>$12</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-inter font-medium" style={{ color: '#2c3e50' }}>Wall Art (Large)</span>
-                  <span className="font-inter font-bold" style={{ color: '#667eea' }}>$20</span>
+                  <span className="font-open-sans font-medium" style={{ color: '#4a5d4a' }}>Wall Art (Large)</span>
+                  <span className="font-playfair font-bold" style={{ color: '#cf955f' }}>$20</span>
                 </div>
                 <div 
-                  className="p-4 rounded-lg text-center font-inter font-bold text-white"
-                  style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                  className="p-4 rounded-lg text-center font-open-sans font-bold text-white"
+                  style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                 >
                   FREE shipping on orders $50+
                 </div>
-                <p className="font-inter text-sm mt-4" style={{ color: '#7f8c8d' }}>
-                  <i className="fas fa-map-marker-alt mr-2" style={{ color: '#667eea' }}></i>
+                <p className="font-open-sans text-sm mt-4" style={{ color: '#6b7d6b' }}>
+                  <i className="fas fa-map-marker-alt mr-2" style={{ color: '#cf955f' }}></i>
                   Local Phoenix delivery available
                 </p>
               </div>
@@ -626,60 +648,60 @@ const Home: React.FC = () => {
               className="p-10 text-center group relative overflow-hidden"
               style={{ 
                 backgroundColor: 'white',
-                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 15px 35px rgba(145, 166, 138, 0.08)',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 borderTopLeftRadius: '50px',
                 borderBottomRightRadius: '60px',
-                border: '1px solid rgba(102, 126, 234, 0.1)'
+                border: '1px solid rgba(145, 166, 138, 0.1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 25px 60px rgba(102, 126, 234, 0.15)';
+                e.currentTarget.style.boxShadow = '0 25px 60px rgba(145, 166, 138, 0.15)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.08)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(145, 166, 138, 0.08)';
               }}
             >
               <div 
                 className="absolute top-0 left-0 w-full h-1"
-                style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
               ></div>
               <div 
                 className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-300"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+                  boxShadow: '0 10px 25px rgba(145, 166, 138, 0.3)'
                 }}
               >
                 <i className="fas fa-credit-card text-white text-2xl"></i>
               </div>
               <h3 
-                className="font-inter text-2xl font-bold mb-6"
-                style={{ color: '#2c3e50' }}
+                className="font-playfair text-2xl font-bold mb-6"
+                style={{ color: '#4a5d4a' }}
               >
                 Secure Payment
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-shield-alt mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>SSL encrypted checkout</span>
+                  <i className="fas fa-shield-alt mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>SSL encrypted checkout</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-credit-card mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>All major cards accepted</span>
+                  <i className="fas fa-credit-card mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>All major cards accepted</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fab fa-paypal mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>PayPal available</span>
+                  <i className="fab fa-paypal mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>PayPal available</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-lock mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>Bank-level security</span>
+                  <i className="fas fa-lock mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>Bank-level security</span>
                 </div>
                 <div 
-                  className="p-4 rounded-lg text-center font-inter font-bold text-white"
-                  style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                  className="p-4 rounded-lg text-center font-open-sans font-bold text-white"
+                  style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                 >
                   No hidden fees ever
                 </div>
@@ -690,60 +712,60 @@ const Home: React.FC = () => {
               className="p-10 text-center group relative overflow-hidden"
               style={{ 
                 backgroundColor: 'white',
-                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 15px 35px rgba(145, 166, 138, 0.08)',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 borderTopLeftRadius: '50px',
                 borderBottomRightRadius: '60px',
-                border: '1px solid rgba(102, 126, 234, 0.1)'
+                border: '1px solid rgba(145, 166, 138, 0.1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 25px 60px rgba(102, 126, 234, 0.15)';
+                e.currentTarget.style.boxShadow = '0 25px 60px rgba(145, 166, 138, 0.15)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.08)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(145, 166, 138, 0.08)';
               }}
             >
               <div 
                 className="absolute top-0 left-0 w-full h-1"
-                style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
               ></div>
               <div 
                 className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-300"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+                  boxShadow: '0 10px 25px rgba(145, 166, 138, 0.3)'
                 }}
               >
                 <i className="fas fa-shield-alt text-white text-2xl"></i>
               </div>
               <h3 
-                className="font-inter text-2xl font-bold mb-6"
-                style={{ color: '#2c3e50' }}
+                className="font-playfair text-2xl font-bold mb-6"
+                style={{ color: '#4a5d4a' }}
               >
                 Quality Guarantee
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-star mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>100% satisfaction guarantee</span>
+                  <i className="fas fa-star mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>100% satisfaction guarantee</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-undo mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>30-day return policy</span>
+                  <i className="fas fa-undo mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>30-day return policy</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-box mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>Professional packaging</span>
+                  <i className="fas fa-box mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>Professional packaging</span>
                 </div>
                 <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#f8f9fa' }}>
-                  <i className="fas fa-headset mr-3" style={{ color: '#667eea' }}></i>
-                  <span className="font-inter" style={{ color: '#2c3e50' }}>Dedicated support team</span>
+                  <i className="fas fa-headset mr-3" style={{ color: '#cf955f' }}></i>
+                  <span className="font-open-sans" style={{ color: '#4a5d4a' }}>Dedicated support team</span>
                 </div>
                 <div 
-                  className="p-4 rounded-lg text-center font-inter font-bold text-white"
-                  style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                  className="p-4 rounded-lg text-center font-open-sans font-bold text-white"
+                  style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                 >
                   Insured shipping included
                 </div>

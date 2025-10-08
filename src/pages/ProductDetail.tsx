@@ -44,17 +44,17 @@ const ProductDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #eef2f7 0%, #dce4ed 100%)' }}>
         {/* Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
-          <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#91a68a]/30 to-[#cf955f]/30 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-[#cf955f]/30 to-[#91a68a]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-[#91a68a]/30 to-[#cf955f]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div 
+            <div
               className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 animate-pulse relative overflow-hidden"
               style={{
                 borderTopLeftRadius: '80px',
@@ -78,28 +78,28 @@ const ProductDetail: React.FC = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #eef2f7 0%, #dce4ed 100%)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <div 
+          <div
             className="bg-white p-12 relative overflow-hidden"
             style={{
               borderRadius: 'px',
               boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)'
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
-            <h1 className="font-patrick-hand-sc text-4xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+            <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
+            <h1 className="font-playfair text-4xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
               Product Not Found
             </h1>
-            <p className="font-patrick-hand text-xl text-slate-600 mb-8 leading-relaxed">
+            <p className="font-playfair text-xl text-slate-600 mb-8 leading-relaxed">
               The product you're looking for doesn't exist or has been removed.
             </p>
-            <Link 
-              to="/gallery" 
+            <Link
+              to="/gallery"
               className="inline-flex items-center gap-3 px-10 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
               style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
-                boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+                background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+                boxShadow: '0 10px 30px rgba(145, 166, 138, 0.3)'
               }}
             >
               <span>Back to Gallery</span>
@@ -114,31 +114,31 @@ const ProductDetail: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #eef2f7 0%, #dce4ed 100%)' }}>
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl animate-float"></div>
-        <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-orange-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-green-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#91a68a]/30 to-[#cf955f]/30 rounded-full blur-xl animate-float"></div>
+        <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-[#cf955f]/30 to-[#91a68a]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-br from-[#91a68a]/30 to-[#cf955f]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-br from-[#91a68a]/30 to-[#cf955f]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Enhanced Breadcrumb */}
         <nav className="flex items-center space-x-3 mb-12">
           <div className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20" style={{ boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)' }}>
-            <Link to="/" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300 flex items-center gap-2">
+            <Link to="/" className="font-playfair text-slate-600 hover:text-[#91a68a] transition-colors duration-300 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Home
             </Link>
             <span className="text-slate-400">/</span>
-            <Link to="/gallery" className="font-patrick-hand text-slate-600 hover:text-purple-600 transition-colors duration-300">
+            <Link to="/gallery" className="font-playfair text-slate-600 hover:text-[#91a68a] transition-colors duration-300">
               Gallery
             </Link>
             <span className="text-slate-400">/</span>
-            <span className="font-patrick-hand text-slate-900 font-semibold">{product.name}</span>
+            <span className="font-playfair text-slate-900 font-semibold">{product.name}</span>
           </div>
         </nav>
 
@@ -146,7 +146,7 @@ const ProductDetail: React.FC = () => {
           {/* Enhanced Product Image Gallery */}
           <div className="space-y-6">
             {/* Main Image */}
-            <div 
+            <div
               className="aspect-square overflow-hidden bg-white relative group"
               style={{
                 borderTopLeftRadius: '100px',
@@ -155,14 +155,14 @@ const ProductDetail: React.FC = () => {
                 border: '1px solid rgba(226, 232, 240, 0.8)'
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#91a68a]/5 to-[#cf955f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               <img
                 src={productImages[selectedImageIndex] || product.image}
                 alt={product.name}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
+
               {/* Image navigation arrows */}
               {productImages.length > 1 && (
                 <>
@@ -185,7 +185,7 @@ const ProductDetail: React.FC = () => {
                 </>
               )}
             </div>
-            
+
             {/* Thumbnail Gallery */}
             {productImages.length > 1 && (
               <div className="flex gap-4">
@@ -193,11 +193,10 @@ const ProductDetail: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
-                      selectedImageIndex === index 
-                        ? 'border-purple-500 scale-110' 
-                        : 'border-slate-200 hover:border-purple-300'
-                    }`}
+                    className={`w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${selectedImageIndex === index
+                        ? 'border-[#91a68a] scale-110'
+                        : 'border-slate-200 hover:border-[#cf955f]'
+                      }`}
                   >
                     <img
                       src={image}
@@ -208,18 +207,18 @@ const ProductDetail: React.FC = () => {
                 ))}
               </div>
             )}
-            
+
             {/* Enhanced Shipping Info - Moved to Left */}
-            <div 
+            <div
               className="p-8 relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                 borderRadius: '100px',
                 boxShadow: '0 20px 40px rgba(102, 126, 234, 0.3)'
               }}
             >
               <div className="flex items-start space-x-4">
-                <div 
+                <div
                   className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
                 >
@@ -228,29 +227,29 @@ const ProductDetail: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-patrick-hand-sc text-xl font-bold text-white mb-3">
+                  <h4 className="font-playfair text-xl font-bold text-white mb-3">
                     Shipping & Secure Packaging
                   </h4>
                   <div className="space-y-2 text-white/90">
-                    <p className="font-patrick-hand text-lg">
+                    <p className="font-playfair text-lg">
                       <span className="font-semibold">Small items:</span> $6 • <span className="font-semibold">Medium framed:</span> $20
                     </p>
-                    <p className="font-patrick-hand text-lg">
+                    <p className="font-playfair text-lg">
                       <span className="font-semibold">FREE shipping</span> on orders over $50
                     </p>
-                    <p className="font-patrick-hand text-lg">
+                    <p className="font-playfair text-lg">
                       Free local delivery in Phoenix, AZ. All items carefully packaged with tracking.
                     </p>
                   </div>
-                  
+
                   <div className="flex items-center gap-4 mt-4">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></div>
-                      <span className="font-patrick-hand text-white/90 text-sm">Insured Shipping</span>
+                      <span className="font-playfair text-white/90 text-sm">Insured Shipping</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
-                      <span className="font-patrick-hand text-white/90 text-sm">Tracking Included</span>
+                      <span className="font-playfair text-white/90 text-sm">Tracking Included</span>
                     </div>
                   </div>
                 </div>
@@ -261,7 +260,7 @@ const ProductDetail: React.FC = () => {
           {/* Enhanced Product Info - Combined Section */}
           <div className="space-y-8">
             {/* Unified Product Info Section */}
-            <div 
+            <div
               className="bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden space-y-8"
               style={{
                 borderRadius: '20px',
@@ -269,37 +268,37 @@ const ProductDetail: React.FC = () => {
                 border: '1px solid rgba(226, 232, 240, 0.8)'
               }}
             >
-              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
-              
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
+
               {/* Product Header */}
               <div>
                 <div className="mb-6">
-                  <span 
+                  <span
                     className="inline-block px-4 py-2 text-sm font-medium text-white rounded-full"
-                    style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)' }}
+                    style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}
                   >
                     ✨ {product.category}
                   </span>
                 </div>
-                
-                <h1 className="font-patrick-hand-sc text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent leading-tight">
+
+                <h1 className="font-playfair text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-[#91a68a] via-[#cf955f] to-[#91a68a] bg-clip-text text-transparent leading-tight">
                   {product.name}
                 </h1>
-                
-                <p className="font-patrick-hand text-xl text-slate-600 leading-relaxed">
+
+                <p className="font-playfair text-xl text-slate-600 leading-relaxed">
                   {product.description}
                 </p>
-                
+
                 {/* Rating stars */}
                 <div className="flex items-center gap-2 mt-6">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                       </svg>
                     ))}
                   </div>
-                  <span className="font-patrick-hand text-slate-500">(Original Artwork)</span>
+                  <span className="font-playfair text-slate-500">(Original Artwork)</span>
                 </div>
               </div>
 
@@ -307,43 +306,43 @@ const ProductDetail: React.FC = () => {
               <div className="border-t border-slate-200 pt-8">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <span className="font-patrick-hand-sc text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    <span className="font-playfair text-4xl font-bold bg-gradient-to-r from-[#91a68a] to-[#cf955f] bg-clip-text text-transparent">
                       ${product.price}
                     </span>
                     <span className="text-sm text-slate-400 font-medium">USD</span>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="font-patrick-hand text-green-700 text-sm font-medium">In Stock</span>
+                    <span className="font-playfair text-green-700 text-sm font-medium">In Stock</span>
                   </div>
                 </div>
-                
+
                 {/* Value proposition */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2 text-slate-600">
                     <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-patrick-hand text-sm">Original Artwork</span>
+                    <span className="font-playfair text-sm">Original Artwork</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
                     <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-patrick-hand text-sm">Handcrafted</span>
+                    <span className="font-playfair text-sm">Handcrafted</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
                     <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-patrick-hand text-sm">Free Shipping $50+</span>
+                    <span className="font-playfair text-sm">Free Shipping $50+</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
                     <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-patrick-hand text-sm">30-Day Returns</span>
+                    <span className="font-playfair text-sm">30-Day Returns</span>
                   </div>
                 </div>
               </div>
@@ -353,10 +352,10 @@ const ProductDetail: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={handleAddToCart}
-                    className="flex-1 group font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
+                    className="flex-1 group font-playfair inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden"
                     style={{
-                      background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
-                      boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+                      background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
+                      boxShadow: '0 10px 30px rgba(145, 166, 138, 0.3)'
                     }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -365,10 +364,10 @@ const ProductDetail: React.FC = () => {
                     </svg>
                     <span className="relative z-10">Add to Cart - ${product.price.toFixed(2)}</span>
                   </button>
-                  
+
                   <Link
                     to="/cart"
-                    className="flex-1 font-patrick-hand-sc inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"
+                    className="flex-1 font-playfair inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all duration-300 text-center font-bold hover:shadow-lg"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -381,7 +380,7 @@ const ProductDetail: React.FC = () => {
             </div>
 
             {/* Enhanced Product Details */}
-            <div 
+            <div
               className="bg-white/80 backdrop-blur-sm p-8 relative overflow-hidden"
               style={{
                 borderRadius: '20px',
@@ -389,31 +388,55 @@ const ProductDetail: React.FC = () => {
                 border: '1px solid rgba(226, 232, 240, 0.8)'
               }}
             >
-              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
-              
-              <h3 className="font-patrick-hand-sc text-2xl font-bold mb-6 bg-gradient-to-r from-slate-800 via-purple-800 to-slate-800 bg-clip-text text-transparent">
+              <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}></div>
+
+              <h3 className="font-playfair text-2xl font-bold mb-6 bg-gradient-to-r from-[#91a68a] via-[#cf955f] to-[#91a68a] bg-clip-text text-transparent">
                 Product Details
               </h3>
-              
+
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-patrick-hand font-medium text-slate-700">Category:</span>
-                  <span className="font-patrick-hand-sc font-bold text-purple-600">{product.category}</span>
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Category:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">{product.category}</span>
                 </div>
-                
-                <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-patrick-hand font-medium text-slate-700">Medium:</span>
-                  <span className="font-patrick-hand-sc font-bold text-purple-600">Watercolor on Paper</span>
+
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Artist:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">Kasenia Moroz</span>
                 </div>
-                
-                <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-patrick-hand font-medium text-slate-700">Shipping:</span>
-                  <span className="font-patrick-hand-sc font-bold text-purple-600">From $6 (Free over $50)</span>
+
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Medium:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">Watercolor on Paper</span>
                 </div>
-                
-                <div className="flex justify-between items-center p-4 rounded-2xl" style={{ backgroundColor: '#f8f9fa' }}>
-                  <span className="font-patrick-hand font-medium text-slate-700">Processing Time:</span>
-                  <span className="font-patrick-hand-sc font-bold text-purple-600">1-2 Business Days</span>
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Shipping:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">From $6 (Free over $50)</span>
+                </div>
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Processing Time:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">1-2 Business Days</span>
+                </div>
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Weight:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">12 oz</span>
+                </div>
+
+                <div
+                  className="flex justify-between items-center m-4 p-4 rounded-2xl bg-gray-50 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <span className="font-playfair font-medium text-slate-700">Height:</span>
+                  <span className="font-playfair font-bold text-[#91a68a]">4.4 inches</span>
                 </div>
               </div>
             </div>
@@ -421,7 +444,7 @@ const ProductDetail: React.FC = () => {
 
           </div>
         </div>
-        
+
         {/* CSS Animations */}
         <style>
           {`

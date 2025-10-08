@@ -52,11 +52,11 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 -mt-32 pt-44">
+    <div className="min-h-screen bg-gradient-to-br from-[#91a68a]/10 via-white to-[#cf955f]/10 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 -mt-32 pt-44 font-playfair">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#91a68a]/20 to-[#cf955f]/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-[#cf955f]/20 to-[#91a68a]/20 rounded-full blur-3xl"></div>
       </div>
       
       <div className="max-w-md w-full space-y-8 relative z-10">
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
               <div 
                 className="w-10 h-10 rounded-full flex items-center justify-center"
                 style={{ 
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)'
                 }}
               >
                 <i className="fas fa-palette text-white"></i>
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
               </span>
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-neutral-900 mb-2">
+          <h2 className="text-3xl font-playfair font-bold text-neutral-900 mb-2">
             Welcome Back
           </h2>
           <p className="text-neutral-600">
@@ -197,7 +197,7 @@ const Login: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+              className="w-full bg-gradient-to-r from-[#91a68a] to-[#cf955f] hover:from-[#7a8c75] hover:to-[#b8864e] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#91a68a] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -224,10 +224,10 @@ const Login: React.FC = () => {
         </div>
 
         {/* Demo Credentials */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200/50 p-6 shadow-lg">
+        <div className="bg-gradient-to-r from-[#91a68a]/10 to-[#cf955f]/10 rounded-2xl border border-[#91a68a]/20 p-6 shadow-lg">
           <div className="flex items-start space-x-4">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#91a68a] to-[#cf955f] rounded-xl flex items-center justify-center">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -243,7 +243,7 @@ const Login: React.FC = () => {
               <div className="grid grid-cols-1 gap-4">
                 <div className="bg-white/60 rounded-xl p-4 border border-white/40">
                   <p className="font-semibold text-neutral-800 mb-2">Customer Account</p>
-                  <p className="text-sm text-neutral-700"><span className="font-medium">Email:</span> customer@morozart.com</p>
+                  <p className="text-sm text-neutral-700"><span className="font-medium">Email:</span> <span className="font-playfair">customer@morozart.com</span></p>
                   <p className="text-sm text-neutral-700"><span className="font-medium">Password:</span> customer123</p>
                 </div>
                 <div className="bg-white/60 rounded-xl p-4 border border-white/40">

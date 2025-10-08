@@ -109,7 +109,7 @@ const Gallery: React.FC = () => {
       <section 
         className="relative py-16 lg:py-20 overflow-hidden min-h-[50vh] -mt-28" 
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
           paddingTop: '8rem'
         }}
       >
@@ -129,10 +129,10 @@ const Gallery: React.FC = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="font-patrick-hand-sc text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h1 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Art Gallery
             </h1>
-            <p className="text-base lg:text-lg text-white/90 max-w-2xl mx-auto px-4 mb-8">
+            <p className="text-base lg:text-lg text-white/90 max-w-2xl mx-auto px-4 mb-8 font-lora">
               Explore my complete collection of artworks. Each piece is unique and 
               created with passion and attention to detail.
             </p>
@@ -161,9 +161,9 @@ const Gallery: React.FC = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 lg:px-6 lg:py-3 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
+                    className={`px-4 py-2 lg:px-6 lg:py-3 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 backdrop-blur-sm font-open-sans ${
                       selectedCategory === category
-                        ? 'bg-gradient-to-r from-yellow-300 to-orange-300 text-white shadow-lg'
+                        ? 'bg-gradient-to-r from-primary-400 to-accent-400 text-white shadow-lg'
                         : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'
                     }`}
                   >
@@ -237,17 +237,17 @@ const Gallery: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="font-patrick-hand-sc text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                      <h3 className="font-playfair text-lg font-semibold text-primary-800 mb-2 line-clamp-2">
                         {product.name}
                       </h3>
-                      <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+                      <p className="text-primary-700 text-sm mb-4 line-clamp-2 font-lora">
                         {product.description}
                       </p>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        <span className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">
                           ${product.price}
                         </span>
-                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        <span className="text-xs font-medium text-primary-600 uppercase tracking-wide font-open-sans">
                           USD
                         </span>
                       </div>
@@ -263,13 +263,13 @@ const Gallery: React.FC = () => {
                       <div className="flex space-x-3">
                         <Link
                           to={`/product/${product.id}`}
-                          className="flex-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-medium py-3 px-4 rounded-xl text-sm text-center transition-all duration-200"
+                          className="flex-1 bg-gradient-to-r from-primary-50 to-primary-100 hover:from-primary-100 hover:to-primary-200 text-primary-700 font-medium py-3 px-4 rounded-xl text-sm text-center transition-all duration-200 font-open-sans"
                         >
                           View Details
                         </Link>
                         <button
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200"
+                          className="flex-1 bg-gradient-to-r from-primary-400 to-accent-400 hover:from-primary-500 hover:to-accent-500 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200 font-open-sans"
                         >
                           Add to Cart
                         </button>
