@@ -44,6 +44,7 @@ export interface Product {
   price: number;
   category: string;
   image: string;
+  images?: string[];
   createdAt?: Timestamp;
 }
 
@@ -429,6 +430,15 @@ export const uploadProductImage = async (file: File, productId: string): Promise
     console.error('Error uploading image:', error);
     return null;
   }
+};
+
+export const uploadProductImages = async (files: File[], productId: string): Promise<string[]> => {
+  const urls: string[] = [];
+  for (const file of files) {
+    const url = await uploadProductImage(file, productId);
+    if (url) urls.push(url);
+  }
+  return urls;
 };
 
 // Analytics functions

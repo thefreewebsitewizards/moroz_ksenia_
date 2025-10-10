@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAllProducts, getProductsByCategory, Product } from '../services/firebase';
+import { Link, useLocation } from 'react-router-dom';
+import { getAllProducts, Product } from '../services/firebase';
+import ProductImageCarousel from '../components/ProductImageCarousel';
 import { useCart } from '../context/CartContext';
 
 const Gallery: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchTerm, setSearchTerm] = useState('');
   const { addItem } = useCart();
 
-  const categories = ['all', 'postcards', 'wall-art', 'bookmarks', 'custom'];
+  const categories = ['All', 'Big Wall Art', 'Small Wall Art', 'Bookmarks', 'Customized Stuff', 'Postcards', 'Unframed'];
+  const location = useLocation();
+
+  // Normalize category values (supports both slugs and readable names)
+  const normalizeCategory = (value: string) => {
+    const map: Record<string, string> = {
+      'all': 'All',
+      'big-wall-art': 'Big Wall Art',
+      'small-wall-art': 'Small Wall Art',
+      'bookmarks': 'Bookmarks',
+      'customized': 'Customized Stuff',
+      'customized stuff': 'Customized Stuff',
+      'postcards': 'Postcards',
+      'unframed': 'Unframed'
+    };
+    const lower = value.toLowerCase();
+    return map[lower] || value;
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,14 +47,27 @@ const Gallery: React.FC = () => {
     fetchProducts();
   }, []);
 
+  // Read category from URL query param on mount
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('category');
+    if (cat) {
+      const normalized = normalizeCategory(cat);
+      if (categories.includes(normalized)) {
+        setSelectedCategory(normalized);
+      }
+    }
+  }, [location.search, categories]);
+
   useEffect(() => {
     let filtered = products;
 
     // Filter by category
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => 
-        product.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(product => {
+        const productCat = product.category ? normalizeCategory(product.category) : '';
+        return productCat.toLowerCase() === selectedCategory.toLowerCase();
+      });
     }
 
     // Filter by search term
@@ -167,10 +198,7 @@ const Gallery: React.FC = () => {
                         : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'
                     }`}
                   >
-                    {category === 'all' ? 'All' : 
-                     category === 'wall-art' ? 'Wall Art' :
-                     category === 'custom' ? 'Custom Pieces' :
-                     category.charAt(0).toUpperCase() + category.slice(1)}
+                    {category}
                   </button>
                 ))}
               </div>
@@ -211,7 +239,7 @@ const Gallery: React.FC = () => {
               <button
                 onClick={() => {
                   setSearchTerm('');
-                  setSelectedCategory('all');
+                  setSelectedCategory('All');
                 }}
                 className="btn-primary"
               >
@@ -229,11 +257,11 @@ const Gallery: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {filteredProducts.map((product) => (
                   <div key={product.id} className="group bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100" style={{borderRadius: '80px 0 80px 0'}}>
-                    <div className="aspect-square overflow-hidden bg-gray-50">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    <div className="relative">
+                      <ProductImageCarousel
+                        images={(product as any).images && (product as any).images.length > 0 ? (product as any).images : [product.image]}
+                        aspectClass="aspect-square"
+                        className="bg-gray-50"
                       />
                     </div>
                     <div className="p-6">

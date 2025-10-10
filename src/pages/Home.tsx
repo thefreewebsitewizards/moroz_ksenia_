@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllProducts, Product, testFirebaseConnection } from '../services/firebase';
+import ProductImageCarousel from '../components/ProductImageCarousel';
 import { useCart } from '../context/CartContext';
+import { useRef } from "react";
+
 
 const Home: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addItem } = useCart();
+   const nextSectionRef = useRef<HTMLDivElement | null>(null);
+   const scrollToSection = () => {
+    nextSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Available images for the carousel
   const carouselImages = [
@@ -35,6 +42,46 @@ const Home: React.FC = () => {
       src: "/Moroz.jpg",
       alt: "Artist Portrait"
     }
+  ];
+
+  // Category cards data
+  const CATEGORY_CARDS = [
+    {
+      key: 'big-wall-art',
+      name: 'Big Wall Art',
+      description: 'Large statement pieces to transform your space.',
+      image: '/Water drops.jpeg'
+    },
+    {
+      key: 'small-wall-art',
+      name: 'Small Wall Art',
+      description: 'Intimate artworks perfect for cozy corners.',
+      image: '/Wildflower Meadow Watercolor Bookmark - Golden Field Art.jpeg'
+    },
+    {
+      key: 'bookmarks',
+      name: 'Bookmarks',
+      description: 'Hand-painted bookmarks for book lovers.',
+      image: '/Hand-Painted Watercolor Bookmark - Yellow Desert Wildflowers.jpeg'
+    },
+    {
+      key: 'customized',
+      name: 'Customized Stuff',
+      description: 'Personalized art pieces made just for you.',
+      image: '/Moroz.jpg'
+    },
+    {
+      key: 'postcards',
+      name: 'Postcards',
+      description: 'Artful postcards to share and collect.',
+      image: '/Honey Dipper.jpeg'
+    },
+    {
+      key: 'unframed',
+      name: 'Unframed',
+      description: 'Unframed originals ready for your touch.',
+      image: '/Smoky Mountain Forest Watercolor Bookmark - Misty Night Rain Scene.jpeg'
+    },
   ];
 
   const nextImage = () => {
@@ -147,17 +194,26 @@ const Home: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-                <Link
-                  to="/gallery"
+                <button
+                  onClick={scrollToSection}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#8fa68b] font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl group"
                 >
                   <span>View Portfolio</span>
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
+                </button>
+                <Link
+                  to="/gallery"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-white/30 text-[#8fa68b] font-semibold rounded-full transition-all duration-300 hover:bg-white/10 backdrop-blur-sm"
+                >
+                  <span className='mr-2'>Shop Prints & Originals</span>
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                  </svg>
                 </Link>
                 <Link
-                  to="/about"
+                  to="/contact"
                   className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-white/30 text-[#8fa68b] font-semibold rounded-full transition-all duration-300 hover:bg-white/10 backdrop-blur-sm"
                 >
                   <span className='mr-2'>Request a Custom Piece</span>
@@ -270,8 +326,49 @@ const Home: React.FC = () => {
          }
        `}</style>
 
+      {/* Shop by Category */}
+      <section className="py-16" ref={nextSectionRef}>
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-bold font-playfair text-primary-800 mb-8">Shop by Category</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {CATEGORY_CARDS.map((cat) => (
+              <div
+                key={cat.key}
+                className="group bg-white overflow-hidden transition-all duration-500 hover:scale-105 relative"
+                style={{
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+                  borderTopLeftRadius: '80px',
+                  borderBottomRightRadius: '80px',
+                  border: '1px solid rgba(226, 232, 240, 0.8)'
+                }}
+              >
+                <div className="aspect-square overflow-hidden relative">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.jpg'; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div className="p-8">
+                  <h3 className="font-playfair text-xl font-bold mb-3 text-primary-800">{cat.name}</h3>
+                  <p className="font-lora text-sm leading-relaxed text-primary-700 mb-6">{cat.description}</p>
+                  <Link
+                    to={`/gallery?category=${encodeURIComponent(cat.name)}`}
+                    className="inline-block font-open-sans px-6 py-3 bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 rounded-2xl hover:from-primary-100 hover:to-primary-200 transition-all duration-300 font-medium"
+                  >
+                    Explore {cat.name}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products */}
-      <section className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+      <section ref={nextSectionRef} className="py-24 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
         {/* Decorative background elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-blue-200/30 rounded-full blur-xl"></div>
@@ -338,19 +435,11 @@ const Home: React.FC = () => {
                 >
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ borderTopLeftRadius: '80px', borderBottomRightRadius: '80px' }}></div>
-                  <div className="aspect-square overflow-hidden relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/placeholder.jpg';
-                      }}
+                  <div className="relative">
+                    <ProductImageCarousel
+                      images={(product as any).images && (product as any).images.length > 0 ? (product as any).images : [product.image]}
+                      aspectClass="aspect-square"
                     />
-                    {/* Image overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
                     {/* Quick view badge */}
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
                       <span className="bg-white/90 backdrop-blur-sm text-slate-700 px-3 py-1 rounded-full text-xs font-medium shadow-lg">

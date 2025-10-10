@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getAllProducts, addProduct, updateProduct, deleteProduct, Product, updateOrderStatus, uploadProductImage } from '../services/firebase';
+import { getAllProducts, addProduct, updateProduct, deleteProduct, Product, updateOrderStatus, uploadProductImages } from '../services/firebase';
 import { collection, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -54,8 +54,8 @@ const Admin: React.FC = () => {
     category: '',
     image: ''
   });
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>('');
+  const [selectedImageFiles, setSelectedImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   useEffect(() => {
     loadDashboardData();
@@ -65,14 +65,15 @@ const Admin: React.FC = () => {
     try {
       let imageUrl = productForm.image;
       
-      // If a file is selected, upload it first
-      if (selectedImageFile) {
-        const tempProductId = Date.now().toString(); // Temporary ID for upload
-        const uploadedImageUrl = await uploadProductImage(selectedImageFile, tempProductId);
-        if (uploadedImageUrl) {
-          imageUrl = uploadedImageUrl;
+      // If files are selected, upload them first
+      if (selectedImageFiles.length > 0) {
+        const tempProductId = Date.now().toString();
+        const uploadedUrls = await uploadProductImages(selectedImageFiles, tempProductId);
+        if (uploadedUrls && uploadedUrls.length > 0) {
+          imageUrl = uploadedUrls[0];
+          (productForm as any).images = uploadedUrls;
         } else {
-          toast.error('❌ Failed to upload image. Please try again.');
+          toast.error('❌ Failed to upload images. Please try again.');
           return;
         }
       }
@@ -87,8 +88,8 @@ const Admin: React.FC = () => {
       await addProduct(productData);
       setShowAddProduct(false);
       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
-      setSelectedImageFile(null);
-      setImagePreview('');
+      setSelectedImageFiles([]);
+      setImagePreviews([]);
       loadDashboardData(); // Refresh data
       toast.success(`✅ Product "${productForm.name}" added successfully!`);
     } catch (error) {
@@ -106,35 +107,20 @@ const Admin: React.FC = () => {
       category: product.category,
       image: product.image || ''
     });
-    setSelectedImageFile(null);
-    setImagePreview(product.image || '');
+    setSelectedImageFiles([]);
+    setImagePreviews((product as any).images && (product as any).images.length > 0 ? (product as any).images : [product.image || '']);
     setShowAddProduct(true);
   };
 
-  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        toast.error('❌ Please select a valid image file.');
-        return;
-      }
-      
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('❌ Image file size must be less than 5MB.');
-        return;
-      }
-      
-      setSelectedImageFile(file);
-      
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+  const handleImagesFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    const validFiles = files.filter((file) => file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024);
+    if (validFiles.length !== files.length) {
+      toast.error('❌ Only image files up to 5MB are allowed.');
     }
+    setSelectedImageFiles(validFiles);
+    setImagePreviews(validFiles.map((file) => URL.createObjectURL(file)));
   };
 
   const handleUpdateProduct = async () => {
@@ -142,13 +128,14 @@ const Admin: React.FC = () => {
     try {
       let imageUrl = productForm.image;
       
-      // If a new file is selected, upload it
-      if (selectedImageFile) {
-        const uploadedImageUrl = await uploadProductImage(selectedImageFile, editingProduct.id);
-        if (uploadedImageUrl) {
-          imageUrl = uploadedImageUrl;
+      // If new files are selected, upload them
+      if (selectedImageFiles.length > 0) {
+        const uploadedUrls = await uploadProductImages(selectedImageFiles, editingProduct.id);
+        if (uploadedUrls && uploadedUrls.length > 0) {
+          imageUrl = uploadedUrls[0];
+          (productForm as any).images = uploadedUrls;
         } else {
-          toast.error('❌ Failed to upload image. Please try again.');
+          toast.error('❌ Failed to upload images. Please try again.');
           return;
         }
       }
@@ -163,8 +150,8 @@ const Admin: React.FC = () => {
       setShowAddProduct(false);
       setEditingProduct(null);
       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
-      setSelectedImageFile(null);
-      setImagePreview('');
+      setSelectedImageFiles([]);
+      setImagePreviews([]);
       loadDashboardData(); // Refresh data
       toast.success(`✏️ Product "${productForm.name}" updated successfully!`);
     } catch (error) {
@@ -814,8 +801,8 @@ const Admin: React.FC = () => {
                     setShowAddProduct(false);
                     setEditingProduct(null);
                     setProductForm({ name: '', description: '', price: '', category: '', image: '' });
-                    setSelectedImageFile(null);
-                    setImagePreview('');
+                    setSelectedImageFiles([]);
+                    setImagePreviews([]);
                   }}
                   className="text-white/70 hover:text-white p-2 rounded-xl hover:bg-white/20 transition-all duration-200"
                 >
@@ -870,45 +857,51 @@ const Admin: React.FC = () => {
                     required
                   >
                     <option value="">Select Category</option>
-                    <option value="postcards">Postcards</option>
-                    <option value="wall-art">Wall Art</option>
+                    <option value="big-wall-art">Big Wall Art</option>
+                    <option value="small-wall-art">Small Wall Art</option>
                     <option value="bookmarks">Bookmarks</option>
-                    <option value="custom">Custom Pieces</option>
+                    <option value="customized">Customized Stuff</option>
+                    <option value="postcards">Postcards</option>
+                    <option value="unframed">Unframed</option>
                   </select>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
                   <div className="space-y-3">
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={handleImageFileChange}
+                      multiple
+                      onChange={handleImagesFileChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     
-                    {/* Image Preview */}
-                    {imagePreview && (
+                    {/* Images Preview */}
+                    {imagePreviews && imagePreviews.length > 0 && (
                       <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2 font-playfair">Preview:</p>
-                        <img
-                          src={imagePreview}
-                          alt="Product preview"
-                          className="w-32 h-32 object-cover rounded-lg border border-gray-300"
-                        />
+                        <p className="text-sm text-gray-600 mb-2 font-playfair">Selected Images:</p>
+                        <div className="grid grid-cols-3 gap-3">
+                          {imagePreviews.map((src, idx) => (
+                            <img
+                              key={idx}
+                              src={src}
+                              alt={`Preview ${idx + 1}`}
+                              className="w-24 h-24 object-cover rounded-lg border border-gray-300"
+                            />
+                          ))}
+                        </div>
                       </div>
                     )}
                     
-                    {/* Alternative: Image URL input */}
+                    {/* Optional: Primary Image URL */}
                     <div className="border-t pt-3">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Or enter Image URL</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Primary Image URL (optional)</label>
                       <input
                         type="url"
                         value={productForm.image}
                         onChange={(e) => {
                           setProductForm({ ...productForm, image: e.target.value });
-                          setImagePreview(e.target.value);
-                          setSelectedImageFile(null);
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="https://example.com/image.jpg"
@@ -926,8 +919,8 @@ const Admin: React.FC = () => {
                       setShowAddProduct(false);
                       setEditingProduct(null);
                       setProductForm({ name: '', description: '', price: '', category: '', image: '' });
-                      setSelectedImageFile(null);
-                      setImagePreview('');
+                      setSelectedImageFiles([]);
+                      setImagePreviews([]);
                     }}
                     className="flex-1 px-4 py-2 bg-white/10 border border-white/20 text-white/90 rounded-lg hover:bg-white/20 transition-all duration-200"
                   >

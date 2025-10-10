@@ -2,7 +2,7 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-blue-50 to-accent-50 relative overflow-hidden -mt-28" style={{paddingTop: '1rem'}}>
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-blue-50 to-accent-50 relative overflow-hidden -mt-28" style={{ paddingTop: '1rem' }}>
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-primary-200 to-accent-200 rounded-full opacity-30 animate-float"></div>
@@ -10,7 +10,7 @@ const About: React.FC = () => {
         <div className="absolute bottom-40 left-20 w-40 h-40 bg-gradient-to-br from-accent-200 to-primary-200 rounded-full opacity-25 animate-float"></div>
         <div className="absolute bottom-20 right-10 w-28 h-28 bg-gradient-to-br from-primary-200 to-accent-200 rounded-full opacity-35 animate-float-delayed"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         {/* Hero Section */}
         <div className="text-center mb-16 lg:mb-20 pt-16 lg:pt-20">
@@ -21,10 +21,10 @@ const About: React.FC = () => {
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-primary-800 mb-6 lg:mb-8 leading-tight">
-            About <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Moroz</span> Custom Art
+            Meet <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Ksenia</span>
           </h1>
           <p className="text-xl lg:text-2xl text-primary-700 max-w-4xl mx-auto leading-relaxed font-lora">
-            Welcome to my world of watercolor art! I'm passionate about creating unique, handmade pieces that capture the beauty of nature and landscapes.
+            Originally from Russia and now living in Phoenix, Arizona, Ksenia Moroz has been passionate about watercolor painting since childhood. Her style combines delicate washes with colored pencil details, capturing the beauty of nature and the freedom of self-expression. With travels across 12 countries and years of artistic exploration, her work reflects both personal stories and universal emotions.
           </p>
           <div className="mt-8 flex justify-center">
             <div className="w-24 h-1 bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"></div>
@@ -38,9 +38,9 @@ const About: React.FC = () => {
             <div className="relative">
               {/* Main image container */}
               <div className="relative overflow-hidden rounded-3xl shadow-2xl transform group-hover:scale-[1.02] transition-all duration-500">
-                <img 
-                  src="/Moroz.jpg" 
-                  alt="Ksenia Moroz - Watercolor Artist" 
+                <img
+                  src="/Moroz.jpg"
+                  alt="Ksenia Moroz - Watercolor Artist"
                   className="w-full h-[40rem] object-cover"
                   style={{
                     borderTopLeftRadius: '80px',
@@ -54,16 +54,16 @@ const About: React.FC = () => {
                   <p className="text-xl font-bold">Ksenia Moroz</p>
                 </div>
               </div>
-              
+
               {/* Floating badge */}
               <div className="absolute -top-4 -right-4 bg-white rounded-full p-4 shadow-lg border-4 border-purple-100 group-hover:rotate-12 transition-transform duration-300">
                 <i className="fas fa-paintbrush text-purple-500 text-xl"></i>
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-6 -left-6 w-20 h-20 lg:w-28 lg:h-28 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
               <div className="absolute -bottom-6 -right-6 w-24 h-24 lg:w-36 lg:h-36 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
-              
+
               {/* Artistic frame effect */}
               <div className="absolute inset-0 rounded-3xl border-2 border-white/20 pointer-events-none"></div>
             </div>
@@ -81,24 +81,24 @@ const About: React.FC = () => {
                   My Artistic Journey
                 </h2>
               </div>
-              
+
               <div className="space-y-6">
                 <p className="text-primary-700 text-lg leading-relaxed font-lora">
-                  Each artwork is carefully crafted using high-quality watercolor paints and professional paper. 
-                  Based in <span className="font-semibold text-primary-600">Phoenix, Arizona</span>, I draw inspiration from the stunning desert landscapes, national parks, 
+                  Each artwork is carefully crafted using high-quality watercolor paints and professional paper.
+                  Based in <span className="font-semibold text-primary-600">Phoenix, Arizona</span>, I draw inspiration from the stunning desert landscapes, national parks,
                   and natural wonders of the Southwest.
                 </p>
                 <p className="text-primary-700 text-lg leading-relaxed font-lora">
-                  Every piece is <span className="font-semibold text-accent-500">original and one-of-a-kind</span>, capturing the essence of nature's beauty through 
+                  Every piece is <span className="font-semibold text-accent-500">original and one-of-a-kind</span>, capturing the essence of nature's beauty through
                   the delicate medium of watercolor.
                 </p>
-                
+
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t" style={{ borderColor: '#91a68a' }}>
                   <div className="text-center">
-                    <div 
+                    <div
                       className="text-3xl font-playfair font-bold mb-1"
-                      style={{ 
+                      style={{
                         background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -110,9 +110,9 @@ const About: React.FC = () => {
                     <div className="text-sm font-open-sans" style={{ color: '#4a5d4a' }}>Artworks Created</div>
                   </div>
                   <div className="text-center">
-                    <div 
+                    <div
                       className="text-3xl font-playfair font-bold mb-1"
-                      style={{ 
+                      style={{
                         background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -131,7 +131,7 @@ const About: React.FC = () => {
             <div className="relative overflow-hidden rounded-2xl p-8 text-white shadow-xl" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
-              
+
               <div className="relative z-10">
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-3">
@@ -159,7 +159,7 @@ const About: React.FC = () => {
               Discover unique watercolor pieces that bring nature's beauty into your space
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
             {/* Bookmarks */}
             <div className="group relative bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all duration-500 hover:shadow-2xl" style={{ border: '1px solid rgba(145, 166, 138, 0.1)' }}>
@@ -170,9 +170,9 @@ const About: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-playfair font-bold mb-2" style={{ color: '#4a5d4a' }}>📚 Bookmarks</h3>
                 <div className="mb-4">
-                  <span 
+                  <span
                     className="text-4xl font-playfair font-bold"
-                    style={{ 
+                    style={{
                       background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
@@ -199,9 +199,9 @@ const About: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-playfair font-bold mb-2" style={{ color: '#4a5d4a' }}>🏞️ Postcards</h3>
                 <div className="mb-4">
-                  <span 
+                  <span
                     className="text-4xl font-playfair font-bold"
-                    style={{ 
+                    style={{
                       background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
@@ -229,9 +229,9 @@ const About: React.FC = () => {
                 <h3 className="text-2xl font-playfair font-bold mb-2" style={{ color: '#4a5d4a' }}>🖼️ Wall Art</h3>
                 <div className="mb-4">
                   <span className="text-2xl font-open-sans" style={{ color: '#6b7d6b' }}>Starting</span>
-                  <span 
+                  <span
                     className="text-4xl font-playfair font-bold ml-2"
-                    style={{ 
+                    style={{
                       background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
@@ -263,7 +263,7 @@ const About: React.FC = () => {
                 Shipping Information
               </h3>
             </div>
-            
+
             <div className="space-y-6">
               <div className="group flex items-start p-6 rounded-xl hover:shadow-lg transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(145, 166, 138, 0.1) 0%, rgba(207, 149, 95, 0.1) 100%)' }}>
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}>
@@ -274,7 +274,7 @@ const About: React.FC = () => {
                   <p className="font-open-sans" style={{ color: '#6b7d6b' }}>Fast and secure delivery nationwide with tracking</p>
                 </div>
               </div>
-              
+
               <div className="group flex items-start p-6 rounded-xl hover:shadow-lg transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(145, 166, 138, 0.1) 0%, rgba(207, 149, 95, 0.1) 100%)' }}>
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}>
                   <i className="fas fa-hand-holding-heart text-white text-lg"></i>
@@ -284,7 +284,7 @@ const About: React.FC = () => {
                   <p className="font-open-sans" style={{ color: '#6b7d6b' }}>Handmade with love for special occasions and loved ones</p>
                 </div>
               </div>
-              
+
               <div className="group flex items-start p-6 rounded-xl hover:shadow-lg transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(145, 166, 138, 0.1) 0%, rgba(207, 149, 95, 0.1) 100%)' }}>
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #91a68a 0%, #cf955f 100%)' }}>
                   <i className="fas fa-shield-alt text-white text-lg"></i>
@@ -307,11 +307,11 @@ const About: React.FC = () => {
                 Follow My Journey
               </h3>
             </div>
-            
+
             <div className="space-y-6">
-              <a 
-                href="https://www.instagram.com/moroz_customart/" 
-                target="_blank" 
+              <a
+                href="https://www.instagram.com/moroz_customart/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center p-6 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
                 style={{ background: 'linear-gradient(135deg, rgba(145, 166, 138, 0.1) 0%, rgba(207, 149, 95, 0.1) 100%)' }}
@@ -325,10 +325,10 @@ const About: React.FC = () => {
                 </div>
                 <i className="fas fa-external-link-alt group-hover:scale-110 transition-all duration-300 text-lg" style={{ color: '#cf955f' }}></i>
               </a>
-              
-              <a 
-                href="https://www.youtube.com/@moroz_customart" 
-                target="_blank" 
+
+              <a
+                href="https://www.youtube.com/@moroz_customart"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center p-6 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
                 style={{ background: 'linear-gradient(135deg, rgba(145, 166, 138, 0.1) 0%, rgba(207, 149, 95, 0.1) 100%)' }}
@@ -352,7 +352,7 @@ const About: React.FC = () => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-24 -translate-x-24"></div>
           <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-white/5 rounded-full -translate-x-16 -translate-y-16"></div>
-          
+
           <div className="relative z-10 text-center">
             <div className="inline-block mb-6">
               <span className="inline-flex items-center px-4 py-2 bg-white/20 text-white text-sm font-open-sans font-medium rounded-full border border-white/30">
@@ -360,18 +360,18 @@ const About: React.FC = () => {
                 Start Your Art Journey
               </span>
             </div>
-            
+
             <h2 className="text-4xl lg:text-5xl font-playfair font-bold mb-6 leading-tight">
               Ready to Add Beauty to Your Space?
             </h2>
-            
+
             <p className="text-xl lg:text-2xl font-lora mb-10 opacity-90 max-w-3xl mx-auto leading-relaxed">
               Explore our collection of unique watercolor artworks and bring nature's beauty into your home
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a 
-                href="/gallery" 
+              <a
+                href="/gallery"
                 className="group inline-flex items-center px-8 py-4 bg-white font-open-sans font-bold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl"
                 style={{ color: '#4a5d4a' }}
               >
@@ -379,9 +379,9 @@ const About: React.FC = () => {
                 Browse Gallery
                 <i className="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-300"></i>
               </a>
-              
-              <a 
-                href="/contact" 
+
+              <a
+                href="/contact"
                 className="group inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white font-open-sans font-bold rounded-full hover:bg-white transition-all duration-300 transform hover:scale-105"
                 style={{ '--hover-color': '#4a5d4a' } as React.CSSProperties}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#4a5d4a')}
@@ -391,7 +391,7 @@ const About: React.FC = () => {
                 Get in Touch
               </a>
             </div>
-            
+
             {/* Trust indicators */}
             <div className="mt-12 pt-8 border-t border-white/20">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
